@@ -1,81 +1,77 @@
 const WHATSAPP_NUMBER = '5511991097648';
 
-const fields = {
-  nome: document.getElementById('nome'),
-  telefone: document.getElementById('telefone'),
-  pagamento: document.getElementById('pagamento'),
-  entrega: document.getElementById('entrega'),
-  qtdFritos: document.getElementById('qtdFritos'),
-  qtdCongelados: document.getElementById('qtdCongelados'),
-  qtdChurros: document.getElementById('qtdChurros'),
-  qtdAssados: document.getElementById('qtdAssados'),
-  qtdNhoqueTrad: document.getElementById('qtdNhoqueTrad'),
-  qtdNhoquePQ: document.getElementById('qtdNhoquePQ'),
-  qtdNhoqueQ: document.getElementById('qtdNhoqueQ'),
-  qtdPersonalizada: document.getElementById('qtdPersonalizada'),
-  endereco: document.getElementById('endereco'),
-  obs: document.getElementById('obs')
+const $ = (id) => document.getElementById(id);
+
+const getCheckedFlavors = () => {
+  const checks = document.querySelectorAll('.checks input[type="checkbox"]:checked');
+  return Array.from(checks).map((check) => check.value);
 };
 
-const toInt = (value) => Number.parseInt(value, 10) || 0;
+const intOrZero = (value) => Number.parseInt(value, 10) || 0;
 
-const buildOrderLines = () => {
-  const lines = [];
-
-  const products = [
-    ['Salgados Fritos (unidades)', toInt(fields.qtdFritos.value)],
-    ['Salgados Congelados (unidades)', toInt(fields.qtdCongelados.value)],
-    ['Mini Churros (unidades)', toInt(fields.qtdChurros.value)],
-    ['Assados/Bolinho Caipira (unidades)', toInt(fields.qtdAssados.value)],
-    ['Nhoque Tradicional 500g', toInt(fields.qtdNhoqueTrad.value)],
-    ['Nhoque Presunto e Queijo 500g', toInt(fields.qtdNhoquePQ.value)],
-    ['Nhoque Queijo 500g', toInt(fields.qtdNhoqueQ.value)],
-    ['Salgados personalizados (unidades)', toInt(fields.qtdPersonalizada.value)]
-  ];
-
-  products.forEach(([name, qty]) => {
-    if (qty > 0) lines.push(`• ${name}: ${qty}`);
-  });
-
-  return lines;
+const pushIfValue = (label, value, list) => {
+  if (value && String(value).trim()) list.push(`• ${label}: ${value}`);
 };
 
-const finalizeButton = document.getElementById('finalizar');
-finalizeButton.addEventListener('click', () => {
-  const nome = fields.nome.value.trim();
-  const telefone = fields.telefone.value.trim();
-  const pagamento = fields.pagamento.value;
-  const entrega = fields.entrega.value;
-  const endereco = fields.endereco.value.trim();
-  const obs = fields.obs.value.trim();
+const buildMessage = () => {
+  const nome = $('nome').value.trim();
+  const telefone = $('telefone').value.trim();
+  const pagamento = $('pagamento').value;
+  const entrega = $('entrega').value;
+  const endereco = $('endereco').value.trim();
+  const obs = $('obs').value.trim();
 
-  const orderLines = buildOrderLines();
+  const itens = [];
+  pushIfValue('Salgados Fritos', $('comboFritos').value, itens);
+  pushIfValue('Salgados Congelados', $('comboCongelados').value, itens);
+  pushIfValue('Mini Churros', $('comboChurros').value, itens);
+  pushIfValue('Assados/Bolinho Caipira', $('comboAssados').value, itens);
 
-  if (!nome || orderLines.length === 0) {
-    alert('Preencha seu nome e selecione ao menos 1 item do pedido.');
-    return;
+  const qtdPersonalizada = intOrZero($('qtdPersonalizada').value);
+  const nhoqueTrad = intOrZero($('nhoqueTrad').value);
+  const nhoquePQ = intOrZero($('nhoquePQ').value);
+  const nhoqueQ = intOrZero($('nhoqueQ').value);
+
+  if (qtdPersonalizada > 0) itens.push(`• Salgados personalizados: ${qtdPersonalizada} unidades`);
+  if (nhoqueTrad > 0) itens.push(`• Nhoque Tradicional 500g: ${nhoqueTrad} un.`);
+  if (nhoquePQ > 0) itens.push(`• Nhoque Presunto e Queijo 500g: ${nhoquePQ} un.`);
+  if (nhoqueQ > 0) itens.push(`• Nhoque Queijo 500g: ${nhoqueQ} un.`);
+
+  const sabores = getCheckedFlavors();
+
+  if (!nome || itens.length === 0) {
+    alert('Informe seu nome e selecione pelo menos 1 item do pedido.');
+    return null;
   }
 
-  const message = [
-    'Olá! Quero fazer um pedido na C & C Salgados e Doces 🍟🍬',
+  return [
+    'Olá! Quero concluir meu pedido na C & C Salgados e Doces. 🍟🍬',
     '',
-    '*Dados do cliente*',
+    '*Cliente*',
     `• Nome: ${nome}`,
     `• Telefone: ${telefone || 'Não informado'}`,
     `• Pagamento: ${pagamento}`,
     `• Entrega: ${entrega}`,
     `• Endereço: ${endereco || 'Não informado'}`,
     '',
-    '*Itens do pedido*',
-    ...orderLines,
+    '*Itens*',
+    ...itens,
+    '',
+    '*Sabores escolhidos*',
+    sabores.length ? `• ${sabores.join(', ')}` : '• Não informado',
     '',
     '*Observações*',
-    obs || 'Sem observações',
+    obs || '• Sem observações',
     '',
-    '✅ Destaque: preferência por salgado de festa de 20g.',
-    '📌 Consultar taxa de entrega e confirmar valores atualizados.'
+    '✅ Preferência: salgado de festa de 20g.',
+    '📌 Consultar taxa de entrega e confirmar preços atualizados.'
   ].join('\n');
+};
 
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  window.open(url, '_blank');
+$('enviarPedido').addEventListener('click', () => {
+  const message = buildMessage();
+  if (!message) return;
+
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
 });

@@ -1,120 +1,126 @@
 :root {
-  --brand-gold: #d89a2b;
-  --brand-brown: #3a2217;
-  --brand-wine: #6f151f;
-  --brand-orange: #f59c1a;
-  --bg: #fff8ef;
-  --white: #ffffff;
+  --gold: #d59d34;
+  --gold-soft: #f3cc7a;
+  --wine: #65141d;
+  --brown: #2f1d14;
+  --orange: #ee9415;
+  --bg: #fff7ed;
+  --white: #fff;
+  --line: #f0dcc1;
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(180deg, #fffaf3 0%, #ffe8c5 100%);
-  color: var(--brand-brown);
+  font-family: Inter, sans-serif;
+  background: var(--bg);
+  color: var(--brown);
 }
 
-.hero {
-  padding: 2rem 1rem;
-  background: linear-gradient(135deg, var(--brand-wine), #8d2027);
+.topbar {
+  background: linear-gradient(130deg, var(--wine), #861f2b);
   color: var(--white);
-  display: grid;
-  gap: 1rem;
-}
-
-.brand-card {
+  padding: 1rem;
   display: flex;
   gap: 1rem;
+  justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-.logo-badge {
-  min-width: 135px;
-  border-radius: 20px;
-  background: radial-gradient(circle at top, #f3c15d, var(--brand-gold));
-  color: var(--brand-brown);
-  padding: 1rem;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.logo {
+  width: 110px;
+  min-width: 110px;
+  border-radius: 999px;
+  background: radial-gradient(circle, var(--gold-soft), var(--gold));
+  padding: 1rem 0.5rem;
+  border: 2px solid #fff5db;
   text-align: center;
-  border: 3px solid #fff6db;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  font-weight: 800;
 }
 
-.logo-main { display: block; font-weight: 800; font-size: 1.8rem; }
-.logo-sub { display: block; font-family: 'Lobster', cursive; font-size: 1rem; }
+.logo span {
+  display: block;
+  font-family: Lobster, cursive;
+  font-size: 0.78rem;
+  font-weight: 400;
+}
 
-h1 { margin: 0; font-size: 1.7rem; }
+h1 { margin: 0; font-size: 1.2rem; }
+p { margin: 0.3rem 0; }
 
-.cta {
-  width: fit-content;
-  background: var(--brand-orange);
-  color: var(--brand-brown);
+.primary-btn {
+  background: var(--orange);
+  color: #3f210f;
   text-decoration: none;
-  padding: 0.8rem 1rem;
+  padding: 0.75rem 1rem;
   border-radius: 999px;
   font-weight: 700;
+  white-space: nowrap;
 }
 
-.chips span {
-  display: inline-block;
-  margin: 0.2rem;
-  padding: 0.35rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.18);
-  font-size: 0.85rem;
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
-main { padding: 1rem; max-width: 1100px; margin: 0 auto; }
-section { margin-bottom: 1.4rem; }
-
-.highlights {
+.notice-grid,
+.menu-cards,
+.form-row,
+.photo-grid,
+.checks {
   display: grid;
+  gap: 0.8rem;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
 }
 
-.highlights article,
-.menu-card,
-.order-box,
-.flavors,
-.gallery {
+.notice,
+.card,
+.checkout,
+.photos {
   background: var(--white);
+  border: 1px solid var(--line);
   border-radius: 16px;
   padding: 1rem;
-  box-shadow: 0 6px 20px rgba(72, 32, 17, 0.12);
-  border: 1px solid #f1dac0;
+  box-shadow: 0 8px 18px rgba(54, 22, 11, 0.08);
 }
 
-.gallery-grid {
-  display: grid;
-  gap: 0.7rem;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+.notice h2,
+.menu h2,
+.checkout h2,
+.photos h2 {
+  margin: 0 0 0.6rem;
 }
 
-.gallery img {
+.highlight {
+  border: 2px solid var(--orange);
+  background: linear-gradient(0deg, #fff3dd, #ffffff);
+}
+
+.photo-grid img {
   width: 100%;
   height: 180px;
   object-fit: cover;
   border-radius: 12px;
 }
 
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
+.menu-cards .card h3 {
+  color: var(--wine);
+  margin: 0 0 0.4rem;
 }
 
-.menu-card h3 { color: var(--brand-wine); margin-top: 0; }
-.menu-card ul { padding-left: 1rem; margin: 0; }
-.menu-card li { margin-bottom: 0.4rem; }
-
-.order-box h2 { margin-top: 0; }
-.form-grid,
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 0.8rem;
+.checkout {
+  margin-top: 1rem;
 }
 
 label {
@@ -125,30 +131,56 @@ label {
 }
 
 input,
+select,
 textarea,
-select {
-  border: 1px solid #d6b89b;
+button {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  border: 1px solid #d3b497;
   border-radius: 10px;
-  padding: 0.7rem;
-  font-size: 0.95rem;
-  font-family: inherit;
+  padding: 0.65rem;
+  background: #fff;
+}
+
+.flavor-box {
+  margin: 0.8rem 0;
+  padding: 0.8rem;
+  border: 1px dashed #dcb88e;
+  border-radius: 12px;
+  background: #fffaf3;
+}
+
+.checks label {
+  font-weight: 500;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 button {
+  margin-top: 1rem;
   width: 100%;
-  margin-top: 0.9rem;
   border: 0;
   border-radius: 12px;
-  padding: 0.9rem 1rem;
-  background: linear-gradient(135deg, #25d366, #1baa50);
-  color: white;
-  font-size: 1rem;
-  font-weight: 700;
+  background: linear-gradient(135deg, #28d567, #12aa47);
+  color: #fff;
+  font-weight: 800;
+  padding: 0.95rem;
   cursor: pointer;
 }
 
-footer {
+.foot {
   text-align: center;
-  padding: 1rem;
-  color: #5e3928;
+  color: #754e3c;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 720px) {
+  .topbar { align-items: flex-start; }
+  .brand { align-items: flex-start; }
+  .primary-btn { margin-top: 0.2rem; }
 }

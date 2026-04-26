@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>C & C Salgados e Doces | Faça seu pedido</title>
+    <title>C & C Salgados e Doces | Pedido Online</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,124 +13,82 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="hero">
-      <div class="brand-card">
-        <div class="logo-badge">
-          <span class="logo-main">C & C</span>
-          <span class="logo-sub">Salgados e Doces</span>
-        </div>
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">C & C<span>Salgados e Doces</span></div>
         <div>
           <h1>C & C Salgados e Doces</h1>
-          <p>Cardápio digital moderno para pedidos rápidos no WhatsApp.</p>
-          <div class="chips">
-            <span>Entrega rápida</span>
-            <span>Pronta entrega</span>
-            <span>Pedido personalizado</span>
-          </div>
+          <p>Faça seu pedido em poucos cliques e finalize no WhatsApp.</p>
         </div>
       </div>
-      <a class="cta" href="#pedido">Montar pedido</a>
+      <a href="#checkout" class="primary-btn">Pedir agora</a>
     </header>
 
-    <main>
-      <section class="highlights">
-        <article>
-          <h2>Destaque da casa</h2>
-          <p><strong>Salgado de festa com 20g</strong> (maior que o padrão de 12g da concorrência).</p>
+    <main class="container">
+      <section class="notice-grid">
+        <article class="notice highlight">
+          <h2>🔥 Diferencial</h2>
+          <p><strong>Salgados de festa com 20g</strong> (concorrência geralmente 12g).</p>
         </article>
-        <article>
-          <h2>Forma de pagamento</h2>
-          <p>Pix/Dinheiro com valor promocional e opção no Cartão Débito/Crédito.</p>
+        <article class="notice">
+          <h2>💳 Pagamento</h2>
+          <p>Pix/Dinheiro com melhor preço e opção de Cartão Débito/Crédito.</p>
         </article>
-        <article>
-          <h2>Observação</h2>
-          <p>Valores sujeitos a alteração e taxa de entrega conforme região.</p>
+        <article class="notice">
+          <h2>🚚 Entrega</h2>
+          <p>Pronta entrega. Consulte a taxa de entrega da sua região.</p>
         </article>
       </section>
 
-      <section class="gallery">
+      <section class="photos">
         <h2>Exemplos reais de salgados</h2>
-        <div class="gallery-grid">
-          <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=900&q=80" alt="Coxinhas em bandeja" />
-          <img src="https://images.unsplash.com/photo-1626201850125-4bdb8f0d4f57?auto=format&fit=crop&w=900&q=80" alt="Salgados fritos variados" />
-          <img src="https://images.unsplash.com/photo-1604908176997-431221f0f4f4?auto=format&fit=crop&w=900&q=80" alt="Salgados de festa dourados" />
+        <div class="photo-grid">
+          <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=900&q=80" alt="Coxinhas" />
+          <img src="https://images.unsplash.com/photo-1626201850125-4bdb8f0d4f57?auto=format&fit=crop&w=900&q=80" alt="Salgados variados" />
+          <img src="https://images.unsplash.com/photo-1604908176997-431221f0f4f4?auto=format&fit=crop&w=900&q=80" alt="Salgados de festa" />
         </div>
       </section>
 
-      <section class="menu-grid">
-        <article class="menu-card">
-          <h3>Salgados Fritos</h3>
-          <ul>
-            <li>100 (cento) — <strong>R$ 75,00</strong></li>
-            <li>50 (meio cento) — <strong>R$ 38,00</strong></li>
-            <li>30 (trinta) — <strong>R$ 25,00</strong></li>
-            <li>20 (vinte) — <strong>R$ 18,00</strong></li>
-          </ul>
-        </article>
-        <article class="menu-card">
-          <h3>Mini Churros (doce de leite)</h3>
-          <ul>
-            <li>100 — <strong>R$ 90,00</strong></li>
-            <li>50 — <strong>R$ 45,00</strong></li>
-            <li>30 — <strong>R$ 27,00</strong></li>
-            <li>20 — <strong>R$ 20,00</strong></li>
-            <li>10 — <strong>R$ 12,00</strong></li>
-          </ul>
-        </article>
-        <article class="menu-card">
-          <h3>Assados / Bolinho Caipira</h3>
-          <ul>
-            <li>100 — <strong>R$ 90,00</strong></li>
-            <li>50 — <strong>R$ 45,00</strong></li>
-            <li>30 — <strong>R$ 27,00</strong></li>
-            <li>20 — <strong>R$ 20,00</strong></li>
-            <li>10 — <strong>R$ 12,00</strong></li>
-          </ul>
-        </article>
-        <article class="menu-card">
-          <h3>Refrigerantes</h3>
-          <ul>
-            <li>Coca-Cola 2L — <strong>R$ 14,00</strong></li>
-            <li>Guaraná Antarctica 1L — <strong>R$ 8,00</strong></li>
-            <li>Coca-Cola 600ml — <strong>R$ 8,00</strong></li>
-            <li>Coca-Cola lata 350ml — <strong>R$ 5,00</strong></li>
-          </ul>
-        </article>
-        <article class="menu-card">
-          <h3>Salgados Congelados</h3>
-          <ul>
-            <li>100 — <strong>R$ 60,00</strong> (Pix/Dinheiro) | <strong>R$ 65,00</strong> (Cartão)</li>
-            <li>50 — <strong>R$ 30,00</strong> (Pix/Dinheiro) | <strong>R$ 33,00</strong> (Cartão)</li>
-          </ul>
-        </article>
-        <article class="menu-card">
-          <h3>Nhoque Congelado (500g)</h3>
-          <ul>
-            <li>Tradicional — <strong>R$ 12,00</strong> Pix/Dinheiro | <strong>R$ 13,00</strong> Cartão</li>
-            <li>Recheado Presunto e Queijo — <strong>R$ 17,00</strong> Pix/Dinheiro | <strong>R$ 18,00</strong> Cartão</li>
-            <li>Recheado Queijo — <strong>R$ 17,00</strong> Pix/Dinheiro | <strong>R$ 18,00</strong> Cartão</li>
-          </ul>
-          <small>Não acompanha molho. Nunca colocar na água: já vem cozido. 500g serve 2 a 3 pessoas.</small>
-        </article>
+      <section class="menu">
+        <h2>Cardápio</h2>
+        <div class="menu-cards">
+          <article class="card">
+            <h3>Salgados Fritos</h3>
+            <p>100: R$ 75,00 • 50: R$ 38,00 • 30: R$ 25,00 • 20: R$ 18,00</p>
+          </article>
+          <article class="card">
+            <h3>Mini Churros (doce de leite)</h3>
+            <p>100: R$ 90,00 • 50: R$ 45,00 • 30: R$ 27,00 • 20: R$ 20,00 • 10: R$ 12,00</p>
+          </article>
+          <article class="card">
+            <h3>Assados / Bolinho Caipira</h3>
+            <p>100: R$ 90,00 • 50: R$ 45,00 • 30: R$ 27,00 • 20: R$ 20,00 • 10: R$ 12,00</p>
+          </article>
+          <article class="card">
+            <h3>Salgados Congelados</h3>
+            <p>100: R$ 60,00 (Pix/Dinheiro) | R$ 65,00 (Cartão)</p>
+            <p>50: R$ 30,00 (Pix/Dinheiro) | R$ 33,00 (Cartão)</p>
+          </article>
+          <article class="card">
+            <h3>Nhoque Congelado (500g)</h3>
+            <p>Tradicional: R$ 12,00 | Cartão: R$ 13,00</p>
+            <p>Recheado (Presunto e Queijo/Queijo): R$ 17,00 | Cartão: R$ 18,00</p>
+            <small>Não acompanha molho. Já pré-cozido. Rende 2 a 3 pessoas.</small>
+          </article>
+          <article class="card">
+            <h3>Refrigerantes</h3>
+            <p>Coca-Cola 2L: R$ 14,00 • Guaraná 1L: R$ 8,00 • Coca 600ml: R$ 8,00 • Lata 350ml: R$ 5,00</p>
+          </article>
+        </div>
       </section>
 
-      <section class="flavors">
-        <h2>Sabores de salgados disponíveis</h2>
-        <p>Coxinha de frango • Frango com bacon • Frango com requeijão • Bolinha de queijo • Croquete de carne • Risoles/Travesserinho de carne • Enroladinho presunto e queijo • Calabresa com queijo • Bolinho milho com queijo • Kibe</p>
-      </section>
-
-      <section id="pedido" class="order-box">
+      <section id="checkout" class="checkout">
         <h2>Monte seu pedido</h2>
-        <p>Escolha quantidades prontas ou personalize a quantidade de salgados.</p>
 
-        <div class="form-grid">
-          <label>Nome
-            <input id="nome" type="text" placeholder="Seu nome" />
-          </label>
-          <label>Telefone
-            <input id="telefone" type="tel" placeholder="(11) 99999-9999" />
-          </label>
-          <label>Forma de pagamento
+        <div class="form-row">
+          <label>Nome<input id="nome" type="text" required /></label>
+          <label>Telefone<input id="telefone" type="tel" /></label>
+          <label>Pagamento
             <select id="pagamento">
               <option>Pix</option>
               <option>Dinheiro</option>
@@ -138,7 +96,7 @@
               <option>Cartão Crédito</option>
             </select>
           </label>
-          <label>Tipo de entrega
+          <label>Entrega
             <select id="entrega">
               <option>Delivery (consultar taxa)</option>
               <option>Retirada</option>
@@ -146,48 +104,85 @@
           </label>
         </div>
 
-        <div class="products">
-          <label>Salgados Fritos (quantidade)
-            <input id="qtdFritos" type="number" min="0" value="0" />
+        <h3>Combos e quantidades</h3>
+        <div class="form-row">
+          <label>Salgados Fritos
+            <select id="comboFritos">
+              <option value="">Selecione</option>
+              <option>100 (Cento) - R$ 75,00</option>
+              <option>50 (Meio cento) - R$ 38,00</option>
+              <option>30 (Trinta) - R$ 25,00</option>
+              <option>20 (Vinte) - R$ 18,00</option>
+            </select>
           </label>
-          <label>Salgados Congelados (quantidade)
-            <input id="qtdCongelados" type="number" min="0" value="0" />
+          <label>Salgados Congelados
+            <select id="comboCongelados">
+              <option value="">Selecione</option>
+              <option>100 - Pix/Dinheiro R$ 60,00 | Cartão R$ 65,00</option>
+              <option>50 - Pix/Dinheiro R$ 30,00 | Cartão R$ 33,00</option>
+            </select>
           </label>
-          <label>Mini Churros (quantidade)
-            <input id="qtdChurros" type="number" min="0" value="0" />
+          <label>Mini Churros
+            <select id="comboChurros">
+              <option value="">Selecione</option>
+              <option>100 - R$ 90,00</option>
+              <option>50 - R$ 45,00</option>
+              <option>30 - R$ 27,00</option>
+              <option>20 - R$ 20,00</option>
+              <option>10 - R$ 12,00</option>
+            </select>
           </label>
-          <label>Assados/Bolinho Caipira (quantidade)
-            <input id="qtdAssados" type="number" min="0" value="0" />
-          </label>
-          <label>Nhoque Tradicional 500g (unid.)
-            <input id="qtdNhoqueTrad" type="number" min="0" value="0" />
-          </label>
-          <label>Nhoque Presunto e Queijo 500g (unid.)
-            <input id="qtdNhoquePQ" type="number" min="0" value="0" />
-          </label>
-          <label>Nhoque Queijo 500g (unid.)
-            <input id="qtdNhoqueQ" type="number" min="0" value="0" />
-          </label>
-          <label>Pedido personalizado de salgados (unidades)
-            <input id="qtdPersonalizada" type="number" min="0" value="0" />
+          <label>Assados/Bolinho Caipira
+            <select id="comboAssados">
+              <option value="">Selecione</option>
+              <option>100 - R$ 90,00</option>
+              <option>50 - R$ 45,00</option>
+              <option>30 - R$ 27,00</option>
+              <option>20 - R$ 20,00</option>
+              <option>10 - R$ 12,00</option>
+            </select>
           </label>
         </div>
 
-        <label>Endereço de entrega
-          <textarea id="endereco" rows="2" placeholder="Rua, número, bairro, referência"></textarea>
-        </label>
+        <h3>Personalização</h3>
+        <div class="form-row">
+          <label>Quantidade personalizada de salgados (unidades)
+            <input id="qtdPersonalizada" type="number" min="0" value="0" />
+          </label>
+          <label>Nhoque Tradicional 500g (unidades)
+            <input id="nhoqueTrad" type="number" min="0" value="0" />
+          </label>
+          <label>Nhoque Presunto e Queijo 500g (unidades)
+            <input id="nhoquePQ" type="number" min="0" value="0" />
+          </label>
+          <label>Nhoque Queijo 500g (unidades)
+            <input id="nhoqueQ" type="number" min="0" value="0" />
+          </label>
+        </div>
 
-        <label>Observações do pedido
-          <textarea id="obs" rows="3" placeholder="Ex.: separar sabores, troco para, etc."></textarea>
-        </label>
+        <div class="flavor-box">
+          <p>Sabores desejados:</p>
+          <div class="checks">
+            <label><input type="checkbox" value="Coxinha de Frango" />Coxinha de Frango</label>
+            <label><input type="checkbox" value="Coxinha de Frango com Bacon" />Frango com Bacon</label>
+            <label><input type="checkbox" value="Coxinha de Frango com Requeijão" />Frango com Requeijão</label>
+            <label><input type="checkbox" value="Bolinha de Queijo" />Bolinha de Queijo</label>
+            <label><input type="checkbox" value="Croquete de Carne" />Croquete de Carne</label>
+            <label><input type="checkbox" value="Risoles de Carne" />Risoles de Carne</label>
+            <label><input type="checkbox" value="Enroladinho Presunto e Queijo" />Enroladinho Presunto e Queijo</label>
+            <label><input type="checkbox" value="Calabresa com Queijo" />Calabresa com Queijo</label>
+            <label><input type="checkbox" value="Bolinho Milho com Queijo" />Bolinho Milho com Queijo</label>
+            <label><input type="checkbox" value="Kibe" />Kibe</label>
+          </div>
+        </div>
 
-        <button id="finalizar">Concluir pedido no WhatsApp</button>
+        <label>Endereço<textarea id="endereco" rows="2"></textarea></label>
+        <label>Observações<textarea id="obs" rows="3" placeholder="Troco para..., restrições, referência etc."></textarea></label>
+
+        <button id="enviarPedido">Concluir pedido no WhatsApp</button>
+        <p class="foot">Valores sujeitos a alteração* • Consulte taxa de entrega ✅</p>
       </section>
     </main>
-
-    <footer>
-      <p>📌 C & C Salgados e Doces • Consulte taxa de entrega • Valores sujeitos a alteração*</p>
-    </footer>
 
     <script src="script.js"></script>
   </body>
