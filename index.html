@@ -1022,7 +1022,9 @@ function confirmSmodal(){
 // close on overlay click
 document.getElementById('smodal-overlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeSmodal();});
 
-
+// Estado dos sabores personalizados de fritos
+const fritoQtys = {};
+  
 function changeFrito(id, delta){
   fritoQtys[id] = Math.max(0, (fritoQtys[id]||0)+delta);
   const el = document.getElementById('fq-'+id);
