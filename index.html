@@ -591,6 +591,30 @@ main{padding:1.5rem 4vw 130px;position:relative;z-index:1}
 /* ─ FADE IN ─ */
 .fade-in{animation:fadeIn .4s ease both}
 @keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+/* ─ EVITA ZOOM ACIDENTAL NO CELULAR ─ */
+html {
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
+button,
+.add-btn,
+.cart-btn,
+.pay-btn,
+.tab,
+.cbar-btn,
+.wpp-btn,
+.close-btn,
+.smodal-cancel,
+.smodal-confirm,
+.frito-qty button,
+.ci-qty button,
+.smodal-qty button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
 </style>
 </head>
 <body>
