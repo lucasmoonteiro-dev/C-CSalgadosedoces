@@ -1,189 +1,1221 @@
-<!doctype html>
-+<html lang="pt-BR">
-+  <head>
-+    <meta charset="UTF-8" />
-+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-+    <title>C & C Salgados e Doces | Pedido Online</title>
-+    <link rel="preconnect" href="https://fonts.googleapis.com" />
-+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-+    <link
-+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lobster&display=swap"
-+      rel="stylesheet"
-+    />
-+    <link rel="stylesheet" href="styles.css" />
-+  </head>
-+  <body>
-+    <header class="topbar">
-+      <div class="brand">
-+        <div class="logo">C & C<span>Salgados e Doces</span></div>
-+        <div>
-+          <h1>C & C Salgados e Doces</h1>
-+          <p>Faça seu pedido em poucos cliques e finalize no WhatsApp.</p>
-+        </div>
-+      </div>
-+      <a href="#checkout" class="primary-btn">Pedir agora</a>
-+    </header>
-+
-+    <main class="container">
-+      <section class="notice-grid">
-+        <article class="notice highlight">
-+          <h2>🔥 Diferencial</h2>
-+          <p><strong>Salgados de festa com 20g</strong> (concorrência geralmente 12g).</p>
-+        </article>
-+        <article class="notice">
-+          <h2>💳 Pagamento</h2>
-+          <p>Pix/Dinheiro com melhor preço e opção de Cartão Débito/Crédito.</p>
-+        </article>
-+        <article class="notice">
-+          <h2>🚚 Entrega</h2>
-+          <p>Pronta entrega. Consulte a taxa de entrega da sua região.</p>
-+        </article>
-+      </section>
-+
-+      <section class="photos">
-+        <h2>Exemplos reais de salgados</h2>
-+        <div class="photo-grid">
-+          <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=900&q=80" alt="Coxinhas" />
-+          <img src="https://images.unsplash.com/photo-1626201850125-4bdb8f0d4f57?auto=format&fit=crop&w=900&q=80" alt="Salgados variados" />
-+          <img src="https://images.unsplash.com/photo-1604908176997-431221f0f4f4?auto=format&fit=crop&w=900&q=80" alt="Salgados de festa" />
-+        </div>
-+      </section>
-+
-+      <section class="menu">
-+        <h2>Cardápio</h2>
-+        <div class="menu-cards">
-+          <article class="card">
-+            <h3>Salgados Fritos</h3>
-+            <p>100: R$ 75,00 • 50: R$ 38,00 • 30: R$ 25,00 • 20: R$ 18,00</p>
-+          </article>
-+          <article class="card">
-+            <h3>Mini Churros (doce de leite)</h3>
-+            <p>100: R$ 90,00 • 50: R$ 45,00 • 30: R$ 27,00 • 20: R$ 20,00 • 10: R$ 12,00</p>
-+          </article>
-+          <article class="card">
-+            <h3>Assados / Bolinho Caipira</h3>
-+            <p>100: R$ 90,00 • 50: R$ 45,00 • 30: R$ 27,00 • 20: R$ 20,00 • 10: R$ 12,00</p>
-+          </article>
-+          <article class="card">
-+            <h3>Salgados Congelados</h3>
-+            <p>100: R$ 60,00 (Pix/Dinheiro) | R$ 65,00 (Cartão)</p>
-+            <p>50: R$ 30,00 (Pix/Dinheiro) | R$ 33,00 (Cartão)</p>
-+          </article>
-+          <article class="card">
-+            <h3>Nhoque Congelado (500g)</h3>
-+            <p>Tradicional: R$ 12,00 | Cartão: R$ 13,00</p>
-+            <p>Recheado (Presunto e Queijo/Queijo): R$ 17,00 | Cartão: R$ 18,00</p>
-+            <small>Não acompanha molho. Já pré-cozido. Rende 2 a 3 pessoas.</small>
-+          </article>
-+          <article class="card">
-+            <h3>Refrigerantes</h3>
-+            <p>Coca-Cola 2L: R$ 14,00 • Guaraná 1L: R$ 8,00 • Coca 600ml: R$ 8,00 • Lata 350ml: R$ 5,00</p>
-+          </article>
-+        </div>
-+      </section>
-+
-+      <section id="checkout" class="checkout">
-+        <h2>Monte seu pedido</h2>
-+
-+        <div class="form-row">
-+          <label>Nome<input id="nome" type="text" required /></label>
-+          <label>Telefone<input id="telefone" type="tel" /></label>
-+          <label>Pagamento
-+            <select id="pagamento">
-+              <option>Pix</option>
-+              <option>Dinheiro</option>
-+              <option>Cartão Débito</option>
-+              <option>Cartão Crédito</option>
-+            </select>
-+          </label>
-+          <label>Entrega
-+            <select id="entrega">
-+              <option>Delivery (consultar taxa)</option>
-+              <option>Retirada</option>
-+            </select>
-+          </label>
-+        </div>
-+
-+        <h3>Combos e quantidades</h3>
-+        <div class="form-row">
-+          <label>Salgados Fritos
-+            <select id="comboFritos">
-+              <option value="">Selecione</option>
-+              <option>100 (Cento) - R$ 75,00</option>
-+              <option>50 (Meio cento) - R$ 38,00</option>
-+              <option>30 (Trinta) - R$ 25,00</option>
-+              <option>20 (Vinte) - R$ 18,00</option>
-+            </select>
-+          </label>
-+          <label>Salgados Congelados
-+            <select id="comboCongelados">
-+              <option value="">Selecione</option>
-+              <option>100 - Pix/Dinheiro R$ 60,00 | Cartão R$ 65,00</option>
-+              <option>50 - Pix/Dinheiro R$ 30,00 | Cartão R$ 33,00</option>
-+            </select>
-+          </label>
-+          <label>Mini Churros
-+            <select id="comboChurros">
-+              <option value="">Selecione</option>
-+              <option>100 - R$ 90,00</option>
-+              <option>50 - R$ 45,00</option>
-+              <option>30 - R$ 27,00</option>
-+              <option>20 - R$ 20,00</option>
-+              <option>10 - R$ 12,00</option>
-+            </select>
-+          </label>
-+          <label>Assados/Bolinho Caipira
-+            <select id="comboAssados">
-+              <option value="">Selecione</option>
-+              <option>100 - R$ 90,00</option>
-+              <option>50 - R$ 45,00</option>
-+              <option>30 - R$ 27,00</option>
-+              <option>20 - R$ 20,00</option>
-+              <option>10 - R$ 12,00</option>
-+            </select>
-+          </label>
-+        </div>
-+
-+        <h3>Personalização</h3>
-+        <div class="form-row">
-+          <label>Quantidade personalizada de salgados (unidades)
-+            <input id="qtdPersonalizada" type="number" min="0" value="0" />
-+          </label>
-+          <label>Nhoque Tradicional 500g (unidades)
-+            <input id="nhoqueTrad" type="number" min="0" value="0" />
-+          </label>
-+          <label>Nhoque Presunto e Queijo 500g (unidades)
-+            <input id="nhoquePQ" type="number" min="0" value="0" />
-+          </label>
-+          <label>Nhoque Queijo 500g (unidades)
-+            <input id="nhoqueQ" type="number" min="0" value="0" />
-+          </label>
-+        </div>
-+
-+        <div class="flavor-box">
-+          <p>Sabores desejados:</p>
-+          <div class="checks">
-+            <label><input type="checkbox" value="Coxinha de Frango" />Coxinha de Frango</label>
-+            <label><input type="checkbox" value="Coxinha de Frango com Bacon" />Frango com Bacon</label>
-+            <label><input type="checkbox" value="Coxinha de Frango com Requeijão" />Frango com Requeijão</label>
-+            <label><input type="checkbox" value="Bolinha de Queijo" />Bolinha de Queijo</label>
-+            <label><input type="checkbox" value="Croquete de Carne" />Croquete de Carne</label>
-+            <label><input type="checkbox" value="Risoles de Carne" />Risoles de Carne</label>
-+            <label><input type="checkbox" value="Enroladinho Presunto e Queijo" />Enroladinho Presunto e Queijo</label>
-+            <label><input type="checkbox" value="Calabresa com Queijo" />Calabresa com Queijo</label>
-+            <label><input type="checkbox" value="Bolinho Milho com Queijo" />Bolinho Milho com Queijo</label>
-+            <label><input type="checkbox" value="Kibe" />Kibe</label>
-+          </div>
-+        </div>
-+
-+        <label>Endereço<textarea id="endereco" rows="2"></textarea></label>
-+        <label>Observações<textarea id="obs" rows="3" placeholder="Troco para..., restrições, referência etc."></textarea></label>
-+
-+        <button id="enviarPedido">Concluir pedido no WhatsApp</button>
-+        <p class="foot">Valores sujeitos a alteração* • Consulte taxa de entrega ✅</p>
-+      </section>
-+    </main>
-+
-+    <script src="script.js"></script>
-+  </body>
-+</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>C&C Salgados e Doces</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --maroon:#6b1010;
+  --maroon2:#8b1a1a;
+  --gold:#c98a1a;
+  --gold2:#e8aa30;
+  --gold3:#f5cc6a;
+  --cream:#fdf3e0;
+  --cream2:#fae9c0;
+  --brown:#3d1c00;
+  --text:#2a0f00;
+  --muted:#7a4a20;
+  --border:rgba(201,138,26,0.28);
+  --green:#1d8a4a;
+  --red:#b91c1c;
+  --radius:16px;
+  --shadow:0 6px 28px rgba(61,28,0,0.18);
+}
+html,body{height:100%}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+
+/* ─ HEADER ─ */
+header{
+  position:sticky;top:0;z-index:50;
+  background:var(--maroon);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 4vw;height:62px;
+  box-shadow:0 3px 18px rgba(0,0,0,0.35);
+}
+.logo-wrap{display:flex;align-items:center;gap:10px}
+.logo-img{
+  width:44px;height:44px;border-radius:50%;
+  object-fit:cover;
+  border:2px solid var(--gold2);
+  box-shadow:0 0 0 3px rgba(232,170,48,0.25);
+  background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;overflow:hidden;flex-shrink:0;
+}
+.logo-text-wrap{line-height:1}
+.logo-name{font-family:'Pacifico',cursive;font-size:1.05rem;color:var(--gold3);letter-spacing:0.01em}
+.logo-sub{font-size:0.6rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:rgba(245,204,106,0.55);margin-top:1px}
+.cart-btn{
+  position:relative;background:none;border:none;cursor:pointer;
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;
+  color:var(--gold2);transition:background .2s;
+}
+.cart-btn:hover{background:rgba(255,255,255,.1)}
+.cart-count{
+  position:absolute;top:2px;right:2px;
+  background:var(--gold2);color:var(--maroon);
+  font-size:.62rem;font-weight:900;
+  width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:scale(0);transition:opacity .2s,transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.cart-count.show{opacity:1;transform:scale(1)}
+
+/* ─ HERO ─ */
+.hero{
+  background:linear-gradient(160deg,var(--maroon) 0%,var(--maroon2) 60%,#a02020 100%);
+  padding:2rem 4vw 3rem;position:relative;overflow:hidden;
+}
+.hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:36px;
+  background:var(--cream);clip-path:ellipse(60% 100% at 50% 100%);
+}
+.hero-glow{
+  position:absolute;top:-80px;right:-60px;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(232,170,48,.18) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-top{display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap}
+.hero-left{flex:1;min-width:220px}
+.hero-badge-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:.75rem}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(232,170,48,.15);border:1px solid rgba(232,170,48,.4);
+  color:var(--gold3);font-size:.72rem;font-weight:700;
+  padding:3px 11px;border-radius:50px;
+}
+.hero h1{
+  font-family:'Pacifico',cursive;
+  font-size:clamp(1.5rem,5vw,2.2rem);
+  color:#fff;line-height:1.2;margin-bottom:.4rem;
+}
+.hero h1 span{color:var(--gold2)}
+.hero p{color:rgba(255,255,255,.65);font-size:.88rem;line-height:1.55;max-width:340px}
+
+/* diferencial 20g */
+.diff-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:.85rem;
+  background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 100%);
+  color:var(--maroon);
+  font-size:.8rem;font-weight:900;
+  padding:7px 14px;border-radius:50px;
+  box-shadow:0 4px 16px rgba(201,138,26,.45);
+  letter-spacing:.01em;
+}
+.diff-badge .vs{
+  background:rgba(0,0,0,.18);
+  border-radius:50px;padding:1px 6px;font-size:.68rem;
+}
+
+/* info strip */
+.info-strip{
+  background:var(--brown);
+  display:flex;gap:0;overflow-x:auto;scrollbar-width:none;
+}
+.info-strip::-webkit-scrollbar{display:none}
+.info-chip{
+  flex-shrink:0;display:flex;align-items:center;gap:6px;
+  color:rgba(245,204,106,.8);font-size:.78rem;font-weight:700;
+  padding:.7rem 1.2rem;border-right:1px solid rgba(255,255,255,.07);
+}
+.info-chip span:first-child{font-size:1rem}
+
+/* ─ PAGAMENTO SELECTOR ─ */
+.pay-bar{
+  background:var(--cream2);
+  border-bottom:2px solid var(--border);
+  padding:.75rem 4vw;
+  display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
+}
+.pay-bar label{font-size:.8rem;font-weight:800;color:var(--maroon);white-space:nowrap}
+.pay-btns{display:flex;gap:6px;flex-wrap:wrap}
+.pay-btn{
+  background:#fff;border:1.5px solid var(--border);
+  color:var(--muted);font-family:'Nunito',sans-serif;
+  font-weight:700;font-size:.78rem;
+  padding:5px 14px;border-radius:50px;cursor:pointer;
+  transition:all .2s;white-space:nowrap;
+}
+.pay-btn.active{background:var(--maroon);border-color:var(--maroon);color:var(--gold3)}
+.pay-btn:not(.active):hover{border-color:var(--gold);color:var(--gold)}
+.pay-note{font-size:.7rem;color:var(--muted);width:100%;margin-top:-2px}
+
+/* ─ MAIN ─ */
+main{padding:1.5rem 4vw 130px;position:relative;z-index:1}
+
+/* ─ TABS ─ */
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:1.5rem;padding-bottom:2px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex-shrink:0;background:#fff;border:1.5px solid var(--border);
+  color:var(--muted);font-family:'Nunito',sans-serif;
+  font-weight:800;font-size:.82rem;
+  padding:8px 18px;border-radius:50px;cursor:pointer;
+  transition:all .2s;white-space:nowrap;
+}
+.tab.active{background:var(--maroon);border-color:var(--maroon);color:var(--gold3)}
+.tab:not(.active):hover{border-color:var(--gold);color:var(--gold)}
+
+/* ─ SECTION ─ */
+.sec-title{
+  font-family:'Pacifico',cursive;
+  font-size:1.2rem;color:var(--maroon);
+  margin-bottom:1rem;padding-bottom:.6rem;
+  border-bottom:2px solid var(--cream2);
+  display:flex;align-items:center;gap:8px;
+}
+
+/* ─ PRICE TABLE ─ */
+.price-table{
+  background:#fff;border:1.5px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+  margin-bottom:1rem;
+}
+.price-table-head{
+  background:var(--maroon);
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:0;
+}
+.pth{padding:.6rem .8rem;font-size:.72rem;font-weight:800;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--gold3)}
+.price-row{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  border-bottom:1px solid var(--border);
+}
+.price-row:last-child{border-bottom:none}
+.price-row:hover{background:var(--cream)}
+.pr-cell{padding:.55rem .8rem;font-size:.88rem;font-weight:700;color:var(--text);
+  display:flex;align-items:center}
+.pr-cell.price{color:var(--maroon);font-weight:900}
+.pr-cell.qty{color:var(--muted);font-size:.78rem;font-weight:700}
+
+/* ─ PRODUCT GRID ─ */
+.prod-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:12px;margin-bottom:1.5rem;
+}
+.prod-card{
+  background:#fff;border:1.5px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+  cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;
+  position:relative;
+}
+.prod-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--gold)}
+.prod-img{
+  width:100%;height:90px;object-fit:cover;
+  background:linear-gradient(135deg,var(--cream2),var(--cream));
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.8rem;position:relative;overflow:hidden;
+}
+.prod-img img{width:100%;height:100%;object-fit:cover;display:block}
+.prod-badge{
+  position:absolute;top:6px;left:6px;
+  background:var(--gold);color:#fff;
+  font-size:.58rem;font-weight:900;letter-spacing:.05em;
+  text-transform:uppercase;padding:2px 7px;border-radius:50px;
+  box-shadow:0 2px 6px rgba(0,0,0,.2);
+}
+.prod-body{padding:9px 11px 11px}
+.prod-name{font-weight:800;font-size:.85rem;color:var(--brown);margin-bottom:2px;line-height:1.3}
+.prod-desc{font-size:.7rem;color:var(--muted);margin-bottom:8px;line-height:1.4}
+.prod-footer{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.prod-price{font-weight:900;font-size:.82rem;color:var(--maroon2)}
+
+/* qty ctrl */
+.qty-wrap{display:flex;align-items:center;gap:5px}
+.qty-wrap button{
+  width:27px;height:27px;border-radius:50%;
+  border:1.5px solid var(--border);background:#fff;
+  cursor:pointer;font-size:.95rem;font-weight:800;color:var(--brown);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.qty-wrap button:hover{background:var(--maroon);color:var(--gold3);border-color:var(--maroon)}
+.qty-wrap .qn{font-weight:800;font-size:.9rem;min-width:18px;text-align:center}
+.add-btn{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--gold);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;color:#fff;font-weight:700;
+  transition:background .2s,transform .15s;flex-shrink:0;
+}
+.add-btn:hover{background:var(--maroon2);transform:scale(1.1)}
+
+/* ─ FRITOS section – qty by 10 ─ */
+.fritos-picker{
+  background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);
+  padding:1rem;margin-bottom:1.5rem;
+}
+.fritos-picker h3{font-size:.9rem;font-weight:800;color:var(--maroon);margin-bottom:.75rem}
+.frito-item{
+  display:flex;align-items:center;gap:10px;
+  padding:.5rem 0;border-bottom:1px solid var(--border);
+}
+.frito-item:last-child{border-bottom:none}
+.frito-emoji{font-size:1.4rem;flex-shrink:0}
+.frito-name{flex:1;font-size:.88rem;font-weight:700;color:var(--text)}
+.frito-qty{display:flex;align-items:center;gap:8px}
+.frito-qty button{
+  width:28px;height:28px;border-radius:50%;
+  border:1.5px solid var(--border);background:#fff;
+  cursor:pointer;font-size:1rem;font-weight:800;color:var(--brown);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.frito-qty button:hover{background:var(--maroon);color:var(--gold3);border-color:var(--maroon)}
+.frito-qty .fqn{font-weight:800;font-size:.9rem;min-width:22px;text-align:center;color:var(--maroon)}
+
+/* ─ NHOQUE CARD ─ */
+.nhoque-card{
+  background:#fff;border:1.5px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+  margin-bottom:12px;
+}
+.nhoque-header{
+  background:linear-gradient(135deg,#1a5c2a,#217a38);
+  padding:.75rem 1rem;
+  display:flex;align-items:center;gap:10px;
+}
+.nhoque-header h3{color:#fff;font-size:.95rem;font-weight:800}
+.nhoque-header small{color:rgba(255,255,255,.7);font-size:.72rem}
+.nhoque-body{padding:1rem}
+.nhoque-obs{
+  background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;
+  padding:.7rem .9rem;margin-bottom:.8rem;
+}
+.nhoque-obs p{font-size:.75rem;color:#166534;font-weight:600;line-height:1.5}
+.nhoque-prices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.nhoque-price-box{
+  background:var(--cream);border:1.5px solid var(--border);
+  border-radius:10px;padding:.6rem .8rem;
+}
+.nhoque-price-box .pay-type{font-size:.65rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.nhoque-price-box .price-val{font-size:1rem;font-weight:900;color:var(--maroon)}
+.nhoque-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.7rem 1rem;background:var(--cream);border-top:1px solid var(--border);
+}
+.nhoque-serves{font-size:.75rem;color:var(--muted);font-weight:600}
+
+/* ─ FLOATING BAR ─ */
+.cart-bar{
+  position:fixed;bottom:16px;left:50%;
+  transform:translateX(-50%) translateY(100px);
+  z-index:60;
+  background:var(--maroon);
+  border-radius:50px;padding:0 8px 0 16px;
+  display:flex;align-items:center;gap:12px;
+  min-width:280px;max-width:92vw;height:56px;
+  box-shadow:0 8px 32px rgba(61,28,0,.45);
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1);cursor:pointer;
+}
+.cart-bar.visible{transform:translateX(-50%) translateY(0)}
+.cart-bar:hover{background:var(--maroon2)}
+.cbar-info{flex:1}
+.cbar-count{font-size:.74rem;color:rgba(245,204,106,.7);font-weight:700}
+.cbar-total{font-family:'Pacifico',cursive;font-size:1rem;color:var(--gold2)}
+.cbar-btn{
+  background:var(--gold);color:#fff;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;
+  border:none;border-radius:50px;padding:0 16px;height:40px;
+  cursor:pointer;white-space:nowrap;transition:background .2s;
+}
+.cbar-btn:hover{background:var(--gold2)}
+
+/* ─ OVERLAY & DRAWER ─ */
+.overlay{
+  position:fixed;inset:0;z-index:100;
+  background:rgba(30,8,0,.6);backdrop-filter:blur(4px);
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.overlay.open{opacity:1;pointer-events:all}
+.drawer{
+  position:fixed;bottom:0;left:0;right:0;z-index:101;
+  background:var(--cream);border-radius:22px 22px 0 0;
+  max-height:90vh;
+  transform:translateY(100%);
+  transition:transform .4s cubic-bezier(.32,.72,0,1);
+  display:flex;flex-direction:column;
+  box-shadow:0 -8px 40px rgba(0,0,0,.3);
+}
+.drawer.open{transform:translateY(0)}
+.drawer-handle{
+  width:38px;height:4px;border-radius:2px;
+  background:var(--border);margin:11px auto 0;flex-shrink:0;
+}
+.drawer-head{
+  padding:.85rem 1.3rem;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.drawer-head h2{font-family:'Pacifico',cursive;font-size:1.2rem;color:var(--maroon)}
+.close-btn{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--cream2);border:none;cursor:pointer;
+  font-size:1rem;color:var(--muted);
+  display:flex;align-items:center;justify-content:center;transition:background .2s;
+}
+.close-btn:hover{background:var(--border)}
+.drawer-body{overflow-y:auto;flex:1;padding:1rem 1.3rem}
+
+/* ─ CART ITEMS ─ */
+.cart-item{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 0;border-bottom:1px solid var(--border);
+  animation:slideIn .2s ease;
+}
+@keyframes slideIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:translateX(0)}}
+.ci-emoji{font-size:1.9rem;flex-shrink:0;width:40px;text-align:center}
+.ci-info{flex:1;min-width:0}
+.ci-name{font-weight:800;font-size:.87rem;color:var(--brown);line-height:1.3}
+.ci-unit{font-size:.72rem;color:var(--muted);margin-top:1px}
+.ci-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
+.ci-price{font-weight:900;font-size:.9rem;color:var(--maroon)}
+.ci-qty{display:flex;align-items:center;gap:7px}
+.ci-qty button{
+  width:25px;height:25px;border-radius:50%;
+  border:1.5px solid var(--border);background:#fff;
+  cursor:pointer;font-size:.9rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--brown);transition:all .15s;
+}
+.ci-qty button:hover{background:var(--maroon);color:var(--gold3);border-color:var(--maroon)}
+.ci-qty .ciqn{font-weight:800;font-size:.88rem;min-width:18px;text-align:center}
+
+/* ─ OBS ─ */
+.obs-box{
+  margin:.8rem 0;background:#fff;
+  border:1.5px solid var(--border);border-radius:12px;padding:10px;
+}
+.obs-box label{font-size:.75rem;font-weight:800;color:var(--muted);display:block;margin-bottom:5px}
+.obs-box textarea{
+  width:100%;border:none;outline:none;resize:none;
+  font-family:'Nunito',sans-serif;font-size:.88rem;color:var(--text);
+  background:transparent;min-height:52px;
+}
+
+/* ─ CART FOOTER ─ */
+.cart-footer{
+  padding:.9rem 1.3rem 1.3rem;
+  border-top:1px solid var(--border);
+  flex-shrink:0;background:var(--cream);
+}
+.summary{margin-bottom:.9rem;display:flex;flex-direction:column;gap:5px}
+.sum-row{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted)}
+.sum-row.total{
+  font-size:1rem;font-weight:900;color:var(--brown);
+  padding-top:7px;border-top:1px dashed var(--border);
+}
+.sum-row.total span:last-child{color:var(--gold)}
+.pay-display{
+  font-size:.72rem;color:var(--muted);text-align:right;
+  margin-top:-2px;margin-bottom:.8rem;
+}
+.wpp-btn{
+  width:100%;background:#25D366;color:#fff;
+  border:none;border-radius:50px;height:52px;
+  font-family:'Nunito',sans-serif;font-weight:900;font-size:.98rem;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;
+  transition:background .2s,transform .15s;
+  box-shadow:0 4px 18px rgba(37,211,102,.35);
+}
+.wpp-btn:hover{background:#1ebe5d;transform:translateY(-1px)}
+.wpp-btn:active{transform:translateY(0)}
+.wpp-note{text-align:center;font-size:.7rem;color:var(--muted);margin-top:.5rem}
+
+/* ─ EMPTY ─ */
+.empty{text-align:center;padding:2.5rem 1rem}
+.empty .em-icon{font-size:3rem;margin-bottom:.6rem}
+.empty p{font-size:.88rem;color:var(--muted)}
+
+/* ─ FRITOS TOTAL BAR ─ */
+.fritos-total{
+  background:var(--cream2);border:1.5px solid var(--border);
+  border-radius:12px;padding:.8rem 1rem;margin-top:.5rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;
+}
+.fritos-total-label{font-size:.82rem;font-weight:800;color:var(--muted)}
+.fritos-total-price{font-size:1rem;font-weight:900;color:var(--maroon)}
+.fritos-total-qty{font-size:.72rem;color:var(--muted)}
+
+/* ─ HIGHLIGHT BOX ─ */
+.highlight-box{
+  background:linear-gradient(135deg,#7c1c1c,#a02828);
+  border-radius:var(--radius);padding:1rem 1.2rem;
+  margin-bottom:1.5rem;position:relative;overflow:hidden;
+}
+.highlight-box::before{
+  content:'';position:absolute;top:-30px;right:-30px;
+  width:120px;height:120px;
+  background:radial-gradient(circle,rgba(232,170,48,.25) 0%,transparent 70%);
+}
+.highlight-box h3{font-family:'Pacifico',cursive;color:var(--gold3);font-size:1rem;margin-bottom:.4rem}
+.highlight-box p{color:rgba(255,255,255,.8);font-size:.82rem;line-height:1.5}
+.highlight-box .big-weight{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold);color:#fff;
+  font-size:.88rem;font-weight:900;
+  padding:5px 14px;border-radius:50px;margin-top:.6rem;
+}
+.highlight-box .vs-tag{
+  background:rgba(0,0,0,.25);
+  border-radius:50px;padding:1px 7px;font-size:.7rem;
+}
+
+/* ─ TOAST ─ */
+.toast{
+  position:fixed;bottom:88px;left:50%;
+  transform:translateX(-50%) translateY(12px);
+  background:var(--brown);color:var(--gold3);
+  font-weight:800;font-size:.82rem;
+  padding:9px 20px;border-radius:50px;
+  opacity:0;transition:opacity .3s,transform .3s;
+  pointer-events:none;z-index:200;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(0,0,0,.25);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ─ LABEL AVISO ─ */
+.aviso{font-size:.7rem;color:var(--muted);text-align:center;margin-top:.5rem;font-style:italic}
+
+/* ─ IMG GALLERY ─ */
+.gallery{
+  display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
+  margin-bottom:1.5rem;
+}
+.gallery::-webkit-scrollbar{display:none}
+.gallery-img{
+  flex-shrink:0;
+  width:120px;height:90px;border-radius:12px;
+  overflow:hidden;border:2px solid var(--border);
+  background:var(--cream2);
+  display:flex;align-items:center;justify-content:center;font-size:2.5rem;
+}
+.gallery-img img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ─ FADE IN ─ */
+.fade-in{animation:fadeIn .4s ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-wrap">
+    <div class="logo-img">
+      <!-- SVG logo baseado na identidade C&C -->
+      <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="22" r="22" fill="#c98a1a"/>
+        <!-- forma de biscoito estampado -->
+        <path d="M22 4
+          Q25 4 27 6 Q30 4 32 6 Q34 5 34 8 Q37 9 37 12
+          Q40 13 39 16 Q41 18 40 21 Q41 23 40 26
+          Q41 29 39 30 Q40 33 37 34 Q37 37 34 37
+          Q33 40 30 39 Q28 41 25 40 Q23 42 22 41
+          Q20 42 18 40 Q15 41 14 39 Q11 40 10 37
+          Q7 37 7 34 Q4 33 5 30 Q3 28 4 26
+          Q3 23 4 21 Q3 18 5 16 Q4 13 7 12
+          Q7 9 10 8 Q10 5 13 6 Q15 4 17 6 Q19 4 22 4Z"
+          fill="none" stroke="#fff" stroke-width="1.2" stroke-dasharray="2.5,2"/>
+        <!-- batedor esquerdo -->
+        <line x1="15" y1="11" x2="20" y2="28" stroke="#3d1c00" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="13" y1="12" x2="18" y2="29" stroke="#3d1c00" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="17" y1="10" x2="22" y2="27" stroke="#3d1c00" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M12 10 Q15 7 18 10" stroke="#3d1c00" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M19 27 Q22 30 19 33" stroke="#3d1c00" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <!-- batedor direito -->
+        <line x1="29" y1="11" x2="24" y2="28" stroke="#3d1c00" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="31" y1="12" x2="26" y2="29" stroke="#3d1c00" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="27" y1="10" x2="22" y2="27" stroke="#3d1c00" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M32 10 Q29 7 26 10" stroke="#3d1c00" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M25 27 Q22 30 25 33" stroke="#3d1c00" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <!-- coração -->
+        <path d="M22 13 C22 13 21 11 19.5 11 C18 11 17 12.5 17 13.5 C17 16 22 19 22 19 C22 19 27 16 27 13.5 C27 12.5 26 11 24.5 11 C23 11 22 13 22 13Z"
+          fill="#3d1c00"/>
+        <!-- C & C texto -->
+        <text x="22" y="38" font-family="Georgia,serif" font-weight="bold" font-size="7.5"
+          fill="#3d1c00" text-anchor="middle" letter-spacing="1">C &amp; C</text>
+      </svg>
+    </div>
+    <div class="logo-text-wrap">
+      <div class="logo-name">C &amp; C</div>
+      <div class="logo-sub">Salgados e Doces</div>
+    </div>
+  </div>
+  <button class="cart-btn" onclick="openDrawer()" aria-label="Carrinho">
+    🛒<span class="cart-count" id="cart-count">0</span>
+  </button>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-top">
+    <div class="hero-left">
+      <div class="hero-badge-row">
+        <div class="hero-badge">✨ Feito com carinho</div>
+        <div class="hero-badge">🏆 Desde sempre</div>
+      </div>
+      <h1>Salgados <span>&amp; Doces</span><br>pra sua festa!</h1>
+      <p>Salgados fritos, assados, congelados, nhoque artesanal e muito mais. Peça agora e receba em casa.</p>
+      <div class="diff-badge">
+        🏆 Nossos salgados têm <strong>20g</strong>
+        <span class="vs">vs concorrência: 12g</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INFO STRIP -->
+<div class="info-strip">
+  <div class="info-chip"><span>💳</span> Pix · Dinheiro · Cartão</div>
+  <div class="info-chip"><span>🚚</span> Consulte entrega</div>
+  <div class="info-chip"><span>❄️</span> Congelados disponíveis</div>
+  <div class="info-chip"><span>🎉</span> Festas & eventos</div>
+  <div class="info-chip"><span>⚖️</span> Salgados de 20g</div>
+</div>
+
+<!-- PAGAMENTO -->
+<div class="pay-bar">
+  <label>💳 Forma de pagamento:</label>
+  <div class="pay-btns">
+    <button class="pay-btn active" onclick="setPay('pix',this)">💰 Pix / Dinheiro</button>
+    <button class="pay-btn" onclick="setPay('debito',this)">💳 Cartão Débito</button>
+    <button class="pay-btn" onclick="setPay('credito',this)">💳 Cartão Crédito</button>
+  </div>
+  <div class="pay-note">* Os preços mudam conforme a forma de pagamento selecionada · Valores sujeitos a alteração</div>
+</div>
+
+<!-- MAIN -->
+<main>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('fritos',this)">🔥 Salgados Fritos</button>
+    <button class="tab" onclick="showTab('congelados',this)">❄️ Congelados</button>
+    <button class="tab" onclick="showTab('mini-churros',this)">🍬 Mini Churros</button>
+    <button class="tab" onclick="showTab('assados',this)">🥐 Assados</button>
+    <button class="tab" onclick="showTab('caipira',this)">🌽 Bolinho Caipira</button>
+    <button class="tab" onclick="showTab('nhoque',this)">🍅 Nhoque</button>
+    <button class="tab" onclick="showTab('bebidas',this)">🥤 Bebidas</button>
+  </div>
+
+  <div id="tab-content"></div>
+</main>
+
+<!-- FLOATING BAR -->
+<div class="cart-bar" id="cart-bar" onclick="openDrawer()">
+  <div>🛒</div>
+  <div class="cbar-info">
+    <div class="cbar-count" id="cbar-count">0 itens</div>
+    <div class="cbar-total" id="cbar-total">R$ 0,00</div>
+  </div>
+  <button class="cbar-btn">Ver pedido →</button>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+
+<!-- DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-handle"></div>
+  <div class="drawer-head">
+    <h2>🛒 Meu Pedido</h2>
+    <button class="close-btn" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="obs-box">
+      <label>📝 Observações (opcional)</label>
+      <textarea id="obs" placeholder="Ex: sem cebola, entregar às 18h, endereço de entrega..."></textarea>
+    </div>
+    <div class="summary" id="cart-summary"></div>
+    <div class="pay-display" id="pay-display"></div>
+    <button class="wpp-btn" onclick="sendWpp()">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Finalizar pelo WhatsApp
+    </button>
+    <div class="wpp-note">📍 Taxa de entrega será combinada pelo WhatsApp</div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── ESTADO ──
+let payMode = 'pix'; // pix | debito | credito
+const cart = []; // {id, name, emoji, qty, unitPrice, note}
+
+// ── DADOS ──
+// Preços fritos por pacote: [20, 30, 50, 100]
+const fritosPrices = {
+  pix:     {20:18, 30:25, 50:38, 100:75},
+  debito:  {20:19, 30:27, 50:41, 100:82},
+  credito: {20:19, 30:27, 50:41, 100:82},
+};
+// Preços por unidade (fritos, calculados a partir de 100)
+function fritoUnitPrice(){ return fritosPrices[payMode][100]/100; }
+
+const fritosSabores = [
+  {id:'f1', name:'Coxinha de Frango', emoji:'🍗'},
+  {id:'f2', name:'Coxinha de Frango com Bacon', emoji:'🥓'},
+  {id:'f3', name:'Coxinha de Frango com Requeijão', emoji:'🧀'},
+  {id:'f4', name:'Bolinha de Queijo', emoji:'🧆'},
+  {id:'f5', name:'Croquete de Carne', emoji:'🥩'},
+  {id:'f6', name:'Travesserinho de Carne (Risoles)', emoji:'🥟'},
+  {id:'f7', name:'Enroladinho Presunto e Queijo', emoji:'🌯'},
+  {id:'f8', name:'Calabresa com Queijo', emoji:'🌶️'},
+  {id:'f9', name:'Bolinho de Milho com Queijo', emoji:'🌽'},
+  {id:'f10', name:'Kibe', emoji:'🫓'},
+];
+
+const miniChurrosPrices = {
+  pix:     {10:12, 20:20, 30:27, 50:45, 100:90},
+  debito:  {10:13, 20:22, 30:29, 50:48, 100:97},
+  credito: {10:13, 20:22, 30:29, 50:48, 100:97},
+};
+
+const assadosPrices = {
+  pix:     {10:12, 20:20, 30:27, 50:45, 100:90},
+  debito:  {10:13, 20:22, 30:29, 50:48, 100:97},
+  credito: {10:13, 20:22, 30:29, 50:48, 100:97},
+};
+const assadosSabores = [
+  {id:'a1', name:'Empada de Frango', emoji:'🥧'},
+  {id:'a2', name:'Esfilha de Carne', emoji:'🫓'},
+];
+
+const caiPrices = {
+  pix:     {10:12, 20:20, 30:27, 50:45, 100:90},
+  debito:  {10:13, 20:22, 30:29, 50:48, 100:97},
+  credito: {10:13, 20:22, 30:29, 50:48, 100:97},
+};
+
+// Congelados
+const congPrices = {
+  pix:    {50:30, 100:60},
+  debito: {50:33, 100:65},
+  credito:{50:33, 100:65},
+};
+const congSabores = [...fritosSabores]; // mesmos sabores
+
+// Nhoque
+const nhoquePrices = {
+  tradicional:    {pix:12, debito:13, credito:13},
+  recheado_pq:    {pix:17, debito:18, credito:18},
+  recheado_q:     {pix:17, debito:18, credito:18},
+};
+
+// Bebidas
+const bebidas = [
+  {id:'b1', name:'Coca-Cola 2 Litros', emoji:'🥤', price:{pix:14,debito:15,credito:15}},
+  {id:'b2', name:'Guaraná Antarctica 1 Litro', emoji:'🧃', price:{pix:8,debito:9,credito:9}},
+  {id:'b3', name:'Coca-Cola 600ml', emoji:'🥤', price:{pix:8,debito:9,credito:9}},
+  {id:'b4', name:'Coca-Cola Lata 350ml', emoji:'🥫', price:{pix:5,debito:6,credito:6}},
+];
+
+// Fotos reais (Unsplash)
+const photos = [
+  {url:'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=240&q=80', alt:'Coxinhas douradas'},
+  {url:'https://images.unsplash.com/photo-1601924582970-9238bcb495d6?w=240&q=80', alt:'Salgados de festa'},
+  {url:'https://images.unsplash.com/photo-1605478621568-9c8d63e9c6eb?w=240&q=80', alt:'Mini salgados'},
+  {url:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=240&q=80', alt:'Coxinhas bandeja'},
+];
+
+function fmt(v){ return 'R$ '+v.toFixed(2).replace('.',','); }
+
+// ── PAGAMENTO ──
+function setPay(mode, btn){
+  payMode = mode;
+  document.querySelectorAll('.pay-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  // re-render tab atual
+  const activeTab = document.querySelector('.tab.active');
+  if(activeTab) activeTab.click();
+}
+
+// ── TABS ──
+function showTab(tab, btn){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const el = document.getElementById('tab-content');
+  el.className = 'fade-in';
+  void el.offsetWidth;
+
+  if(tab==='fritos') el.innerHTML = renderFritos();
+  else if(tab==='congelados') el.innerHTML = renderCongelados();
+  else if(tab==='mini-churros') el.innerHTML = renderMiniChurros();
+  else if(tab==='assados') el.innerHTML = renderAssados();
+  else if(tab==='caipira') el.innerHTML = renderCaipira();
+  else if(tab==='nhoque') el.innerHTML = renderNhoque();
+  else if(tab==='bebidas') el.innerHTML = renderBebidas();
+}
+
+// ── RENDER FRITOS ──
+function renderFritos(){
+  const p = fritosPrices[payMode];
+  const up = p[100]/100;
+  return `
+  <div class="highlight-box">
+    <h3>🏆 Diferencial C&C</h3>
+    <p>Nossos salgados são <strong>maiores e mais saborosos</strong> que a concorrência. Você merece o melhor!</p>
+    <div class="big-weight">⚖️ 20g por salgado <span class="vs-tag">concorrência: 12g</span></div>
+  </div>
+  ${galleryHtml()}
+  <div class="sec-title">🔥 Salgados Fritos — Pacotes fechados</div>
+  <div class="price-table">
+    <div class="price-table-head">
+      <div class="pth">Quantidade</div>
+      <div class="pth">Preço</div>
+      <div class="pth">Ação</div>
+    </div>
+    ${[['100 – Cento',100],['50 – Meio Cento',50],['30 – Trinta',30],['20 – Vinte',20]].map(([label,qty])=>`
+    <div class="price-row">
+      <div class="pr-cell qty">${label}</div>
+      <div class="pr-cell price">${fmt(p[qty])}</div>
+      <div class="pr-cell"><button class="add-btn" onclick="addPacote('fritos-${qty}','Salgados Fritos (${label})','🔥',${p[qty]})">+</button></div>
+    </div>`).join('')}
+  </div>
+
+  <div class="sec-title" style="margin-top:1.5rem">🍽️ Escolha sua quantidade e sabores</div>
+  <p style="font-size:.8rem;color:var(--muted);margin-bottom:1rem">Personalize à vontade — selecione quantos quiser de cada sabor. Preço: ${fmt(up)} por unidade.</p>
+  <div class="fritos-picker">
+    <h3>Quantos de cada sabor?</h3>
+    ${fritosSabores.map(s=>`
+    <div class="frito-item">
+      <div class="frito-emoji">${s.emoji}</div>
+      <div class="frito-name">${s.name}</div>
+      <div class="frito-qty">
+        <button onclick="changeFrito('${s.id}',-1)">−</button>
+        <span class="fqn" id="fq-${s.id}">0</span>
+        <button onclick="changeFrito('${s.id}',1)">+</button>
+      </div>
+    </div>`).join('')}
+    <div class="fritos-total" id="fritos-total" style="display:none">
+      <div>
+        <div class="fritos-total-label">Total selecionado</div>
+        <div class="fritos-total-qty" id="fritos-total-qty"></div>
+      </div>
+      <div class="fritos-total-price" id="fritos-total-price"></div>
+      <button class="add-btn" style="width:36px;height:36px;font-size:1rem" onclick="addFritosCustom()">🛒</button>
+    </div>
+  </div>
+  <div class="aviso">* Valores sujeitos a alteração · Taxa de entrega a combinar</div>`;
+}
+
+// fritos state
+const fritoQtys = {};
+function changeFrito(id, delta){
+  fritoQtys[id] = Math.max(0, (fritoQtys[id]||0)+delta);
+  const el = document.getElementById('fq-'+id);
+  if(el) el.textContent = fritoQtys[id];
+  updateFritosTotal();
+}
+function updateFritosTotal(){
+  const total = Object.values(fritoQtys).reduce((a,b)=>a+b,0);
+  const up = fritosPrices[payMode][100]/100;
+  const price = total * up;
+  const bar = document.getElementById('fritos-total');
+  if(!bar) return;
+  if(total>0){
+    bar.style.display='flex';
+    document.getElementById('fritos-total-qty').textContent = total+' unid.';
+    document.getElementById('fritos-total-price').textContent = fmt(price);
+  } else {
+    bar.style.display='none';
+  }
+}
+function addFritosCustom(){
+  const total = Object.values(fritoQtys).reduce((a,b)=>a+b,0);
+  if(total===0) return;
+  const up = fritosPrices[payMode][100]/100;
+  const price = total * up;
+  // build name list
+  const items = fritosSabores.filter(s=>(fritoQtys[s.id]||0)>0)
+    .map(s=>`${s.name}×${fritoQtys[s.id]}`).join(', ');
+  addToCart('fritos-custom-'+Date.now(), `Fritos Personalizado (${total}un): ${items}`, '🔥', price, 1);
+  // reset
+  fritosSabores.forEach(s=>{ fritoQtys[s.id]=0; const e=document.getElementById('fq-'+s.id); if(e) e.textContent='0'; });
+  updateFritosTotal();
+}
+
+// ── RENDER CONGELADOS ──
+function renderCongelados(){
+  const p = congPrices[payMode];
+  const up50 = p[50];
+  const up100 = p[100];
+  return `
+  <div class="highlight-box">
+    <h3>❄️ Salgados Congelados</h3>
+    <p>Temos à <strong>pronta entrega</strong>! Praticamente o mesmo salgado frito, pronto para fritar em casa. Consulte a taxa de entrega.</p>
+    <div class="big-weight">⚖️ 20g cada <span class="vs-tag">vs concorrência: 12g</span></div>
+  </div>
+  <div class="sec-title">❄️ Pacotes Congelados</div>
+  <div class="price-table">
+    <div class="price-table-head">
+      <div class="pth">Quantidade</div>
+      <div class="pth">Preço</div>
+      <div class="pth">Ação</div>
+    </div>
+    <div class="price-row">
+      <div class="pr-cell qty">100 – Cento</div>
+      <div class="pr-cell price">${fmt(p[100])}</div>
+      <div class="pr-cell"><button class="add-btn" onclick="addPacote('cong-100','Salgados Congelados (Cento)','❄️',${p[100]})">+</button></div>
+    </div>
+    <div class="price-row">
+      <div class="pr-cell qty">50 – Meio Cento</div>
+      <div class="pr-cell price">${fmt(p[50])}</div>
+      <div class="pr-cell"><button class="add-btn" onclick="addPacote('cong-50','Salgados Congelados (Meio Cento)','❄️',${p[50]})">+</button></div>
+    </div>
+  </div>
+
+  <div class="sec-title" style="margin-top:1.5rem">🍽️ Sabores disponíveis (Congelados)</div>
+  <div class="fritos-picker">
+    <h3>Selecione os sabores</h3>
+    ${congSabores.map(s=>`
+    <div class="frito-item">
+      <div class="frito-emoji">${s.emoji}</div>
+      <div class="frito-name">${s.name}</div>
+      <div class="frito-qty">
+        <button onclick="changeCong('${s.id}',-1)">−</button>
+        <span class="fqn" id="cq-${s.id}">0</span>
+        <button onclick="changeCong('${s.id}',1)">+</button>
+      </div>
+    </div>`).join('')}
+    <div class="fritos-total" id="cong-total" style="display:none">
+      <div>
+        <div class="fritos-total-label">Total congelado</div>
+        <div class="fritos-total-qty" id="cong-total-qty"></div>
+      </div>
+      <div class="fritos-total-price" id="cong-total-price"></div>
+      <button class="add-btn" style="width:36px;height:36px;font-size:1rem" onclick="addCongCustom()">🛒</button>
+    </div>
+  </div>
+  <div class="aviso">* Pronta entrega disponível · Taxa de entrega a combinar · Valores sujeitos a alteração</div>`;
+}
+const congQtys = {};
+function changeCong(id,delta){
+  congQtys[id]=Math.max(0,(congQtys[id]||0)+delta);
+  const el=document.getElementById('cq-'+id);
+  if(el) el.textContent=congQtys[id];
+  updateCongTotal();
+}
+function updateCongTotal(){
+  const total=Object.values(congQtys).reduce((a,b)=>a+b,0);
+  const up=congPrices[payMode][100]/100;
+  const price=total*up;
+  const bar=document.getElementById('cong-total');
+  if(!bar) return;
+  if(total>0){
+    bar.style.display='flex';
+    document.getElementById('cong-total-qty').textContent=total+' unid.';
+    document.getElementById('cong-total-price').textContent=fmt(price);
+  } else { bar.style.display='none'; }
+}
+function addCongCustom(){
+  const total=Object.values(congQtys).reduce((a,b)=>a+b,0);
+  if(total===0) return;
+  const up=congPrices[payMode][100]/100;
+  const price=total*up;
+  const items=congSabores.filter(s=>(congQtys[s.id]||0)>0)
+    .map(s=>`${s.name}×${congQtys[s.id]}`).join(', ');
+  addToCart('cong-custom-'+Date.now(),`Congelados Personalizado (${total}un): ${items}`,'❄️',price,1);
+  congSabores.forEach(s=>{congQtys[s.id]=0;const e=document.getElementById('cq-'+s.id);if(e)e.textContent='0';});
+  updateCongTotal();
+}
+
+// ── RENDER MINI CHURROS ──
+function renderMiniChurros(){
+  const p = miniChurrosPrices[payMode];
+  return `
+  <div class="sec-title">🍬 Mini Churros — Doce de Leite</div>
+  <div class="price-table">
+    <div class="price-table-head">
+      <div class="pth">Quantidade</div>
+      <div class="pth">Preço</div>
+      <div class="pth">Ação</div>
+    </div>
+    ${[['100 – Cento',100],['50 – Meio Cento',50],['30 – Trinta',30],['20 – Vinte',20],['10 – Dez',10]].map(([label,qty])=>`
+    <div class="price-row">
+      <div class="pr-cell qty">${label}</div>
+      <div class="pr-cell price">${fmt(p[qty])}</div>
+      <div class="pr-cell"><button class="add-btn" onclick="addPacote('churros-${qty}','Mini Churros Doce de Leite (${label})','🍬',${p[qty]})">+</button></div>
+    </div>`).join('')}
+  </div>
+  <div class="aviso">* Valores sujeitos a alteração · Taxa de entrega a combinar</div>`;
+}
+
+// ── RENDER ASSADOS ──
+function renderAssados(){
+  const p = assadosPrices[payMode];
+  return `
+  <div class="sec-title">🥐 Assados</div>
+  <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem">Sabores: ${assadosSabores.map(s=>s.emoji+' '+s.name).join(' · ')}</p>
+  <div class="price-table">
+    <div class="price-table-head">
+      <div class="pth">Quantidade</div>
+      <div class="pth">Preço</div>
+      <div class="pth">Ação</div>
+    </div>
+    ${[['100 – Cento',100],['50 – Meio Cento',50],['30 – Trinta',30],['20 – Vinte',20],['10 – Dez',10]].map(([label,qty])=>`
+    <div class="price-row">
+      <div class="pr-cell qty">${label}</div>
+      <div class="pr-cell price">${fmt(p[qty])}</div>
+      <div class="pr-cell"><button class="add-btn" onclick="addPacote('ass-${qty}','Assados (${label})','🥐',${p[qty]})">+</button></div>
+    </div>`).join('')}
+  </div>
+  <div class="aviso">* Valores sujeitos a alteração · Taxa de entrega a combinar</div>`;
+}
+
+// ── RENDER CAIPIRA ──
+function renderCaipira(){
+  const p = caiPrices[payMode];
+  return `
+  <div class="sec-title">🌽 Bolinho Caipira</div>
+  <div class="price-table">
+    <div class="price-table-head">
+      <div class="pth">Quantidade</div>
+      <div class="pth">Preço</div>
+      <div class="pth">Ação</div>
+    </div>
+    ${[['100 – Cento',100],['50 – Meio Cento',50],['30 – Trinta',30],['20 – Vinte',20],['10 – Dez',10]].map(([label,qty])=>`
+    <div class="price-row">
+      <div class="pr-cell qty">${label}</div>
+      <div class="pr-cell price">${fmt(p[qty])}</div>
+      <div class="pr-cell"><button class="add-btn" onclick="addPacote('cai-${qty}','Bolinho Caipira (${label})','🌽',${p[qty]})">+</button></div>
+    </div>`).join('')}
+  </div>
+  <div class="aviso">* Valores sujeitos a alteração · Taxa de entrega a combinar</div>`;
+}
+
+// ── RENDER NHOQUE ──
+function renderNhoque(){
+  const p = nhoquePrices;
+  function pval(key){ return payMode==='pix' ? p[key].pix : (payMode==='debito'?p[key].debito:p[key].credito); }
+  return `
+  <div class="sec-title">🍅 Nhoque Artesanal Congelado</div>
+
+  <div class="nhoque-card">
+    <div class="nhoque-header"><h3>🍅 Nhoque Tradicional — 500g</h3><small>Serve 2 a 3 pessoas</small></div>
+    <div class="nhoque-body">
+      <div class="nhoque-obs">
+        <p>⚠️ Não colocar na água — já vem cozido<br>
+        🎥 Acompanha vídeo passo a passo<br>
+        💚 Saboroso, derrete na boca, prático!</p>
+      </div>
+      <div class="nhoque-prices">
+        <div class="nhoque-price-box"><div class="pay-type">Pix/Dinheiro</div><div class="price-val">R$ 12,00</div></div>
+        <div class="nhoque-price-box"><div class="pay-type">Cartão</div><div class="price-val">R$ 13,00</div></div>
+      </div>
+    </div>
+    <div class="nhoque-footer">
+      <div class="nhoque-serves">🍴 2 a 3 pessoas por pacote</div>
+      <button class="add-btn" style="width:34px;height:34px" onclick="addPacote('nhoque-trad','Nhoque Tradicional 500g','🍅',${pval('tradicional')})">+</button>
+    </div>
+  </div>
+
+  <div class="nhoque-card">
+    <div class="nhoque-header" style="background:linear-gradient(135deg,#1a4a6b,#1d6091)"><h3>🧀 Nhoque Recheado Presunto e Queijo — 500g</h3><small>Serve 2 a 3 pessoas</small></div>
+    <div class="nhoque-body">
+      <div class="nhoque-obs">
+        <p>⚠️ Não colocar na água — já vem cozido<br>
+        🧀 Recheio de presunto e queijo<br>
+        ⚠️ Não acompanha molho</p>
+      </div>
+      <div class="nhoque-prices">
+        <div class="nhoque-price-box"><div class="pay-type">Pix/Dinheiro</div><div class="price-val">R$ 17,00</div></div>
+        <div class="nhoque-price-box"><div class="pay-type">Cartão</div><div class="price-val">R$ 18,00</div></div>
+      </div>
+    </div>
+    <div class="nhoque-footer">
+      <div class="nhoque-serves">🍴 2 a 3 pessoas por pacote</div>
+      <button class="add-btn" style="width:34px;height:34px" onclick="addPacote('nhoque-pq','Nhoque Recheado Presunto e Queijo 500g','🧀',${pval('recheado_pq')})">+</button>
+    </div>
+  </div>
+
+  <div class="nhoque-card">
+    <div class="nhoque-header" style="background:linear-gradient(135deg,#5c3a1a,#7a4d22)"><h3>🫕 Nhoque Recheado Queijo — 500g</h3><small>Serve 2 a 3 pessoas</small></div>
+    <div class="nhoque-body">
+      <div class="nhoque-obs">
+        <p>⚠️ Não colocar na água — já vem cozido<br>
+        🧀 Recheio de queijo<br>
+        ⚠️ Não acompanha molho</p>
+      </div>
+      <div class="nhoque-prices">
+        <div class="nhoque-price-box"><div class="pay-type">Pix/Dinheiro</div><div class="price-val">R$ 17,00</div></div>
+        <div class="nhoque-price-box"><div class="pay-type">Cartão</div><div class="price-val">R$ 18,00</div></div>
+      </div>
+    </div>
+    <div class="nhoque-footer">
+      <div class="nhoque-serves">🍴 2 a 3 pessoas por pacote</div>
+      <button class="add-btn" style="width:34px;height:34px" onclick="addPacote('nhoque-q','Nhoque Recheado Queijo 500g','🫕',${pval('recheado_q')})">+</button>
+    </div>
+  </div>
+  <div class="aviso">* Valores sujeitos a alteração · Taxa de entrega a combinar</div>`;
+}
+
+// ── RENDER BEBIDAS ──
+function renderBebidas(){
+  return `
+  <div class="sec-title">🥤 Refrigerantes</div>
+  <div class="prod-grid">
+    ${bebidas.map(b=>{
+      const p=b.price[payMode];
+      const inCart=cart.find(c=>c.id===b.id);
+      return `
+      <div class="prod-card">
+        <div class="prod-img">${b.emoji}</div>
+        <div class="prod-body">
+          <div class="prod-name">${b.name}</div>
+          <div class="prod-footer">
+            <div class="prod-price">${fmt(p)}</div>
+            ${inCart
+              ? `<div class="qty-wrap">
+                  <button onclick="changeCartQty('${b.id}',-1)">−</button>
+                  <span class="qn">${inCart.qty}</span>
+                  <button onclick="changeCartQty('${b.id}',1)">+</button>
+                </div>`
+              : `<button class="add-btn" onclick="addPacote('${b.id}','${b.name}','${b.emoji}',${p})">+</button>`
+            }
+          </div>
+        </div>
+      </div>`;
+    }).join('')}
+  </div>
+  <div class="aviso">* Valores sujeitos a alteração</div>`;
+}
+
+// ── GALLERY ──
+function galleryHtml(){
+  return `<div class="gallery">
+    ${photos.map(p=>`<div class="gallery-img"><img src="${p.url}" alt="${p.alt}" onerror="this.parentElement.innerHTML='🍗'"></div>`).join('')}
+  </div>`;
+}
+
+// ── CART LOGIC ──
+function addPacote(id, name, emoji, price){
+  const idx = cart.findIndex(c=>c.id===id);
+  if(idx>=0){ cart[idx].qty++; cart[idx].unitPrice=price; }
+  else cart.push({id,name,emoji,qty:1,unitPrice:price});
+  updateCartUI();
+  showToast(emoji+' Adicionado ao carrinho!');
+}
+function addToCart(id,name,emoji,price,qty){
+  cart.push({id,name,emoji,qty,unitPrice:price});
+  updateCartUI();
+  showToast(emoji+' Adicionado ao carrinho!');
+}
+function changeCartQty(id,delta){
+  const idx=cart.findIndex(c=>c.id===id);
+  if(idx<0) return;
+  cart[idx].qty+=delta;
+  if(cart[idx].qty<=0) cart.splice(idx,1);
+  updateCartUI();
+}
+
+function totalItems(){ return cart.reduce((a,c)=>a+c.qty,0); }
+function totalPrice(){ return cart.reduce((a,c)=>a+c.qty*c.unitPrice,0); }
+
+function updateCartUI(){
+  const n=totalItems();
+  const badge=document.getElementById('cart-count');
+  badge.textContent=n; badge.classList.toggle('show',n>0);
+  document.getElementById('cart-bar').classList.toggle('visible',n>0);
+  document.getElementById('cbar-count').textContent=n+' '+(n===1?'item':'itens');
+  document.getElementById('cbar-total').textContent=fmt(totalPrice());
+}
+
+// ── DRAWER ──
+function openDrawer(){
+  renderDrawer();
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function renderDrawer(){
+  const body=document.getElementById('drawer-body');
+  const footer=document.getElementById('cart-footer');
+  if(!cart.length){
+    body.innerHTML=`<div class="empty"><div class="em-icon">🥲</div><p>Carrinho vazio.<br>Escolha seus salgados!</p></div>`;
+    footer.style.display='none'; return;
+  }
+  body.innerHTML=cart.map(c=>`
+    <div class="cart-item">
+      <div class="ci-emoji">${c.emoji}</div>
+      <div class="ci-info">
+        <div class="ci-name">${c.name}</div>
+        <div class="ci-unit">${fmt(c.unitPrice)} por pacote</div>
+      </div>
+      <div class="ci-right">
+        <div class="ci-price">${fmt(c.qty*c.unitPrice)}</div>
+        <div class="ci-qty">
+          <button onclick="drawerQty('${c.id}',-1)">−</button>
+          <span class="ciqn">${c.qty}</span>
+          <button onclick="drawerQty('${c.id}',1)">+</button>
+        </div>
+      </div>
+    </div>`).join('');
+
+  const payLabel = payMode==='pix' ? 'Pix / Dinheiro' : (payMode==='debito'?'Cartão Débito':'Cartão Crédito');
+  document.getElementById('cart-summary').innerHTML=`
+    <div class="sum-row"><span>${totalItems()} itens</span><span>${fmt(totalPrice())}</span></div>
+    <div class="sum-row"><span>Entrega</span><span>A combinar</span></div>
+    <div class="sum-row total"><span>Total</span><span>${fmt(totalPrice())}</span></div>`;
+  document.getElementById('pay-display').textContent=`💳 Forma de pagamento: ${payLabel}`;
+  footer.style.display='block';
+}
+function drawerQty(id,delta){
+  changeCartQty(id,delta);
+  renderDrawer();
+  // re-render current tab to sync
+  const activeTab=document.querySelector('.tab.active');
+  if(activeTab) activeTab.click();
+}
+
+// ── WHATSAPP ──
+function sendWpp(){
+  if(!cart.length) return;
+  const payLabel=payMode==='pix'?'Pix / Dinheiro':(payMode==='debito'?'Cartão Débito':'Cartão Crédito');
+  let msg='🍗 *Pedido — C&C Salgados e Doces*\n';
+  msg+='━━━━━━━━━━━━━━━━━\n\n';
+  msg+='*📋 Itens do pedido:*\n';
+  cart.forEach(c=>{
+    msg+=`${c.emoji} ${c.name}\n`;
+    msg+=`   Qtd: ${c.qty}x — Subtotal: ${fmt(c.qty*c.unitPrice)}\n\n`;
+  });
+  msg+='━━━━━━━━━━━━━━━━━\n';
+  msg+=`💳 *Pagamento:* ${payLabel}\n`;
+  msg+=`💰 *Total dos itens:* ${fmt(totalPrice())}\n`;
+  msg+='🚚 *Entrega:* a combinar\n';
+  const obs=document.getElementById('obs').value.trim();
+  if(obs) msg+=`\n📝 *Obs:* ${obs}\n`;
+  msg+='\n━━━━━━━━━━━━━━━━━\nOlá, gostaria de finalizar esse pedido! 😊';
+  window.open('https://wa.me/5511991097648?text='+encodeURIComponent(msg),'_blank');
+}
+
+// ── TOAST ──
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+// ── INIT ──
+showTab('fritos', document.querySelector('.tab.active'));
+</script>
+</body>
+</html>
