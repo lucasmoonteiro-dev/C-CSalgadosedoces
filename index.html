@@ -484,6 +484,95 @@ main{padding:1.5rem 4vw 130px;position:relative;z-index:1}
 /* ─ LABEL AVISO ─ */
 .aviso{font-size:.7rem;color:var(--muted);text-align:center;margin-top:.5rem;font-style:italic}
 
+/* ─ SABORES MODAL ─ */
+.smodal-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(30,8,0,.65);backdrop-filter:blur(5px);
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.smodal-overlay.open{opacity:1;pointer-events:all}
+.smodal{
+  background:var(--cream);
+  border-radius:22px 22px 0 0;
+  width:100%;max-width:540px;
+  max-height:92vh;
+  display:flex;flex-direction:column;
+  transform:translateY(60px);
+  transition:transform .35s cubic-bezier(.32,.72,0,1);
+  box-shadow:0 -8px 40px rgba(0,0,0,.35);
+}
+.smodal-overlay.open .smodal{transform:translateY(0)}
+.smodal-handle{width:38px;height:4px;border-radius:2px;background:var(--border);margin:11px auto 0;flex-shrink:0}
+.smodal-head{
+  padding:.85rem 1.2rem .7rem;
+  border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.smodal-head h3{font-family:'Pacifico',cursive;font-size:1.1rem;color:var(--maroon);margin-bottom:2px}
+.smodal-head p{font-size:.78rem;color:var(--muted)}
+/* progress bar */
+.smodal-progress{
+  margin:.7rem 1.2rem 0;flex-shrink:0;
+}
+.progress-track{
+  height:8px;background:var(--cream2);border-radius:50px;overflow:hidden;margin-bottom:4px;
+}
+.progress-fill{
+  height:100%;border-radius:50px;
+  background:var(--gold);
+  transition:width .25s,background .25s;
+}
+.progress-fill.exact{background:var(--green)}
+.progress-fill.over{background:var(--red)}
+.progress-label{
+  display:flex;justify-content:space-between;
+  font-size:.75rem;font-weight:800;
+}
+.progress-label .pl-done{color:var(--green)}
+.progress-label .pl-over{color:var(--red)}
+.progress-label .pl-neutral{color:var(--muted)}
+/* sabores list */
+.smodal-body{overflow-y:auto;flex:1;padding:.5rem 1.2rem 1rem}
+.smodal-item{
+  display:flex;align-items:center;gap:10px;
+  padding:.55rem 0;border-bottom:1px solid var(--border);
+}
+.smodal-item:last-child{border-bottom:none}
+.smodal-emoji{font-size:1.5rem;flex-shrink:0;width:34px;text-align:center}
+.smodal-name{flex:1;font-size:.87rem;font-weight:700;color:var(--text)}
+.smodal-qty{display:flex;align-items:center;gap:8px}
+.smodal-qty button{
+  width:30px;height:30px;border-radius:50%;
+  border:1.5px solid var(--border);background:#fff;
+  cursor:pointer;font-size:1rem;font-weight:800;color:var(--brown);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.smodal-qty button:hover{background:var(--maroon);color:var(--gold3);border-color:var(--maroon)}
+.smodal-qty button:disabled{opacity:.3;cursor:not-allowed;background:#fff;color:var(--brown)}
+.smodal-qty .sqn{font-weight:900;font-size:.9rem;min-width:22px;text-align:center;color:var(--maroon)}
+/* footer */
+.smodal-footer{
+  padding:.85rem 1.2rem 1.2rem;
+  border-top:1px solid var(--border);flex-shrink:0;
+  background:var(--cream);display:flex;gap:10px;
+}
+.smodal-cancel{
+  flex:1;background:var(--cream2);border:1.5px solid var(--border);
+  color:var(--muted);font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem;
+  border-radius:50px;height:48px;cursor:pointer;transition:background .2s;
+}
+.smodal-cancel:hover{background:var(--border)}
+.smodal-confirm{
+  flex:2;background:var(--maroon);color:var(--gold3);
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:.92rem;
+  border:none;border-radius:50px;height:48px;cursor:pointer;
+  transition:background .2s,opacity .2s;
+}
+.smodal-confirm:hover:not(:disabled){background:var(--maroon2)}
+.smodal-confirm:disabled{opacity:.4;cursor:not-allowed}
+.smodal-confirm.ready{background:var(--green)!important;color:#fff!important;opacity:1!important}
+
 /* ─ IMG GALLERY ─ */
 .gallery{
   display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
@@ -646,6 +735,29 @@ main{padding:1.5rem 4vw 130px;position:relative;z-index:1}
   </div>
 </div>
 
+<!-- SABORES MODAL -->
+<div class="smodal-overlay" id="smodal-overlay">
+  <div class="smodal" id="smodal">
+    <div class="smodal-handle"></div>
+    <div class="smodal-head">
+      <h3 id="smodal-title">Escolha os sabores</h3>
+      <p id="smodal-sub">Distribua as unidades entre os sabores disponíveis</p>
+    </div>
+    <div class="smodal-progress" id="smodal-progress">
+      <div class="progress-track"><div class="progress-fill" id="smodal-bar" style="width:0%"></div></div>
+      <div class="progress-label">
+        <span id="smodal-done-label" class="pl-neutral">0 selecionados</span>
+        <span id="smodal-limit-label" class="pl-neutral">de 0</span>
+      </div>
+    </div>
+    <div class="smodal-body" id="smodal-body"></div>
+    <div class="smodal-footer">
+      <button class="smodal-cancel" onclick="closeSmodal()">Cancelar</button>
+      <button class="smodal-confirm" id="smodal-confirm" disabled onclick="confirmSmodal()">Selecione os sabores</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -698,6 +810,9 @@ const caiPrices = {
   debito:  {10:13, 20:22, 30:29, 50:48, 100:97},
   credito: {10:13, 20:22, 30:29, 50:48, 100:97},
 };
+const caipiraSabores = [
+  {id:'cai1', name:'Bolinho Caipira', emoji:'🌽'},
+];
 
 // Congelados
 const congPrices = {
@@ -781,7 +896,7 @@ function renderFritos(){
     <div class="price-row">
       <div class="pr-cell qty">${label}</div>
       <div class="pr-cell price">${fmt(p[qty])}</div>
-      <div class="pr-cell"><button class="add-btn" onclick="addPacote('fritos-${qty}','Salgados Fritos (${label})','🔥',${p[qty]})">+</button></div>
+      <div class="pr-cell"><button class="add-btn" onclick="openSmodal(fritosSabores, ${qty}, ${p[qty]}, 'Salgados Fritos (${label})', '🔥')">+</button></div>
     </div>`).join('')}
   </div>
 
@@ -811,8 +926,79 @@ function renderFritos(){
   <div class="aviso">* Valores sujeitos a alteração · Taxa de entrega a combinar</div>`;
 }
 
-// fritos state
-const fritoQtys = {};
+// ── SABORES MODAL ──
+let smodalState = {
+  sabores: [],    // [{id,name,emoji}]
+  limit: 0,       // total de unidades do pacote
+  qtys: {},       // id → qty
+  price: 0,       // preço do pacote
+  label: '',      // "Salgados Fritos (Cento)"
+  emoji: '🔥',
+};
+
+function openSmodal(sabores, limit, price, label, emoji){
+  smodalState = {sabores, limit, price, label, emoji, qtys:{}};
+  sabores.forEach(s=>{ smodalState.qtys[s.id]=0; });
+  document.getElementById('smodal-title').textContent = label;
+  document.getElementById('smodal-sub').textContent = `Distribua exatamente ${limit} unidades entre os sabores`;
+  document.getElementById('smodal-limit-label').textContent = `de ${limit}`;
+  renderSmodalBody();
+  updateSmodalProgress();
+  document.getElementById('smodal-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSmodal(){
+  document.getElementById('smodal-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function renderSmodalBody(){
+  document.getElementById('smodal-body').innerHTML = smodalState.sabores.map(s=>`
+    <div class="smodal-item">
+      <div class="smodal-emoji">${s.emoji}</div>
+      <div class="smodal-name">${s.name}</div>
+      <div class="smodal-qty">
+        <button onclick="changeSmodal('${s.id}',-1)" id="sm-minus-${s.id}">−</button>
+        <span class="sqn" id="sm-qty-${s.id}">0</span>
+        <button onclick="changeSmodal('${s.id}',1)" id="sm-plus-${s.id}">+</button>
+      </div>
+    </div>`).join('');
+}
+function changeSmodal(id, delta){
+  smodalState.qtys[id] = Math.max(0,(smodalState.qtys[id]||0)+delta);
+  const el=document.getElementById('sm-qty-'+id);
+  if(el) el.textContent=smodalState.qtys[id];
+  updateSmodalProgress();
+}
+function updateSmodalProgress(){
+  const total = Object.values(smodalState.qtys).reduce((a,b)=>a+b,0);
+  const pct = Math.min(100, Math.round(total/smodalState.limit*100));
+  const bar=document.getElementById('smodal-bar');
+  bar.style.width=pct+'%';
+  bar.className='progress-fill'+(total===smodalState.limit?' exact':total>smodalState.limit?' over':'');
+  const doneEl=document.getElementById('smodal-done-label');
+  doneEl.textContent=total+' selecionados';
+  doneEl.className = total===smodalState.limit ? 'pl-done' : total>smodalState.limit ? 'pl-over' : 'pl-neutral';
+  const limitEl=document.getElementById('smodal-limit-label');
+  limitEl.className = total===smodalState.limit ? 'pl-done' : total>smodalState.limit ? 'pl-over' : 'pl-neutral';
+  const btn=document.getElementById('smodal-confirm');
+  if(total===smodalState.limit){
+    btn.disabled=false; btn.textContent='✓ Adicionar ao carrinho'; btn.classList.add('ready');
+  } else {
+    btn.disabled=true;
+    btn.textContent=total<smodalState.limit?`Faltam ${smodalState.limit-total} unidades`:`Reduza ${total-smodalState.limit} unidades`;
+    btn.classList.remove('ready');
+  }
+}
+function confirmSmodal(){
+  const {sabores,qtys,price,label,emoji,limit}=smodalState;
+  const items=sabores.filter(s=>qtys[s.id]>0).map(s=>`${s.name}×${qtys[s.id]}`).join(', ');
+  addToCart('pacote-'+Date.now(), `${label}: ${items}`, emoji, price, 1);
+  closeSmodal();
+}
+// close on overlay click
+document.getElementById('smodal-overlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeSmodal();});
+
+
 function changeFrito(id, delta){
   fritoQtys[id] = Math.max(0, (fritoQtys[id]||0)+delta);
   const el = document.getElementById('fq-'+id);
@@ -868,12 +1054,12 @@ function renderCongelados(){
     <div class="price-row">
       <div class="pr-cell qty">100 – Cento</div>
       <div class="pr-cell price">${fmt(p[100])}</div>
-      <div class="pr-cell"><button class="add-btn" onclick="addPacote('cong-100','Salgados Congelados (Cento)','❄️',${p[100]})">+</button></div>
+      <div class="pr-cell"><button class="add-btn" onclick="openSmodal(congSabores, 100, ${p[100]}, 'Salgados Congelados (Cento)', '❄️')">+</button></div>
     </div>
     <div class="price-row">
       <div class="pr-cell qty">50 – Meio Cento</div>
       <div class="pr-cell price">${fmt(p[50])}</div>
-      <div class="pr-cell"><button class="add-btn" onclick="addPacote('cong-50','Salgados Congelados (Meio Cento)','❄️',${p[50]})">+</button></div>
+      <div class="pr-cell"><button class="add-btn" onclick="openSmodal(congSabores, 50, ${p[50]}, 'Salgados Congelados (Meio Cento)', '❄️')">+</button></div>
     </div>
   </div>
 
@@ -969,7 +1155,7 @@ function renderAssados(){
     <div class="price-row">
       <div class="pr-cell qty">${label}</div>
       <div class="pr-cell price">${fmt(p[qty])}</div>
-      <div class="pr-cell"><button class="add-btn" onclick="addPacote('ass-${qty}','Assados (${label})','🥐',${p[qty]})">+</button></div>
+      <div class="pr-cell"><button class="add-btn" onclick="openSmodal(assadosSabores, ${qty}, ${p[qty]}, 'Assados (${label})', '🥐')">+</button></div>
     </div>`).join('')}
   </div>
   <div class="aviso">* Valores sujeitos a alteração · Taxa de entrega a combinar</div>`;
@@ -990,7 +1176,7 @@ function renderCaipira(){
     <div class="price-row">
       <div class="pr-cell qty">${label}</div>
       <div class="pr-cell price">${fmt(p[qty])}</div>
-      <div class="pr-cell"><button class="add-btn" onclick="addPacote('cai-${qty}','Bolinho Caipira (${label})','🌽',${p[qty]})">+</button></div>
+      <div class="pr-cell"><button class="add-btn" onclick="openSmodal(caipiraSabores, ${qty}, ${p[qty]}, 'Bolinho Caipira (${label})', '🌽')">+</button></div>
     </div>`).join('')}
   </div>
   <div class="aviso">* Valores sujeitos a alteração · Taxa de entrega a combinar</div>`;
@@ -1203,7 +1389,7 @@ function sendWpp(){
   const obs=document.getElementById('obs').value.trim();
   if(obs) msg+=`\n📝 *Obs:* ${obs}\n`;
   msg+='\n━━━━━━━━━━━━━━━━━\nOlá, gostaria de finalizar esse pedido! 😊';
-  window.open('https://wa.me/5512991097648?text='+encodeURIComponent(msg),'_blank');
+  window.open('https://wa.me/5511991097648?text='+encodeURIComponent(msg),'_blank');
 }
 
 // ── TOAST ──
