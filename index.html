@@ -1611,26 +1611,69 @@ function changeCartQty(index, delta){
   renderCart();
 }
 
-function sendWhatsApp(){
-  if(!cart.length) return;
-  const obs = document.getElementById('obs')?.value.trim() || '';
-  let msg = '🍗 *Pedido — C&C Salgados e Doces*\\n';
-  msg += '━━━━━━━━━━━━━━━━━\\n\\n';
-  msg += '*Itens do pedido:*\\n';
+function sendWpp(){
+  if(cart.length === 0){
+    showToast('Adicione itens ao pedido primeiro');
+    return;
+  }
 
-  cart.forEach(item => {
-    msg += `\\n• ${item.qty}x ${item.title}\\n`;
-    if(item.custom) msg += `  Sabores: ${item.custom}\\n`;
-    msg += `  Subtotal: ${money(item.price * item.qty)}\\n`;
+  const obsEl = document.getElementById('obs');
+  const obs = obsEl ? obsEl.value.trim() : '';
+
+  const total = cart.reduce((sum, item) => {
+    return sum + (item.unitPrice * item.qty);
+  }, 0);
+
+  const linhas = [];
+
+  linhas.push('*Olá! Gostaria de finalizar este pedido:*');
+  linhas.push('');
+  linhas.push('*C&C Salgados e Doces*');
+  linhas.push('');
+
+  cart.forEach((item, index) => {
+    linhas.push(`${index + 1}. *${item.name}*`);
+
+    if(item.qty && item.qty > 1){
+      linhas.push(`Quantidade: ${item.qty}`);
+    }
+
+    if(item.note){
+      linhas.push('');
+      linhas.push('*Sabores escolhidos:*');
+
+      item.note
+        .split('·')
+        .map(s => s.trim())
+        .filter(Boolean)
+        .forEach(sabor => {
+          linhas.push(`- ${sabor}`);
+        });
+    }
+
+    linhas.push(`Valor: ${fmt(item.unitPrice * item.qty)}`);
+    linhas.push('');
   });
 
-  msg += '\\n━━━━━━━━━━━━━━━━━\\n';
-  msg += `💰 *Total:* ${money(cartTotal())}\\n`;
-  msg += '🚚 *Entrega:* a combinar\\n';
-  if(obs) msg += `📝 *Observações:* ${obs}\\n`;
-  msg += '\\nOlá, gostaria de finalizar esse pedido.';
+  linhas.push(`*Total do pedido: ${fmt(total)}*`);
+  linhas.push('');
+  linhas.push('Entrega: a combinar');
 
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  if(obs){
+    linhas.push('');
+    linhas.push('*Observações:*');
+    linhas.push(obs);
+  }
+
+  linhas.push('');
+  linhas.push('Pode confirmar a disponibilidade, por favor?');
+
+  const message = linhas.join('\n');
+
+  const phone = 'SEU_NUMERO_AQUI';
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+  window.open(url, '_blank');
 }
 
 function showToast(text){
