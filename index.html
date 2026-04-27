@@ -1,1433 +1,1575 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <title>C&C Salgados e Doces</title>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --maroon:#6b1010;
-  --maroon2:#8b1a1a;
-  --gold:#c98a1a;
-  --gold2:#e8aa30;
-  --gold3:#f5cc6a;
-  --cream:#fdf3e0;
-  --cream2:#fae9c0;
-  --brown:#3d1c00;
-  --text:#2a0f00;
-  --muted:#7a4a20;
-  --border:rgba(201,138,26,0.28);
-  --green:#1d8a4a;
-  --red:#b91c1c;
+  --brand:#ea1d2c;
+  --brand-dark:#b91120;
+  --bg:#f7f7f7;
+  --card:#fff;
+  --text:#1f1f1f;
+  --muted:#717171;
+  --line:#eeeeee;
+  --green:#13a665;
+  --red:#d82432;
+  --purple:#8a35df;
+  --orange:#b75a12;
   --radius:16px;
-  --shadow:0 6px 28px rgba(61,28,0,0.18);
+  --shadow:0 12px 36px rgba(0,0,0,.16);
 }
-html,body{height:100%}
-body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
-
-/* ─ HEADER ─ */
-header{
-  position:sticky;top:0;z-index:50;
-  background:var(--maroon);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 4vw;height:62px;
-  box-shadow:0 3px 18px rgba(0,0,0,0.35);
+*{box-sizing:border-box;margin:0;padding:0}
+html{
+  scroll-behavior:smooth;
+  touch-action:manipulation;
+  -webkit-text-size-adjust:100%;
 }
-.logo-wrap{display:flex;align-items:center;gap:10px}
-.logo-img{
-  width:44px;height:44px;border-radius:50%;
-  object-fit:cover;
-  border:2px solid var(--gold2);
-  box-shadow:0 0 0 3px rgba(232,170,48,0.25);
-  background:var(--gold);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.5rem;overflow:hidden;flex-shrink:0;
+body{
+  font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  overflow-x:hidden;
 }
-.logo-text-wrap{line-height:1}
-.logo-name{font-family:'Pacifico',cursive;font-size:1.05rem;color:var(--gold3);letter-spacing:0.01em}
-.logo-sub{font-size:0.6rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:rgba(245,204,106,0.55);margin-top:1px}
-.cart-btn{
-  position:relative;background:none;border:none;cursor:pointer;
-  width:44px;height:44px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:1.3rem;
-  color:var(--gold2);transition:background .2s;
+button,input,textarea{font-family:inherit}
+button,
+.product-row,
+.category-chip,
+.cart-float,
+.qty-btn,
+.checkout-btn,
+.close-btn,
+.pay-option{
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+  -webkit-user-select:none;
 }
-.cart-btn:hover{background:rgba(255,255,255,.1)}
-.cart-count{
-  position:absolute;top:2px;right:2px;
-  background:var(--gold2);color:var(--maroon);
-  font-size:.62rem;font-weight:900;
-  width:18px;height:18px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;transform:scale(0);transition:opacity .2s,transform .3s cubic-bezier(.34,1.56,.64,1);
+img{max-width:100%;display:block}
+.app-shell{
+  max-width:760px;
+  margin:0 auto;
+  min-height:100vh;
+  background:#fff;
 }
-.cart-count.show{opacity:1;transform:scale(1)}
-
-/* ─ HERO ─ */
-.hero{
-  background:linear-gradient(160deg,var(--maroon) 0%,var(--maroon2) 60%,#a02020 100%);
-  padding:2rem 4vw 3rem;position:relative;overflow:hidden;
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:#fff;
+  padding:12px 16px 10px;
+  border-bottom:1px solid var(--line);
 }
-.hero::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:36px;
-  background:var(--cream);clip-path:ellipse(60% 100% at 50% 100%);
+.status-line{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
-.hero-glow{
-  position:absolute;top:-80px;right:-60px;
-  width:300px;height:300px;
-  background:radial-gradient(circle,rgba(232,170,48,.18) 0%,transparent 70%);
-  pointer-events:none;
-}
-.hero-top{display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap}
-.hero-left{flex:1;min-width:220px}
-.hero-badge-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:.75rem}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:5px;
-  background:rgba(232,170,48,.15);border:1px solid rgba(232,170,48,.4);
-  color:var(--gold3);font-size:.72rem;font-weight:700;
-  padding:3px 11px;border-radius:50px;
-}
-.hero h1{
-  font-family:'Pacifico',cursive;
-  font-size:clamp(1.5rem,5vw,2.2rem);
-  color:#fff;line-height:1.2;margin-bottom:.4rem;
-}
-.hero h1 span{color:var(--gold2)}
-.hero p{color:rgba(255,255,255,.65);font-size:.88rem;line-height:1.55;max-width:340px}
-
-/* diferencial 20g */
-.diff-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  margin-top:.85rem;
-  background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 100%);
-  color:var(--maroon);
-  font-size:.8rem;font-weight:900;
-  padding:7px 14px;border-radius:50px;
-  box-shadow:0 4px 16px rgba(201,138,26,.45);
-  letter-spacing:.01em;
-}
-.diff-badge .vs{
-  background:rgba(0,0,0,.18);
-  border-radius:50px;padding:1px 6px;font-size:.68rem;
-}
-
-/* info strip */
-.info-strip{
-  background:var(--brown);
-  display:flex;gap:0;overflow-x:auto;scrollbar-width:none;
-}
-.info-strip::-webkit-scrollbar{display:none}
-.info-chip{
-  flex-shrink:0;display:flex;align-items:center;gap:6px;
-  color:rgba(245,204,106,.8);font-size:.78rem;font-weight:700;
-  padding:.7rem 1.2rem;border-right:1px solid rgba(255,255,255,.07);
-}
-.info-chip span:first-child{font-size:1rem}
-
-/* ─ PAGAMENTO SELECTOR ─ */
-.pay-bar{
-  background:var(--cream2);
-  border-bottom:2px solid var(--border);
-  padding:.75rem 4vw;
-  display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
-}
-.pay-bar label{font-size:.8rem;font-weight:800;color:var(--maroon);white-space:nowrap}
-.pay-btns{display:flex;gap:6px;flex-wrap:wrap}
-.pay-btn{
-  background:#fff;border:1.5px solid var(--border);
-  color:var(--muted);font-family:'Nunito',sans-serif;
-  font-weight:700;font-size:.78rem;
-  padding:5px 14px;border-radius:50px;cursor:pointer;
-  transition:all .2s;white-space:nowrap;
-}
-.pay-btn.active{background:var(--maroon);border-color:var(--maroon);color:var(--gold3)}
-.pay-btn:not(.active):hover{border-color:var(--gold);color:var(--gold)}
-.pay-note{font-size:.7rem;color:var(--muted);width:100%;margin-top:-2px}
-
-/* ─ MAIN ─ */
-main{padding:1.5rem 4vw 130px;position:relative;z-index:1}
-
-/* ─ TABS ─ */
-.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:1.5rem;padding-bottom:2px}
-.tabs::-webkit-scrollbar{display:none}
-.tab{
-  flex-shrink:0;background:#fff;border:1.5px solid var(--border);
-  color:var(--muted);font-family:'Nunito',sans-serif;
-  font-weight:800;font-size:.82rem;
-  padding:8px 18px;border-radius:50px;cursor:pointer;
-  transition:all .2s;white-space:nowrap;
-}
-.tab.active{background:var(--maroon);border-color:var(--maroon);color:var(--gold3)}
-.tab:not(.active):hover{border-color:var(--gold);color:var(--gold)}
-
-/* ─ SECTION ─ */
-.sec-title{
-  font-family:'Pacifico',cursive;
-  font-size:1.2rem;color:var(--maroon);
-  margin-bottom:1rem;padding-bottom:.6rem;
-  border-bottom:2px solid var(--cream2);
-  display:flex;align-items:center;gap:8px;
-}
-
-/* ─ PRICE TABLE ─ */
-.price-table{
-  background:#fff;border:1.5px solid var(--border);
-  border-radius:var(--radius);overflow:hidden;
-  margin-bottom:1rem;
-}
-.price-table-head{
-  background:var(--maroon);
-  display:grid;grid-template-columns:1fr 1fr 1fr;
-  gap:0;
-}
-.pth{padding:.6rem .8rem;font-size:.72rem;font-weight:800;
-  letter-spacing:.06em;text-transform:uppercase;color:var(--gold3)}
-.price-row{
-  display:grid;grid-template-columns:1fr 1fr 1fr;
-  border-bottom:1px solid var(--border);
-}
-.price-row:last-child{border-bottom:none}
-.price-row:hover{background:var(--cream)}
-.pr-cell{padding:.55rem .8rem;font-size:.88rem;font-weight:700;color:var(--text);
-  display:flex;align-items:center}
-.pr-cell.price{color:var(--maroon);font-weight:900}
-.pr-cell.qty{color:var(--muted);font-size:.78rem;font-weight:700}
-
-/* ─ PRODUCT GRID ─ */
-.prod-grid{
+.back-btn{
+  border:0;
+  background:transparent;
+  color:var(--brand);
+  font-size:28px;
+  line-height:1;
+  width:32px;
+  height:32px;
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
-  gap:12px;margin-bottom:1.5rem;
+  place-items:center;
+  cursor:pointer;
 }
-.prod-card{
-  background:#fff;border:1.5px solid var(--border);
-  border-radius:var(--radius);overflow:hidden;
-  cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;
-  position:relative;
+.logo-mini{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  object-fit:cover;
+  border:1px solid #f0d8a7;
 }
-.prod-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--gold)}
-.prod-img{
-  width:100%;height:90px;object-fit:cover;
-  background:linear-gradient(135deg,var(--cream2),var(--cream));
-  display:flex;align-items:center;justify-content:center;
-  font-size:2.8rem;position:relative;overflow:hidden;
+.search-wrap{
+  flex:1;
+  height:42px;
+  background:#f1f1f1;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:0 12px;
+  min-width:0;
 }
-.prod-img img{width:100%;height:100%;object-fit:cover;display:block}
-.prod-badge{
-  position:absolute;top:6px;left:6px;
-  background:var(--gold);color:#fff;
-  font-size:.58rem;font-weight:900;letter-spacing:.05em;
-  text-transform:uppercase;padding:2px 7px;border-radius:50px;
-  box-shadow:0 2px 6px rgba(0,0,0,.2);
+.search-wrap span{color:#777;font-size:18px}
+.search-wrap input{
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+  font-size:14px;
+  color:#333;
 }
-.prod-body{padding:9px 11px 11px}
-.prod-name{font-weight:800;font-size:.85rem;color:var(--brown);margin-bottom:2px;line-height:1.3}
-.prod-desc{font-size:.7rem;color:var(--muted);margin-bottom:8px;line-height:1.4}
-.prod-footer{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.prod-price{font-weight:900;font-size:.82rem;color:var(--maroon2)}
-
-/* qty ctrl */
-.qty-wrap{display:flex;align-items:center;gap:5px}
-.qty-wrap button{
-  width:27px;height:27px;border-radius:50%;
-  border:1.5px solid var(--border);background:#fff;
-  cursor:pointer;font-size:.95rem;font-weight:800;color:var(--brown);
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;
+.store-head{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 16px 12px;
+  background:#fff;
 }
-.qty-wrap button:hover{background:var(--maroon);color:var(--gold3);border-color:var(--maroon)}
-.qty-wrap .qn{font-weight:800;font-size:.9rem;min-width:18px;text-align:center}
-.add-btn{
-  width:28px;height:28px;border-radius:50%;
-  background:var(--gold);border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;color:#fff;font-weight:700;
-  transition:background .2s,transform .15s;flex-shrink:0;
+.store-logo{
+  width:60px;
+  height:60px;
+  border-radius:18px;
+  object-fit:cover;
+  border:1px solid #ead39a;
+  background:#fff8e8;
 }
-.add-btn:hover{background:var(--maroon2);transform:scale(1.1)}
-
-/* ─ FRITOS section – qty by 10 ─ */
-.fritos-picker{
-  background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);
-  padding:1rem;margin-bottom:1.5rem;
+.store-title h1{
+  font-size:20px;
+  line-height:1.1;
+  font-weight:900;
+  letter-spacing:-.02em;
 }
-.fritos-picker h3{font-size:.9rem;font-weight:800;color:var(--maroon);margin-bottom:.75rem}
-.frito-item{
-  display:flex;align-items:center;gap:10px;
-  padding:.5rem 0;border-bottom:1px solid var(--border);
+.store-title p{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:4px;
 }
-.frito-item:last-child{border-bottom:none}
-.frito-emoji{font-size:1.4rem;flex-shrink:0}
-.frito-name{flex:1;font-size:.88rem;font-weight:700;color:var(--text)}
-.frito-qty{display:flex;align-items:center;gap:8px}
-.frito-qty button{
-  width:28px;height:28px;border-radius:50%;
-  border:1.5px solid var(--border);background:#fff;
-  cursor:pointer;font-size:1rem;font-weight:800;color:var(--brown);
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;
+.category-nav{
+  position:sticky;
+  top:65px;
+  z-index:45;
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:10px 16px;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  scrollbar-width:none;
 }
-.frito-qty button:hover{background:var(--maroon);color:var(--gold3);border-color:var(--maroon)}
-.frito-qty .fqn{font-weight:800;font-size:.9rem;min-width:22px;text-align:center;color:var(--maroon)}
-
-/* ─ NHOQUE CARD ─ */
-.nhoque-card{
-  background:#fff;border:1.5px solid var(--border);
-  border-radius:var(--radius);overflow:hidden;
-  margin-bottom:12px;
+.category-nav::-webkit-scrollbar{display:none}
+.category-chip{
+  flex:0 0 auto;
+  border:0;
+  background:#fff;
+  color:#4b4b4b;
+  font-size:14px;
+  font-weight:700;
+  padding:8px 12px;
+  border-radius:999px;
+  cursor:pointer;
+  white-space:nowrap;
 }
-.nhoque-header{
-  background:linear-gradient(135deg,#1a5c2a,#217a38);
-  padding:.75rem 1rem;
-  display:flex;align-items:center;gap:10px;
+.category-chip.active{
+  background:#fee7e9;
+  color:var(--brand);
 }
-.nhoque-header h3{color:#fff;font-size:.95rem;font-weight:800}
-.nhoque-header small{color:rgba(255,255,255,.7);font-size:.72rem}
-.nhoque-body{padding:1rem}
-.nhoque-obs{
-  background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;
-  padding:.7rem .9rem;margin-bottom:.8rem;
+.menu{
+  padding:8px 0 110px;
 }
-.nhoque-obs p{font-size:.75rem;color:#166534;font-weight:600;line-height:1.5}
-.nhoque-prices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.nhoque-price-box{
-  background:var(--cream);border:1.5px solid var(--border);
-  border-radius:10px;padding:.6rem .8rem;
+.section-block{
+  scroll-margin-top:128px;
+  border-top:8px solid var(--bg);
+  background:#fff;
 }
-.nhoque-price-box .pay-type{font-size:.65rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
-.nhoque-price-box .price-val{font-size:1rem;font-weight:900;color:var(--maroon)}
-.nhoque-footer{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:.7rem 1rem;background:var(--cream);border-top:1px solid var(--border);
+.section-title{
+  font-size:19px;
+  font-weight:900;
+  letter-spacing:-.02em;
+  padding:18px 16px 10px;
 }
-.nhoque-serves{font-size:.75rem;color:var(--muted);font-weight:600}
-
-/* ─ FLOATING BAR ─ */
-.cart-bar{
-  position:fixed;bottom:16px;left:50%;
-  transform:translateX(-50%) translateY(100px);
+.product-row{
+  display:grid;
+  grid-template-columns:1fr 112px;
+  gap:12px;
+  padding:16px;
+  border-top:1px solid var(--line);
+  background:#fff;
+  cursor:pointer;
+}
+.product-info{
+  min-width:0;
+}
+.product-title{
+  font-size:17px;
+  font-weight:700;
+  line-height:1.25;
+  letter-spacing:-.015em;
+}
+.product-desc{
+  margin-top:6px;
+  color:#666;
+  font-size:14px;
+  line-height:1.35;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.price-line{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.price{
+  color:#202020;
+  font-size:17px;
+  font-weight:800;
+}
+.old-price{
+  color:#aaa;
+  font-size:14px;
+  text-decoration:line-through;
+}
+.discount{
+  display:inline-flex;
+  align-items:center;
+  color:#fff;
+  background:var(--purple);
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  padding:2px 7px;
+}
+.badge{
+  display:inline-flex;
+  margin-top:8px;
+  padding:4px 8px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+  color:var(--purple);
+  background:#f5eafb;
+}
+.badge.orange{
+  color:var(--orange);
+  background:#fff3e8;
+}
+.product-img{
+  width:112px;
+  height:112px;
+  object-fit:cover;
+  border-radius:16px;
+  background:#eee;
+}
+.empty-search{
+  text-align:center;
+  padding:48px 22px;
+  color:var(--muted);
+}
+.cart-float{
+  position:fixed;
+  left:50%;
+  bottom:18px;
+  transform:translate(-50%,120px);
+  width:min(728px,calc(100vw - 24px));
+  height:58px;
+  background:var(--brand);
+  color:#fff;
+  border:0;
+  border-radius:999px;
+  padding:0 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  box-shadow:0 12px 28px rgba(234,29,44,.32);
   z-index:60;
-  background:var(--maroon);
-  border-radius:50px;padding:0 8px 0 16px;
-  display:flex;align-items:center;gap:12px;
-  min-width:280px;max-width:92vw;height:56px;
-  box-shadow:0 8px 32px rgba(61,28,0,.45);
-  transition:transform .4s cubic-bezier(.34,1.56,.64,1);cursor:pointer;
+  cursor:pointer;
+  transition:transform .28s ease;
 }
-.cart-bar.visible{transform:translateX(-50%) translateY(0)}
-.cart-bar:hover{background:var(--maroon2)}
-.cbar-info{flex:1}
-.cbar-count{font-size:.74rem;color:rgba(245,204,106,.7);font-weight:700}
-.cbar-total{font-family:'Pacifico',cursive;font-size:1rem;color:var(--gold2)}
-.cbar-btn{
-  background:var(--gold);color:#fff;
-  font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;
-  border:none;border-radius:50px;padding:0 16px;height:40px;
-  cursor:pointer;white-space:nowrap;transition:background .2s;
+.cart-float.show{transform:translate(-50%,0)}
+.cart-float strong{font-size:15px}
+.cart-float span{font-size:13px;opacity:.9}
+.cart-count-pill{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:rgba(255,255,255,.18);
+  display:grid;
+  place-items:center;
+  font-size:13px;
+  font-weight:900;
 }
-.cbar-btn:hover{background:var(--gold2)}
-
-/* ─ OVERLAY & DRAWER ─ */
 .overlay{
-  position:fixed;inset:0;z-index:100;
-  background:rgba(30,8,0,.6);backdrop-filter:blur(4px);
-  opacity:0;pointer-events:none;transition:opacity .3s;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.48);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .25s ease;
+  z-index:100;
 }
-.overlay.open{opacity:1;pointer-events:all}
-.drawer{
-  position:fixed;bottom:0;left:0;right:0;z-index:101;
-  background:var(--cream);border-radius:22px 22px 0 0;
-  max-height:90vh;
-  transform:translateY(100%);
-  transition:transform .4s cubic-bezier(.32,.72,0,1);
-  display:flex;flex-direction:column;
-  box-shadow:0 -8px 40px rgba(0,0,0,.3);
+.overlay.open{
+  opacity:1;
+  pointer-events:auto;
 }
-.drawer.open{transform:translateY(0)}
-.drawer-handle{
-  width:38px;height:4px;border-radius:2px;
-  background:var(--border);margin:11px auto 0;flex-shrink:0;
-}
-.drawer-head{
-  padding:.85rem 1.3rem;display:flex;align-items:center;justify-content:space-between;
-  border-bottom:1px solid var(--border);flex-shrink:0;
-}
-.drawer-head h2{font-family:'Pacifico',cursive;font-size:1.2rem;color:var(--maroon)}
-.close-btn{
-  width:32px;height:32px;border-radius:50%;
-  background:var(--cream2);border:none;cursor:pointer;
-  font-size:1rem;color:var(--muted);
-  display:flex;align-items:center;justify-content:center;transition:background .2s;
-}
-.close-btn:hover{background:var(--border)}
-.drawer-body{overflow-y:auto;flex:1;padding:1rem 1.3rem}
-
-/* ─ CART ITEMS ─ */
-.cart-item{
-  display:flex;align-items:center;gap:10px;
-  padding:11px 0;border-bottom:1px solid var(--border);
-  animation:slideIn .2s ease;
-}
-@keyframes slideIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:translateX(0)}}
-.ci-emoji{font-size:1.9rem;flex-shrink:0;width:40px;text-align:center}
-.ci-info{flex:1;min-width:0}
-.ci-name{font-weight:800;font-size:.87rem;color:var(--brown);line-height:1.3}
-.ci-unit{font-size:.72rem;color:var(--muted);margin-top:1px}
-.ci-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
-.ci-price{font-weight:900;font-size:.9rem;color:var(--maroon)}
-.ci-qty{display:flex;align-items:center;gap:7px}
-.ci-qty button{
-  width:25px;height:25px;border-radius:50%;
-  border:1.5px solid var(--border);background:#fff;
-  cursor:pointer;font-size:.9rem;font-weight:800;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--brown);transition:all .15s;
-}
-.ci-qty button:hover{background:var(--maroon);color:var(--gold3);border-color:var(--maroon)}
-.ci-qty .ciqn{font-weight:800;font-size:.88rem;min-width:18px;text-align:center}
-
-/* ─ OBS ─ */
-.obs-box{
-  margin:.8rem 0;background:#fff;
-  border:1.5px solid var(--border);border-radius:12px;padding:10px;
-}
-.obs-box label{font-size:.75rem;font-weight:800;color:var(--muted);display:block;margin-bottom:5px}
-.obs-box textarea{
-  width:100%;border:none;outline:none;resize:none;
-  font-family:'Nunito',sans-serif;font-size:.88rem;color:var(--text);
-  background:transparent;min-height:52px;
-}
-
-/* ─ CART FOOTER ─ */
-.cart-footer{
-  padding:.9rem 1.3rem 1.3rem;
-  border-top:1px solid var(--border);
-  flex-shrink:0;background:var(--cream);
-}
-.summary{margin-bottom:.9rem;display:flex;flex-direction:column;gap:5px}
-.sum-row{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted)}
-.sum-row.total{
-  font-size:1rem;font-weight:900;color:var(--brown);
-  padding-top:7px;border-top:1px dashed var(--border);
-}
-.sum-row.total span:last-child{color:var(--gold)}
-.pay-display{
-  font-size:.72rem;color:var(--muted);text-align:right;
-  margin-top:-2px;margin-bottom:.8rem;
-}
-.wpp-btn{
-  width:100%;background:#25D366;color:#fff;
-  border:none;border-radius:50px;height:52px;
-  font-family:'Nunito',sans-serif;font-weight:900;font-size:.98rem;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;
-  transition:background .2s,transform .15s;
-  box-shadow:0 4px 18px rgba(37,211,102,.35);
-}
-.wpp-btn:hover{background:#1ebe5d;transform:translateY(-1px)}
-.wpp-btn:active{transform:translateY(0)}
-.wpp-note{text-align:center;font-size:.7rem;color:var(--muted);margin-top:.5rem}
-
-/* ─ EMPTY ─ */
-.empty{text-align:center;padding:2.5rem 1rem}
-.empty .em-icon{font-size:3rem;margin-bottom:.6rem}
-.empty p{font-size:.88rem;color:var(--muted)}
-
-/* ─ FRITOS TOTAL BAR ─ */
-.fritos-total{
-  background:var(--cream2);border:1.5px solid var(--border);
-  border-radius:12px;padding:.8rem 1rem;margin-top:.5rem;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;
-}
-.fritos-total-label{font-size:.82rem;font-weight:800;color:var(--muted)}
-.fritos-total-price{font-size:1rem;font-weight:900;color:var(--maroon)}
-.fritos-total-qty{font-size:.72rem;color:var(--muted)}
-
-/* ─ HIGHLIGHT BOX ─ */
-.highlight-box{
-  background:linear-gradient(135deg,#7c1c1c,#a02828);
-  border-radius:var(--radius);padding:1rem 1.2rem;
-  margin-bottom:1.5rem;position:relative;overflow:hidden;
-}
-.highlight-box::before{
-  content:'';position:absolute;top:-30px;right:-30px;
-  width:120px;height:120px;
-  background:radial-gradient(circle,rgba(232,170,48,.25) 0%,transparent 70%);
-}
-.highlight-box h3{font-family:'Pacifico',cursive;color:var(--gold3);font-size:1rem;margin-bottom:.4rem}
-.highlight-box p{color:rgba(255,255,255,.8);font-size:.82rem;line-height:1.5}
-.highlight-box .big-weight{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--gold);color:#fff;
-  font-size:.88rem;font-weight:900;
-  padding:5px 14px;border-radius:50px;margin-top:.6rem;
-}
-.highlight-box .vs-tag{
-  background:rgba(0,0,0,.25);
-  border-radius:50px;padding:1px 7px;font-size:.7rem;
-}
-
-/* ─ TOAST ─ */
-.toast{
-  position:fixed;bottom:88px;left:50%;
-  transform:translateX(-50%) translateY(12px);
-  background:var(--brown);color:var(--gold3);
-  font-weight:800;font-size:.82rem;
-  padding:9px 20px;border-radius:50px;
-  opacity:0;transition:opacity .3s,transform .3s;
-  pointer-events:none;z-index:200;white-space:nowrap;
-  box-shadow:0 4px 14px rgba(0,0,0,.25);
-}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* ─ LABEL AVISO ─ */
-.aviso{font-size:.7rem;color:var(--muted);text-align:center;margin-top:.5rem;font-style:italic}
-
-/* ─ SABORES MODAL ─ */
-.smodal-overlay{
-  position:fixed;inset:0;z-index:200;
-  background:rgba(30,8,0,.65);backdrop-filter:blur(5px);
-  display:flex;align-items:flex-end;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .25s;
-}
-.smodal-overlay.open{opacity:1;pointer-events:all}
-.smodal{
-  background:var(--cream);
-  border-radius:22px 22px 0 0;
-  width:100%;max-width:540px;
+.sheet{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translate(-50%,100%);
+  width:min(760px,100vw);
   max-height:92vh;
-  display:flex;flex-direction:column;
-  transform:translateY(60px);
-  transition:transform .35s cubic-bezier(.32,.72,0,1);
-  box-shadow:0 -8px 40px rgba(0,0,0,.35);
+  background:#fff;
+  border-radius:24px 24px 0 0;
+  z-index:110;
+  display:flex;
+  flex-direction:column;
+  box-shadow:var(--shadow);
+  transition:transform .28s cubic-bezier(.2,.8,.2,1);
+  overflow:hidden;
 }
-.smodal-overlay.open .smodal{transform:translateY(0)}
-.smodal-handle{width:38px;height:4px;border-radius:2px;background:var(--border);margin:11px auto 0;flex-shrink:0}
-.smodal-head{
-  padding:.85rem 1.2rem .7rem;
-  border-bottom:1px solid var(--border);flex-shrink:0;
+.sheet.open{transform:translate(-50%,0)}
+.sheet-handle{
+  width:42px;
+  height:5px;
+  background:#ddd;
+  border-radius:999px;
+  margin:10px auto 0;
+  flex-shrink:0;
 }
-.smodal-head h3{font-family:'Pacifico',cursive;font-size:1.1rem;color:var(--maroon);margin-bottom:2px}
-.smodal-head p{font-size:.78rem;color:var(--muted)}
-/* progress bar */
-.smodal-progress{
-  margin:.7rem 1.2rem 0;flex-shrink:0;
+.sheet-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 16px 12px;
+  border-bottom:1px solid var(--line);
+  flex-shrink:0;
+}
+.sheet-head h2{
+  font-size:19px;
+  font-weight:900;
+}
+.close-btn{
+  border:0;
+  background:#f3f3f3;
+  border-radius:50%;
+  width:36px;
+  height:36px;
+  cursor:pointer;
+  font-size:20px;
+  color:#555;
+}
+.sheet-body{
+  overflow-y:auto;
+  flex:1;
+  padding:0 16px 14px;
+}
+.modal-img{
+  width:100%;
+  height:210px;
+  object-fit:cover;
+  border-radius:18px;
+  margin-top:14px;
+  background:#eee;
+}
+.modal-title{
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:-.02em;
+  line-height:1.15;
+  margin-top:16px;
+}
+.modal-desc{
+  color:#555;
+  font-size:14px;
+  line-height:1.45;
+  margin-top:8px;
+}
+.modal-price{
+  font-size:20px;
+  font-weight:900;
+  margin-top:12px;
+}
+.selector-card{
+  margin-top:18px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  overflow:hidden;
+}
+.selector-head{
+  padding:14px;
+  background:#fafafa;
+  border-bottom:1px solid var(--line);
+}
+.selector-head h3{
+  font-size:16px;
+  font-weight:900;
+}
+.selector-head p{
+  font-size:13px;
+  color:#666;
+  line-height:1.35;
+  margin-top:4px;
+}
+.progress-box{
+  margin-top:12px;
 }
 .progress-track{
-  height:8px;background:var(--cream2);border-radius:50px;overflow:hidden;margin-bottom:4px;
+  height:8px;
+  background:#e9e9e9;
+  border-radius:999px;
+  overflow:hidden;
 }
 .progress-fill{
-  height:100%;border-radius:50px;
-  background:var(--gold);
-  transition:width .25s,background .25s;
+  height:100%;
+  width:0%;
+  background:#b8b8b8;
+  transition:width .2s ease,background .2s ease;
 }
-.progress-fill.exact{background:var(--green)}
-.progress-fill.over{background:var(--red)}
-.progress-label{
-  display:flex;justify-content:space-between;
-  font-size:.75rem;font-weight:800;
+.progress-fill.ok{background:var(--green)}
+.progress-fill.error{background:var(--red)}
+.progress-text{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  margin-top:7px;
+  font-size:12px;
+  font-weight:800;
+  color:#777;
 }
-.progress-label .pl-done{color:var(--green)}
-.progress-label .pl-over{color:var(--red)}
-.progress-label .pl-neutral{color:var(--muted)}
-/* sabores list */
-.smodal-body{overflow-y:auto;flex:1;padding:.5rem 1.2rem 1rem}
-.smodal-item{
-  display:flex;align-items:center;gap:10px;
-  padding:.55rem 0;border-bottom:1px solid var(--border);
+.progress-text.ok{color:var(--green)}
+.progress-text.error{color:var(--red)}
+.option-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:13px 14px;
+  border-top:1px solid var(--line);
 }
-.smodal-item:last-child{border-bottom:none}
-.smodal-emoji{font-size:1.5rem;flex-shrink:0;width:34px;text-align:center}
-.smodal-name{flex:1;font-size:.87rem;font-weight:700;color:var(--text)}
-.smodal-qty{display:flex;align-items:center;gap:8px}
-.smodal-qty button{
-  width:30px;height:30px;border-radius:50%;
-  border:1.5px solid var(--border);background:#fff;
-  cursor:pointer;font-size:1rem;font-weight:800;color:var(--brown);
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;
+.option-row:first-child{border-top:0}
+.option-name{
+  font-size:14px;
+  font-weight:700;
+  line-height:1.25;
 }
-.smodal-qty button:hover{background:var(--maroon);color:var(--gold3);border-color:var(--maroon)}
-.smodal-qty button:disabled{opacity:.3;cursor:not-allowed;background:#fff;color:var(--brown)}
-.smodal-qty .sqn{font-weight:900;font-size:.9rem;min-width:22px;text-align:center;color:var(--maroon)}
-/* footer */
-.smodal-footer{
-  padding:.85rem 1.2rem 1.2rem;
-  border-top:1px solid var(--border);flex-shrink:0;
-  background:var(--cream);display:flex;gap:10px;
-}
-.smodal-cancel{
-  flex:1;background:var(--cream2);border:1.5px solid var(--border);
-  color:var(--muted);font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem;
-  border-radius:50px;height:48px;cursor:pointer;transition:background .2s;
-}
-.smodal-cancel:hover{background:var(--border)}
-.smodal-confirm{
-  flex:2;background:var(--maroon);color:var(--gold3);
-  font-family:'Nunito',sans-serif;font-weight:800;font-size:.92rem;
-  border:none;border-radius:50px;height:48px;cursor:pointer;
-  transition:background .2s,opacity .2s;
-}
-.smodal-confirm:hover:not(:disabled){background:var(--maroon2)}
-.smodal-confirm:disabled{opacity:.4;cursor:not-allowed}
-.smodal-confirm.ready{background:var(--green)!important;color:#fff!important;opacity:1!important}
-
-/* ─ IMG GALLERY ─ */
-.gallery{
-  display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
-  margin-bottom:1.5rem;
-}
-.gallery::-webkit-scrollbar{display:none}
-.gallery-img{
+.qty-control{
+  display:flex;
+  align-items:center;
+  gap:8px;
   flex-shrink:0;
-  width:120px;height:90px;border-radius:12px;
-  overflow:hidden;border:2px solid var(--border);
-  background:var(--cream2);
-  display:flex;align-items:center;justify-content:center;font-size:2.5rem;
 }
-.gallery-img img{width:100%;height:100%;object-fit:cover;display:block}
-
-/* ─ FADE IN ─ */
-.fade-in{animation:fadeIn .4s ease both}
-@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-/* ─ EVITA ZOOM ACIDENTAL NO CELULAR ─ */
-html {
-  touch-action: manipulation;
-  -webkit-text-size-adjust: 100%;
+.qty-btn{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:1px solid #ddd;
+  background:#fff;
+  color:var(--brand);
+  font-weight:900;
+  font-size:18px;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
 }
-
-button,
-.add-btn,
-.cart-btn,
-.pay-btn,
-.tab,
-.cbar-btn,
-.wpp-btn,
-.close-btn,
-.smodal-cancel,
-.smodal-confirm,
-.frito-qty button,
-.ci-qty button,
-.smodal-qty button {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-  -webkit-user-select: none;
+.qty-btn:disabled{
+  opacity:.35;
+  cursor:not-allowed;
+}
+.qty-number{
+  min-width:30px;
+  text-align:center;
+  font-weight:900;
+  font-size:14px;
+}
+.modal-footer{
+  border-top:1px solid var(--line);
+  padding:12px 16px max(12px,env(safe-area-inset-bottom));
+  background:#fff;
+  flex-shrink:0;
+}
+.item-qty-line{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+.item-qty-line span{
+  font-weight:800;
+}
+.add-cart-btn,
+.checkout-btn{
+  width:100%;
+  height:52px;
+  border:0;
+  border-radius:999px;
+  background:var(--brand);
+  color:#fff;
+  font-size:15px;
+  font-weight:900;
+  cursor:pointer;
+}
+.add-cart-btn:disabled,
+.checkout-btn:disabled{
+  background:#d6d6d6;
+  color:#888;
+  cursor:not-allowed;
+}
+.cart-body{
+  padding:12px 16px 4px;
+}
+.cart-item{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+}
+.cart-thumb{
+  width:56px;
+  height:56px;
+  border-radius:12px;
+  object-fit:cover;
+  flex-shrink:0;
+}
+.cart-item-main{
+  flex:1;
+  min-width:0;
+}
+.cart-item-title{
+  font-size:14px;
+  font-weight:800;
+  line-height:1.25;
+}
+.cart-item-custom{
+  margin-top:4px;
+  font-size:12px;
+  color:#666;
+  line-height:1.35;
+}
+.cart-price{
+  margin-top:6px;
+  font-size:14px;
+  font-weight:900;
+}
+.cart-item-side{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:8px;
+}
+.cart-small-qty .qty-btn{
+  width:28px;
+  height:28px;
+  font-size:16px;
+}
+.cart-small-qty .qty-number{
+  min-width:20px;
+}
+.checkout-form{
+  padding:12px 16px 16px;
+}
+.form-card{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:14px;
+  margin-bottom:12px;
+}
+.form-card label,
+.pay-title{
+  display:block;
+  font-size:13px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+textarea{
+  width:100%;
+  min-height:74px;
+  resize:vertical;
+  border:1px solid #e5e5e5;
+  border-radius:12px;
+  outline:0;
+  padding:10px 11px;
+  font-size:14px;
+}
+.pay-options{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+}
+.pay-option{
+  border:1px solid #e5e5e5;
+  background:#fff;
+  border-radius:12px;
+  padding:10px 8px;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+  text-align:center;
+}
+.pay-option.active{
+  border-color:var(--brand);
+  background:#fff1f2;
+  color:var(--brand);
+}
+.summary{
+  display:grid;
+  gap:6px;
+  margin:12px 0;
+}
+.sum-row{
+  display:flex;
+  justify-content:space-between;
+  color:#666;
+  font-size:14px;
+}
+.sum-row.total{
+  color:#111;
+  font-size:17px;
+  font-weight:900;
+  padding-top:8px;
+  border-top:1px dashed #ddd;
+}
+.empty-cart{
+  text-align:center;
+  color:#777;
+  padding:42px 16px;
+}
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:92px;
+  transform:translate(-50%,14px);
+  background:#222;
+  color:#fff;
+  border-radius:999px;
+  padding:10px 16px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease;
+  z-index:200;
+  font-size:13px;
+  font-weight:800;
+}
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+@media (max-width:420px){
+  .product-row{
+    grid-template-columns:1fr 100px;
+    padding:14px 16px;
+  }
+  .product-img{
+    width:100px;
+    height:100px;
+    border-radius:14px;
+  }
+  .product-title{font-size:16px}
+  .product-desc{font-size:14px}
+  .modal-img{height:190px}
 }
 </style>
 </head>
 <body>
-
-<!-- HEADER -->
-<header>
-  <div class="logo-wrap">
-    <div class="logo-img">
-      <!-- SVG logo baseado na identidade C&C -->
-      <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="22" cy="22" r="22" fill="#c98a1a"/>
-        <!-- forma de biscoito estampado -->
-        <path d="M22 4
-          Q25 4 27 6 Q30 4 32 6 Q34 5 34 8 Q37 9 37 12
-          Q40 13 39 16 Q41 18 40 21 Q41 23 40 26
-          Q41 29 39 30 Q40 33 37 34 Q37 37 34 37
-          Q33 40 30 39 Q28 41 25 40 Q23 42 22 41
-          Q20 42 18 40 Q15 41 14 39 Q11 40 10 37
-          Q7 37 7 34 Q4 33 5 30 Q3 28 4 26
-          Q3 23 4 21 Q3 18 5 16 Q4 13 7 12
-          Q7 9 10 8 Q10 5 13 6 Q15 4 17 6 Q19 4 22 4Z"
-          fill="none" stroke="#fff" stroke-width="1.2" stroke-dasharray="2.5,2"/>
-        <!-- batedor esquerdo -->
-        <line x1="15" y1="11" x2="20" y2="28" stroke="#3d1c00" stroke-width="1.8" stroke-linecap="round"/>
-        <line x1="13" y1="12" x2="18" y2="29" stroke="#3d1c00" stroke-width="1.8" stroke-linecap="round"/>
-        <line x1="17" y1="10" x2="22" y2="27" stroke="#3d1c00" stroke-width="1.8" stroke-linecap="round"/>
-        <path d="M12 10 Q15 7 18 10" stroke="#3d1c00" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-        <path d="M19 27 Q22 30 19 33" stroke="#3d1c00" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-        <!-- batedor direito -->
-        <line x1="29" y1="11" x2="24" y2="28" stroke="#3d1c00" stroke-width="1.8" stroke-linecap="round"/>
-        <line x1="31" y1="12" x2="26" y2="29" stroke="#3d1c00" stroke-width="1.8" stroke-linecap="round"/>
-        <line x1="27" y1="10" x2="22" y2="27" stroke="#3d1c00" stroke-width="1.8" stroke-linecap="round"/>
-        <path d="M32 10 Q29 7 26 10" stroke="#3d1c00" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-        <path d="M25 27 Q22 30 25 33" stroke="#3d1c00" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-        <!-- coração -->
-        <path d="M22 13 C22 13 21 11 19.5 11 C18 11 17 12.5 17 13.5 C17 16 22 19 22 19 C22 19 27 16 27 13.5 C27 12.5 26 11 24.5 11 C23 11 22 13 22 13Z"
-          fill="#3d1c00"/>
-        <!-- C & C texto -->
-        <text x="22" y="38" font-family="Georgia,serif" font-weight="bold" font-size="7.5"
-          fill="#3d1c00" text-anchor="middle" letter-spacing="1">C &amp; C</text>
-      </svg>
-    </div>
-    <div class="logo-text-wrap">
-      <div class="logo-name">C &amp; C</div>
-      <div class="logo-sub">Salgados e Doces</div>
-    </div>
-  </div>
-  <button class="cart-btn" onclick="openDrawer()" aria-label="Carrinho">
-    🛒<span class="cart-count" id="cart-count">0</span>
-  </button>
-</header>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-top">
-    <div class="hero-left">
-      <div class="hero-badge-row">
-        <div class="hero-badge">✨ Feito com carinho</div>
-        <div class="hero-badge">🏆 Desde sempre</div>
-      </div>
-      <h1>Salgados <span>&amp; Doces</span><br>pra sua festa!</h1>
-      <p>Salgados fritos, assados, congelados, nhoque artesanal e muito mais. Peça agora e receba em casa.</p>
-      <div class="diff-badge">
-        🏆 Nossos salgados têm <strong>20g</strong>
-        <span class="vs">vs concorrência: 12g</span>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="status-line">
+      <button class="back-btn" type="button" aria-label="Voltar">‹</button>
+      <img src="assets/logo.png" alt="Logo C&C Salgados e Doces" class="logo-mini">
+      <div class="search-wrap">
+        <span>⌕</span>
+        <input id="searchInput" type="search" placeholder="Buscar em C&C Salgados e Doces" autocomplete="off">
       </div>
     </div>
-  </div>
-</div>
+  </header>
 
-<!-- INFO STRIP -->
-<div class="info-strip">
-  <div class="info-chip"><span>💳</span> Pix · Dinheiro · Cartão</div>
-  <div class="info-chip"><span>🚚</span> Consulte entrega</div>
-  <div class="info-chip"><span>❄️</span> Congelados disponíveis</div>
-  <div class="info-chip"><span>🎉</span> Festas & eventos</div>
-  <div class="info-chip"><span>⚖️</span> Salgados de 20g</div>
-</div>
-
-<!-- PAGAMENTO -->
-<div class="pay-bar">
-  <label>💳 Forma de pagamento:</label>
-  <div class="pay-btns">
-    <button class="pay-btn active" onclick="setPay('pix',this)">💰 Pix / Dinheiro</button>
-    <button class="pay-btn" onclick="setPay('debito',this)">💳 Cartão Débito</button>
-    <button class="pay-btn" onclick="setPay('credito',this)">💳 Cartão Crédito</button>
-  </div>
-  <div class="pay-note">* Os preços mudam conforme a forma de pagamento selecionada · Valores sujeitos a alteração</div>
-</div>
-
-<!-- MAIN -->
-<main>
-
-  <!-- TABS -->
-  <div class="tabs">
-    <button class="tab active" onclick="showTab('fritos',this)">🔥 Salgados Fritos</button>
-    <button class="tab" onclick="showTab('congelados',this)">❄️ Congelados</button>
-    <button class="tab" onclick="showTab('mini-churros',this)">🍬 Mini Churros</button>
-    <button class="tab" onclick="showTab('assados',this)">🥐 Assados</button>
-    <button class="tab" onclick="showTab('caipira',this)">🌽 Bolinho Caipira</button>
-    <button class="tab" onclick="showTab('nhoque',this)">🍅 Nhoque</button>
-    <button class="tab" onclick="showTab('bebidas',this)">🥤 Bebidas</button>
-  </div>
-
-  <div id="tab-content"></div>
-</main>
-
-<!-- FLOATING BAR -->
-<div class="cart-bar" id="cart-bar" onclick="openDrawer()">
-  <div>🛒</div>
-  <div class="cbar-info">
-    <div class="cbar-count" id="cbar-count">0 itens</div>
-    <div class="cbar-total" id="cbar-total">R$ 0,00</div>
-  </div>
-  <button class="cbar-btn">Ver pedido →</button>
-</div>
-
-<!-- OVERLAY -->
-<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
-
-<!-- DRAWER -->
-<div class="drawer" id="drawer">
-  <div class="drawer-handle"></div>
-  <div class="drawer-head">
-    <h2>🛒 Meu Pedido</h2>
-    <button class="close-btn" onclick="closeDrawer()">✕</button>
-  </div>
-  <div class="drawer-body" id="drawer-body"></div>
-  <div class="cart-footer" id="cart-footer" style="display:none">
-    <div class="obs-box">
-      <label>📝 Observações (opcional)</label>
-      <textarea id="obs" placeholder="Ex: sem cebola, entregar às 18h, endereço de entrega..."></textarea>
+  <section class="store-head">
+    <img src="assets/logo.png" alt="C&C Salgados e Doces" class="store-logo">
+    <div class="store-title">
+      <h1>C&C Salgados e Doces</h1>
+      <p>Salgadinhos fritos, combos, bolinho caipira e mini churros</p>
     </div>
-    <div class="summary" id="cart-summary"></div>
-    <div class="pay-display" id="pay-display"></div>
-    <button class="wpp-btn" onclick="sendWpp()">
-      <svg width="21" height="21" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Finalizar pelo WhatsApp
-    </button>
-    <div class="wpp-note">📍 Taxa de entrega será combinada pelo WhatsApp</div>
-  </div>
+  </section>
+
+  <nav class="category-nav" id="categoryNav" aria-label="Categorias do cardápio"></nav>
+  <main class="menu" id="menu"></main>
 </div>
 
-<!-- SABORES MODAL -->
-<div class="smodal-overlay" id="smodal-overlay">
-  <div class="smodal" id="smodal">
-    <div class="smodal-handle"></div>
-    <div class="smodal-head">
-      <h3 id="smodal-title">Escolha os sabores</h3>
-      <p id="smodal-sub">Distribua as unidades entre os sabores disponíveis</p>
-    </div>
-    <div class="smodal-progress" id="smodal-progress">
-      <div class="progress-track"><div class="progress-fill" id="smodal-bar" style="width:0%"></div></div>
-      <div class="progress-label">
-        <span id="smodal-done-label" class="pl-neutral">0 selecionados</span>
-        <span id="smodal-limit-label" class="pl-neutral">de 0</span>
-      </div>
-    </div>
-    <div class="smodal-body" id="smodal-body"></div>
-    <div class="smodal-footer">
-      <button class="smodal-cancel" onclick="closeSmodal()">Cancelar</button>
-      <button class="smodal-confirm" id="smodal-confirm" disabled onclick="confirmSmodal()">Selecione os sabores</button>
-    </div>
+<button class="cart-float" id="cartFloat" type="button" onclick="openCart()">
+  <div class="cart-count-pill" id="cartFloatQty">0</div>
+  <div style="text-align:left;flex:1">
+    <strong>Ver pedido</strong><br>
+    <span id="cartFloatTotal">R$ 0,00</span>
   </div>
-</div>
+  <strong>→</strong>
+</button>
 
-<!-- TOAST -->
+<div class="overlay" id="modalOverlay" onclick="closeAllSheets()"></div>
+
+<section class="sheet" id="productSheet" aria-modal="true" role="dialog">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head">
+    <h2>Detalhes do item</h2>
+    <button class="close-btn" type="button" onclick="closeProductSheet()">×</button>
+  </div>
+  <div class="sheet-body" id="productSheetBody"></div>
+  <div class="modal-footer" id="productSheetFooter"></div>
+</section>
+
+<section class="sheet" id="cartSheet" aria-modal="true" role="dialog">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head">
+    <h2>Meu pedido</h2>
+    <button class="close-btn" type="button" onclick="closeCart()">×</button>
+  </div>
+  <div class="sheet-body" id="cartSheetBody"></div>
+</section>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ── ESTADO ──
-let payMode = 'pix'; // pix | debito | credito
-const cart = []; // {id, name, emoji, qty, unitPrice, note}
-
-// ── DADOS ──
-// Preços fritos por pacote: [20, 30, 50, 100]
-const fritosPrices = {
-  pix:     {20:18, 30:25, 50:38, 100:75},
-  debito:  {20:19, 30:27, 50:41, 100:82},
-  credito: {20:19, 30:27, 50:41, 100:82},
+const DATA = {
+  "sections": [
+    {
+      "id": "trio",
+      "name": "Trio Perfeito"
+    },
+    {
+      "id": "fritos",
+      "name": "Salgadinhos Fritos Aprox. 20g un."
+    },
+    {
+      "id": "combos",
+      "name": "Combos"
+    },
+    {
+      "id": "caipira",
+      "name": "Bolinho Caipira"
+    },
+    {
+      "id": "churros",
+      "name": "Mini Churros Doce de Leite"
+    }
+  ],
+  "products": [
+    {
+      "id": "trio-perfeito",
+      "section": "trio",
+      "title": "10 Salgadinhos + 5 Mini Churros doce de leite + 1 Coca Lata 350ml",
+      "shortTitle": "Trio Perfeito",
+      "description": "Fritos na hora, escolha até 5 opções: Coxinha de Frango, Coxinha de Frango com Requeijão, Bolinha de Queijo, (Risole) Travesserinho de Carne, Calabresa com Queijo, Bolinho Milho com Queijo e Kibe.",
+      "price": 16.49,
+      "oldPrice": 29.99,
+      "image": "assets/trio.jpg",
+      "badge": "Exclusivo Clube",
+      "selection": {
+        "title": "Escolha os salgadinhos",
+        "requiredTotal": 10,
+        "step": 2,
+        "maxFlavors": 5,
+        "unitLabel": "salgadinhos",
+        "help": "Selecione de 2 em 2 unidades até completar 10. Você pode escolher no máximo 5 sabores.",
+        "options": [
+          {
+            "id": "coxinha-frango",
+            "name": "Coxinha de Frango"
+          },
+          {
+            "id": "coxinha-requeijao",
+            "name": "Coxinha de Frango com Requeijão"
+          },
+          {
+            "id": "bolinha-queijo",
+            "name": "Bolinha de Queijo"
+          },
+          {
+            "id": "risole-carne",
+            "name": "(Risole) Travesserinho de Carne"
+          },
+          {
+            "id": "calabresa-queijo",
+            "name": "Calabresa com Queijo"
+          },
+          {
+            "id": "bolinho-milho-queijo",
+            "name": "Bolinho Milho com Queijo"
+          },
+          {
+            "id": "kibe",
+            "name": "Kibe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fritos-20",
+      "section": "fritos",
+      "title": "20 Salgadinhos Fritos Aprox. 20g un.",
+      "description": "Fritos na hora, escolha até 4 opções: Coxinha de Frango, Coxinha de Frango com Requeijão, Bolinha de Queijo, (Risole) Travesserinho de Carne, Croquete de Carne, Calabresa com Queijo, Bolinho Milho com Queijo e Kibe. Perfeito pra aniversários, reuniões ou simplesmente aquela vontade de comer uns salgadinhos. Um dos mais pedidos — qualidade que conquista!",
+      "price": 15.39,
+      "oldPrice": 27.99,
+      "image": "assets/fritos.jpg",
+      "badge": "Exclusivo Clube",
+      "selection": {
+        "title": "Escolha os sabores",
+        "requiredTotal": 20,
+        "step": 5,
+        "maxFlavors": 4,
+        "unitLabel": "salgadinhos",
+        "help": "Selecione de 5 em 5 unidades até completar 20. Você pode escolher no máximo 4 sabores.",
+        "options": [
+          {
+            "id": "coxinha-frango",
+            "name": "Coxinha de Frango"
+          },
+          {
+            "id": "coxinha-requeijao",
+            "name": "Coxinha de Frango com Requeijão"
+          },
+          {
+            "id": "bolinha-queijo",
+            "name": "Bolinha de Queijo"
+          },
+          {
+            "id": "risole-carne",
+            "name": "(Risole) Travesserinho de Carne"
+          },
+          {
+            "id": "croquete-carne",
+            "name": "Croquete de Carne"
+          },
+          {
+            "id": "calabresa-queijo",
+            "name": "Calabresa com Queijo"
+          },
+          {
+            "id": "bolinho-milho-queijo",
+            "name": "Bolinho Milho com Queijo"
+          },
+          {
+            "id": "kibe",
+            "name": "Kibe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fritos-30",
+      "section": "fritos",
+      "title": "30 Salgadinhos Fritos Aprox. 20g un.",
+      "description": "Fritos na hora, escolha até 3 opções: Coxinha de Frango, Coxinha de Frango com Requeijão, Bolinha de Queijo, (Risole) Travesserinho de Carne, Croquete de Carne, Calabresa com Queijo, Bolinho Milho com Queijo e Kibe. Perfeito pra aniversários, reuniões ou simplesmente aquela vontade de comer uns salgadinhos. Um dos mais pedidos — qualidade que conquista!",
+      "price": 22.09,
+      "oldPrice": 33.99,
+      "image": "assets/fritos.jpg",
+      "badge": "Exclusivo Clube",
+      "selection": {
+        "title": "Escolha os sabores",
+        "requiredTotal": 30,
+        "step": 10,
+        "maxFlavors": 3,
+        "unitLabel": "salgadinhos",
+        "help": "Selecione de 10 em 10 unidades até completar 30. Você pode escolher no máximo 3 sabores.",
+        "options": [
+          {
+            "id": "coxinha-frango",
+            "name": "Coxinha de Frango"
+          },
+          {
+            "id": "coxinha-requeijao",
+            "name": "Coxinha de Frango com Requeijão"
+          },
+          {
+            "id": "bolinha-queijo",
+            "name": "Bolinha de Queijo"
+          },
+          {
+            "id": "risole-carne",
+            "name": "(Risole) Travesserinho de Carne"
+          },
+          {
+            "id": "croquete-carne",
+            "name": "Croquete de Carne"
+          },
+          {
+            "id": "calabresa-queijo",
+            "name": "Calabresa com Queijo"
+          },
+          {
+            "id": "bolinho-milho-queijo",
+            "name": "Bolinho Milho com Queijo"
+          },
+          {
+            "id": "kibe",
+            "name": "Kibe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fritos-50",
+      "section": "fritos",
+      "title": "50 Salgadinhos Fritos Aprox. 20g un.",
+      "description": "Fritos na hora, escolha até 5 opções: Coxinha de Frango, Coxinha de Frango com Requeijão, Bolinha de Queijo, (Risole) Travesserinho de Carne, Croquete de Carne, Calabresa com Queijo, Bolinho Milho com Queijo e Kibe.",
+      "price": 38.0,
+      "image": "assets/fritos.jpg",
+      "badge": "O mais pedido",
+      "selection": {
+        "title": "Escolha os sabores",
+        "requiredTotal": 50,
+        "step": 10,
+        "maxFlavors": 5,
+        "unitLabel": "salgadinhos",
+        "help": "Selecione de 10 em 10 unidades até completar 50. Você pode escolher no máximo 5 sabores.",
+        "options": [
+          {
+            "id": "coxinha-frango",
+            "name": "Coxinha de Frango"
+          },
+          {
+            "id": "coxinha-requeijao",
+            "name": "Coxinha de Frango com Requeijão"
+          },
+          {
+            "id": "bolinha-queijo",
+            "name": "Bolinha de Queijo"
+          },
+          {
+            "id": "risole-carne",
+            "name": "(Risole) Travesserinho de Carne"
+          },
+          {
+            "id": "croquete-carne",
+            "name": "Croquete de Carne"
+          },
+          {
+            "id": "calabresa-queijo",
+            "name": "Calabresa com Queijo"
+          },
+          {
+            "id": "bolinho-milho-queijo",
+            "name": "Bolinho Milho com Queijo"
+          },
+          {
+            "id": "kibe",
+            "name": "Kibe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fritos-100",
+      "section": "fritos",
+      "title": "100 Salgadinhos Fritos Aprox. 20g un.",
+      "description": "Fritos na hora, escolha até 5 opções: Coxinha de Frango, Coxinha de Frango com Requeijão, Bolinha de Queijo, (Risole) Travesserinho de Carne, Croquete de Carne, Calabresa com Queijo, Bolinho Milho com Queijo e Kibe.",
+      "price": 75.0,
+      "image": "assets/fritos.jpg",
+      "selection": {
+        "title": "Escolha os sabores",
+        "requiredTotal": 100,
+        "step": 20,
+        "maxFlavors": 5,
+        "unitLabel": "salgadinhos",
+        "help": "Selecione de 20 em 20 unidades até completar 100. Você pode escolher no máximo 5 sabores.",
+        "options": [
+          {
+            "id": "coxinha-frango",
+            "name": "Coxinha de Frango"
+          },
+          {
+            "id": "coxinha-requeijao",
+            "name": "Coxinha de Frango com Requeijão"
+          },
+          {
+            "id": "bolinha-queijo",
+            "name": "Bolinha de Queijo"
+          },
+          {
+            "id": "risole-carne",
+            "name": "(Risole) Travesserinho de Carne"
+          },
+          {
+            "id": "croquete-carne",
+            "name": "Croquete de Carne"
+          },
+          {
+            "id": "calabresa-queijo",
+            "name": "Calabresa com Queijo"
+          },
+          {
+            "id": "bolinho-milho-queijo",
+            "name": "Bolinho Milho com Queijo"
+          },
+          {
+            "id": "kibe",
+            "name": "Kibe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "combo-20",
+      "section": "combos",
+      "title": "Combo 20 Salgadinhos + 10 Mini Churros + 1 Coca 600ml",
+      "description": "10 Mini Churros Doce de Leite + 1 Coca-Cola 600ml e escolha até 2 opções: Coxinha de Frango, Coxinha de Frango com Requeijão, Bolinha de Queijo, (Risole) Travesserinho de Carne, Croquete de Carne, Calabresa com Queijo, Bolinho Milho com Queijo e Kibe.",
+      "price": 35.9,
+      "image": "assets/combo20.jpg",
+      "selection": {
+        "title": "Escolha os salgadinhos do combo",
+        "requiredTotal": 20,
+        "step": 10,
+        "maxFlavors": 2,
+        "unitLabel": "salgadinhos",
+        "help": "Selecione de 10 em 10 unidades até completar 20. Você pode escolher no máximo 2 sabores.",
+        "options": [
+          {
+            "id": "coxinha-frango",
+            "name": "Coxinha de Frango"
+          },
+          {
+            "id": "coxinha-requeijao",
+            "name": "Coxinha de Frango com Requeijão"
+          },
+          {
+            "id": "bolinha-queijo",
+            "name": "Bolinha de Queijo"
+          },
+          {
+            "id": "risole-carne",
+            "name": "(Risole) Travesserinho de Carne"
+          },
+          {
+            "id": "croquete-carne",
+            "name": "Croquete de Carne"
+          },
+          {
+            "id": "calabresa-queijo",
+            "name": "Calabresa com Queijo"
+          },
+          {
+            "id": "bolinho-milho-queijo",
+            "name": "Bolinho Milho com Queijo"
+          },
+          {
+            "id": "kibe",
+            "name": "Kibe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "combo-40",
+      "section": "combos",
+      "title": "Combo 40 Salgadinhos + 10 Mini Churros + 1 Coca 600ml",
+      "description": "10 Mini Churros Doce de Leite + 1 Coca-Cola 600ml e escolha até 4 opções: Coxinha de Frango, Coxinha de Frango com Requeijão, Bolinha de Queijo, (Risole) Travesserinho de Carne, Croquete de Carne, Calabresa com Queijo, Bolinho Milho com Queijo e Kibe.",
+      "price": 59.9,
+      "image": "assets/combo40.jpg",
+      "selection": {
+        "title": "Escolha os salgadinhos do combo",
+        "requiredTotal": 40,
+        "step": 10,
+        "maxFlavors": 4,
+        "unitLabel": "salgadinhos",
+        "help": "Selecione de 10 em 10 unidades até completar 40. Você pode escolher no máximo 4 sabores.",
+        "options": [
+          {
+            "id": "coxinha-frango",
+            "name": "Coxinha de Frango"
+          },
+          {
+            "id": "coxinha-requeijao",
+            "name": "Coxinha de Frango com Requeijão"
+          },
+          {
+            "id": "bolinha-queijo",
+            "name": "Bolinha de Queijo"
+          },
+          {
+            "id": "risole-carne",
+            "name": "(Risole) Travesserinho de Carne"
+          },
+          {
+            "id": "croquete-carne",
+            "name": "Croquete de Carne"
+          },
+          {
+            "id": "calabresa-queijo",
+            "name": "Calabresa com Queijo"
+          },
+          {
+            "id": "bolinho-milho-queijo",
+            "name": "Bolinho Milho com Queijo"
+          },
+          {
+            "id": "kibe",
+            "name": "Kibe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "caipira-10",
+      "section": "caipira",
+      "title": "10 Bolinho Caipira",
+      "description": "Bolinho caipira preparado para deixar seu pedido ainda mais completo.",
+      "price": 12.0,
+      "image": "assets/bolinho-caipira.jpg"
+    },
+    {
+      "id": "caipira-20",
+      "section": "caipira",
+      "title": "20 Bolinho Caipira",
+      "description": "Porção ideal para dividir ou completar a festa.",
+      "price": 20.0,
+      "image": "assets/bolinho-caipira.jpg"
+    },
+    {
+      "id": "caipira-30",
+      "section": "caipira",
+      "title": "30 Bolinho Caipira",
+      "description": "Mais quantidade para reuniões, aniversários e eventos.",
+      "price": 27.0,
+      "image": "assets/bolinho-caipira.jpg"
+    },
+    {
+      "id": "caipira-50",
+      "section": "caipira",
+      "title": "50 Bolinho Caipira",
+      "description": "Pacote maior para festa ou encomenda.",
+      "price": 45.0,
+      "image": "assets/bolinho-caipira.jpg"
+    },
+    {
+      "id": "churros-10",
+      "section": "churros",
+      "title": "10 Mini Churros Doce de Leite",
+      "description": "Mini churros recheados com doce de leite.",
+      "price": 12.0,
+      "image": "assets/mini-churros.jpg"
+    },
+    {
+      "id": "churros-20",
+      "section": "churros",
+      "title": "20 Mini Churros Doce de Leite",
+      "description": "Mini churros recheados com doce de leite.",
+      "price": 20.0,
+      "image": "assets/mini-churros.jpg"
+    },
+    {
+      "id": "churros-30",
+      "section": "churros",
+      "title": "30 Mini Churros Doce de Leite",
+      "description": "Mini churros recheados com doce de leite.",
+      "price": 27.0,
+      "image": "assets/mini-churros.jpg"
+    },
+    {
+      "id": "churros-50",
+      "section": "churros",
+      "title": "50 Mini Churros Doce de Leite",
+      "description": "Mini churros recheados com doce de leite.",
+      "price": 45.0,
+      "image": "assets/mini-churros.jpg"
+    }
+  ]
 };
-// Preços por unidade (fritos, calculados a partir de 100)
-function fritoUnitPrice(){ return fritosPrices[payMode][100]/100; }
 
-const fritosSabores = [
-  {id:'f1', name:'Coxinha de Frango', emoji:'🍗'},
-  {id:'f2', name:'Coxinha de Frango com Bacon', emoji:'🥓'},
-  {id:'f3', name:'Coxinha de Frango com Requeijão', emoji:'🧀'},
-  {id:'f4', name:'Bolinha de Queijo', emoji:'🧆'},
-  {id:'f5', name:'Croquete de Carne', emoji:'🥩'},
-  {id:'f6', name:'Travesserinho de Carne (Risoles)', emoji:'🥟'},
-  {id:'f7', name:'Enroladinho Presunto e Queijo', emoji:'🌯'},
-  {id:'f8', name:'Calabresa com Queijo', emoji:'🌶️'},
-  {id:'f9', name:'Bolinho de Milho com Queijo', emoji:'🌽'},
-  {id:'f10', name:'Kibe', emoji:'🫓'},
-];
+const WHATSAPP_NUMBER = '5512991097648';
 
-const miniChurrosPrices = {
-  pix:     {10:12, 20:20, 30:27, 50:45, 100:90},
-  debito:  {10:13, 20:22, 30:29, 50:48, 100:97},
-  credito: {10:13, 20:22, 30:29, 50:48, 100:97},
-};
+let cart = [];
+let currentProduct = null;
+let productQty = 1;
+let selectedOptions = {};
+let paymentMethod = 'Pix';
+let activeCategory = DATA.sections[0].id;
 
-const assadosPrices = {
-  pix:     {10:12, 20:20, 30:27, 50:45, 100:90},
-  debito:  {10:13, 20:22, 30:29, 50:48, 100:97},
-  credito: {10:13, 20:22, 30:29, 50:48, 100:97},
-};
-const assadosSabores = [
-  {id:'a1', name:'Empada de Frango', emoji:'🥧'},
-  {id:'a2', name:'Esfilha de Carne', emoji:'🫓'},
-];
+const money = (v) => 'R$ ' + Number(v || 0).toFixed(2).replace('.', ',');
 
-const caiPrices = {
-  pix:     {10:12, 20:20, 30:27, 50:45, 100:90},
-  debito:  {10:13, 20:22, 30:29, 50:48, 100:97},
-  credito: {10:13, 20:22, 30:29, 50:48, 100:97},
-};
-const caipiraSabores = [
-  {id:'cai1', name:'Bolinho Caipira', emoji:'🌽'},
-];
-
-// Congelados
-const congPrices = {
-  pix:    {50:30, 100:60},
-  debito: {50:33, 100:65},
-  credito:{50:33, 100:65},
-};
-const congSabores = [...fritosSabores]; // mesmos sabores
-
-// Nhoque
-const nhoquePrices = {
-  tradicional:    {pix:12, debito:13, credito:13},
-  recheado_pq:    {pix:17, debito:18, credito:18},
-  recheado_q:     {pix:17, debito:18, credito:18},
-};
-
-// Bebidas
-const bebidas = [
-  {id:'b1', name:'Coca-Cola 2 Litros', emoji:'🥤', price:{pix:14,debito:15,credito:15}},
-  {id:'b2', name:'Guaraná Antarctica 1 Litro', emoji:'🧃', price:{pix:8,debito:9,credito:9}},
-  {id:'b3', name:'Coca-Cola 600ml', emoji:'🥤', price:{pix:8,debito:9,credito:9}},
-  {id:'b4', name:'Coca-Cola Lata 350ml', emoji:'🥫', price:{pix:5,debito:6,credito:6}},
-];
-
-// Fotos reais (Unsplash)
-const photos = [
-  {url:'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=240&q=80', alt:'Coxinhas douradas'},
-  {url:'https://images.unsplash.com/photo-1601924582970-9238bcb495d6?w=240&q=80', alt:'Salgados de festa'},
-  {url:'https://images.unsplash.com/photo-1605478621568-9c8d63e9c6eb?w=240&q=80', alt:'Mini salgados'},
-  {url:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=240&q=80', alt:'Coxinhas bandeja'},
-];
-
-function fmt(v){ return 'R$ '+v.toFixed(2).replace('.',','); }
-
-// ── PAGAMENTO ──
-function setPay(mode, btn){
-  payMode = mode;
-  document.querySelectorAll('.pay-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  // re-render tab atual
-  const activeTab = document.querySelector('.tab.active');
-  if(activeTab) activeTab.click();
+function discountPercent(product){
+  if(!product.oldPrice || product.oldPrice <= product.price) return null;
+  return '-' + Math.round((1 - product.price / product.oldPrice) * 100) + '%';
 }
 
-// ── TABS ──
-function showTab(tab, btn){
-  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const el = document.getElementById('tab-content');
-  el.className = 'fade-in';
-  void el.offsetWidth;
-
-  if(tab==='fritos') el.innerHTML = renderFritos();
-  else if(tab==='congelados') el.innerHTML = renderCongelados();
-  else if(tab==='mini-churros') el.innerHTML = renderMiniChurros();
-  else if(tab==='assados') el.innerHTML = renderAssados();
-  else if(tab==='caipira') el.innerHTML = renderCaipira();
-  else if(tab==='nhoque') el.innerHTML = renderNhoque();
-  else if(tab==='bebidas') el.innerHTML = renderBebidas();
+function sectionById(id){
+  return DATA.sections.find(s => s.id === id);
 }
 
-// ── RENDER FRITOS ──
-function renderFritos(){
-  const p = fritosPrices[payMode];
-  const up = p[100]/100;
+function productById(id){
+  return DATA.products.find(p => p.id === id);
+}
+
+function renderCategories(){
+  const nav = document.getElementById('categoryNav');
+  nav.innerHTML = DATA.sections.map(section => `
+    <button type="button" class="category-chip ${section.id===activeCategory?'active':''}" onclick="goToSection('${section.id}')">
+      ${section.name}
+    </button>
+  `).join('');
+}
+
+function goToSection(id){
+  activeCategory = id;
+  renderCategories();
+  const el = document.getElementById('section-' + id);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function renderMenu(){
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  const menu = document.getElementById('menu');
+
+  let any = false;
+  const blocks = DATA.sections.map(section => {
+    const products = DATA.products.filter(p => p.section === section.id).filter(p => {
+      if(!q) return true;
+      return [p.title, p.description, section.name].join(' ').toLowerCase().includes(q);
+    });
+
+    if(!products.length) return '';
+    any = true;
+
+    return `
+      <section class="section-block" id="section-${section.id}">
+        <h2 class="section-title">${section.name}</h2>
+        ${products.map(renderProductRow).join('')}
+      </section>
+    `;
+  }).join('');
+
+  menu.innerHTML = any ? blocks : `
+    <div class="empty-search">
+      <h3>Nenhum item encontrado</h3>
+      <p>Tente buscar por salgadinho, churros, combo ou bolinho.</p>
+    </div>
+  `;
+}
+
+function renderProductRow(product){
+  const pct = discountPercent(product);
+  const badgeClass = product.badge && product.badge.toLowerCase().includes('pedido') ? 'orange' : '';
   return `
-  <div class="highlight-box">
-    <h3>🏆 Diferencial C&C</h3>
-    <p>Nossos salgados são <strong>maiores e mais saborosos</strong> que a concorrência. Você merece o melhor!</p>
-    <div class="big-weight">⚖️ 20g por salgado <span class="vs-tag">concorrência: 12g</span></div>
-  </div>
-  ${galleryHtml()}
-  <div class="sec-title">🔥 Salgados Fritos — Pacotes fechados</div>
-  <div class="price-table">
-    <div class="price-table-head">
-      <div class="pth">Quantidade</div>
-      <div class="pth">Preço</div>
-      <div class="pth">Ação</div>
-    </div>
-    ${[['100 – Cento',100],['50 – Meio Cento',50],['30 – Trinta',30],['20 – Vinte',20]].map(([label,qty])=>`
-    <div class="price-row">
-      <div class="pr-cell qty">${label}</div>
-      <div class="pr-cell price">${fmt(p[qty])}</div>
-      <div class="pr-cell"><button class="add-btn" onclick="openSmodal(fritosSabores, ${qty}, ${p[qty]}, 'Salgados Fritos (${label})', '🔥')">+</button></div>
-    </div>`).join('')}
-  </div>
-
-  <div class="sec-title" style="margin-top:1.5rem">🍽️ Escolha sua quantidade e sabores</div>
-  <p style="font-size:.8rem;color:var(--muted);margin-bottom:1rem">Personalize à vontade — selecione quantos quiser de cada sabor. Preço: ${fmt(up)} por unidade.</p>
-  <div class="fritos-picker">
-    <h3>Quantos de cada sabor?</h3>
-    ${fritosSabores.map(s=>`
-    <div class="frito-item">
-      <div class="frito-emoji">${s.emoji}</div>
-      <div class="frito-name">${s.name}</div>
-      <div class="frito-qty">
-        <button onclick="changeFrito('${s.id}',-1)">−</button>
-        <span class="fqn" id="fq-${s.id}">0</span>
-        <button onclick="changeFrito('${s.id}',1)">+</button>
+    <article class="product-row" onclick="openProduct('${product.id}')">
+      <div class="product-info">
+        <h3 class="product-title">${product.title}</h3>
+        <p class="product-desc">${product.description}</p>
+        <div class="price-line">
+          <span class="price">${money(product.price)}</span>
+          ${product.oldPrice ? `<span class="old-price">${money(product.oldPrice)}</span>` : ''}
+          ${pct ? `<span class="discount">${pct}</span>` : ''}
+        </div>
+        ${product.badge ? `<span class="badge ${badgeClass}">${product.badge}</span>` : ''}
       </div>
-    </div>`).join('')}
-    <div class="fritos-total" id="fritos-total" style="display:none">
-      <div>
-        <div class="fritos-total-label">Total selecionado</div>
-        <div class="fritos-total-qty" id="fritos-total-qty"></div>
-      </div>
-      <div class="fritos-total-price" id="fritos-total-price"></div>
-      <button class="add-btn" style="width:36px;height:36px;font-size:1rem" onclick="addFritosCustom()">🛒</button>
-    </div>
-  </div>
-  <div class="aviso">* Valores sujeitos a alteração · Taxa de entrega a combinar</div>`;
+      <img class="product-img" src="${product.image}" alt="${product.title}">
+    </article>
+  `;
 }
 
-// ── SABORES MODAL ──
-let smodalState = {
-  sabores: [],    // [{id,name,emoji}]
-  limit: 0,       // total de unidades do pacote
-  qtys: {},       // id → qty
-  price: 0,       // preço do pacote
-  label: '',      // "Salgados Fritos (Cento)"
-  emoji: '🔥',
-};
+function openProduct(id){
+  const product = productById(id);
+  if(!product) return;
+  currentProduct = product;
+  productQty = 1;
+  selectedOptions = {};
+  if(product.selection){
+    product.selection.options.forEach(o => selectedOptions[o.id] = 0);
+  }
 
-function openSmodal(sabores, limit, price, label, emoji){
-  smodalState = {sabores, limit, price, label, emoji, qtys:{}};
-  sabores.forEach(s=>{ smodalState.qtys[s.id]=0; });
-  document.getElementById('smodal-title').textContent = label;
-  document.getElementById('smodal-sub').textContent = `Distribua exatamente ${limit} unidades entre os sabores`;
-  document.getElementById('smodal-limit-label').textContent = `de ${limit}`;
-  renderSmodalBody();
-  updateSmodalProgress();
-  document.getElementById('smodal-overlay').classList.add('open');
-  document.body.style.overflow='hidden';
+  renderProductSheet();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('productSheet').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
-function closeSmodal(){
-  document.getElementById('smodal-overlay').classList.remove('open');
-  document.body.style.overflow='';
-}
-function renderSmodalBody(){
-  document.getElementById('smodal-body').innerHTML = smodalState.sabores.map(s=>`
-    <div class="smodal-item">
-      <div class="smodal-emoji">${s.emoji}</div>
-      <div class="smodal-name">${s.name}</div>
-      <div class="smodal-qty">
-        <button onclick="changeSmodal('${s.id}',-1)" id="sm-minus-${s.id}">−</button>
-        <span class="sqn" id="sm-qty-${s.id}">0</span>
-        <button onclick="changeSmodal('${s.id}',1)" id="sm-plus-${s.id}">+</button>
-      </div>
-    </div>`).join('');
-}
-function changeSmodal(id, delta){
-  smodalState.qtys[id] = Math.max(0,(smodalState.qtys[id]||0)+delta);
-  const el=document.getElementById('sm-qty-'+id);
-  if(el) el.textContent=smodalState.qtys[id];
-  updateSmodalProgress();
-}
-function updateSmodalProgress(){
-  const total = Object.values(smodalState.qtys).reduce((a,b)=>a+b,0);
-  const pct = Math.min(100, Math.round(total/smodalState.limit*100));
-  const bar=document.getElementById('smodal-bar');
-  bar.style.width=pct+'%';
-  bar.className='progress-fill'+(total===smodalState.limit?' exact':total>smodalState.limit?' over':'');
-  const doneEl=document.getElementById('smodal-done-label');
-  doneEl.textContent=total+' selecionados';
-  doneEl.className = total===smodalState.limit ? 'pl-done' : total>smodalState.limit ? 'pl-over' : 'pl-neutral';
-  const limitEl=document.getElementById('smodal-limit-label');
-  limitEl.className = total===smodalState.limit ? 'pl-done' : total>smodalState.limit ? 'pl-over' : 'pl-neutral';
-  const btn=document.getElementById('smodal-confirm');
-  if(total===smodalState.limit){
-    btn.disabled=false; btn.textContent='✓ Adicionar ao carrinho'; btn.classList.add('ready');
-  } else {
-    btn.disabled=true;
-    btn.textContent=total<smodalState.limit?`Faltam ${smodalState.limit-total} unidades`:`Reduza ${total-smodalState.limit} unidades`;
-    btn.classList.remove('ready');
+
+function closeProductSheet(){
+  document.getElementById('productSheet').classList.remove('open');
+  if(!document.getElementById('cartSheet').classList.contains('open')){
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
   }
 }
-function confirmSmodal(){
-  const {sabores,qtys,price,label,emoji,limit}=smodalState;
-  const items=sabores.filter(s=>qtys[s.id]>0).map(s=>`${s.name}×${qtys[s.id]}`).join(', ');
-  addToCart('pacote-'+Date.now(), `${label}: ${items}`, emoji, price, 1);
-  closeSmodal();
-}
-// close on overlay click
-document.getElementById('smodal-overlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeSmodal();});
 
-// Estado dos sabores personalizados de fritos
-const fritoQtys = {};
-  
-function changeFrito(id, delta){
-  fritoQtys[id] = Math.max(0, (fritoQtys[id]||0)+delta);
-  const el = document.getElementById('fq-'+id);
-  if(el) el.textContent = fritoQtys[id];
-  updateFritosTotal();
-}
-function updateFritosTotal(){
-  const total = Object.values(fritoQtys).reduce((a,b)=>a+b,0);
-  const up = fritosPrices[payMode][100]/100;
-  const price = total * up;
-  const bar = document.getElementById('fritos-total');
-  if(!bar) return;
-  if(total>0){
-    bar.style.display='flex';
-    document.getElementById('fritos-total-qty').textContent = total+' unid.';
-    document.getElementById('fritos-total-price').textContent = fmt(price);
-  } else {
-    bar.style.display='none';
-  }
-}
-function addFritosCustom(){
-  const total = Object.values(fritoQtys).reduce((a,b)=>a+b,0);
-  if(total===0) return;
-  const up = fritosPrices[payMode][100]/100;
-  const price = total * up;
-  // build name list
-  const items = fritosSabores.filter(s=>(fritoQtys[s.id]||0)>0)
-    .map(s=>`${s.name}×${fritoQtys[s.id]}`).join(', ');
-  addToCart('fritos-custom-'+Date.now(), `Fritos Personalizado (${total}un): ${items}`, '🔥', price, 1);
-  // reset
-  fritosSabores.forEach(s=>{ fritoQtys[s.id]=0; const e=document.getElementById('fq-'+s.id); if(e) e.textContent='0'; });
-  updateFritosTotal();
+function renderProductSheet(){
+  if(!currentProduct) return;
+  const p = currentProduct;
+  const body = document.getElementById('productSheetBody');
+  const footer = document.getElementById('productSheetFooter');
+
+  body.innerHTML = `
+    <img class="modal-img" src="${p.image}" alt="${p.title}">
+    <h2 class="modal-title">${p.title}</h2>
+    <p class="modal-desc">${p.description}</p>
+    <div class="modal-price">${money(p.price)}</div>
+    ${p.selection ? renderSelection(p.selection) : ''}
+  `;
+
+  footer.innerHTML = `
+    <div class="item-qty-line">
+      <span>Quantidade do item</span>
+      <div class="qty-control">
+        <button class="qty-btn" type="button" onclick="changeProductQty(-1)" ${productQty<=1?'disabled':''}>−</button>
+        <span class="qty-number">${productQty}</span>
+        <button class="qty-btn" type="button" onclick="changeProductQty(1)">+</button>
+      </div>
+    </div>
+    <button class="add-cart-btn" type="button" onclick="addCurrentToCart()" ${canAddCurrent()?'':'disabled'}>
+      ${canAddCurrent() ? `Adicionar • ${money(p.price * productQty)}` : addButtonText()}
+    </button>
+  `;
 }
 
-// ── RENDER CONGELADOS ──
-function renderCongelados(){
-  const p = congPrices[payMode];
-  const up50 = p[50];
-  const up100 = p[100];
+function renderSelection(selection){
+  const status = selectionStatus(selection);
   return `
-  <div class="highlight-box">
-    <h3>❄️ Salgados Congelados</h3>
-    <p>Temos à <strong>pronta entrega</strong>! Praticamente o mesmo salgado frito, pronto para fritar em casa. Consulte a taxa de entrega.</p>
-    <div class="big-weight">⚖️ 20g cada <span class="vs-tag">vs concorrência: 12g</span></div>
-  </div>
-  <div class="sec-title">❄️ Pacotes Congelados</div>
-  <div class="price-table">
-    <div class="price-table-head">
-      <div class="pth">Quantidade</div>
-      <div class="pth">Preço</div>
-      <div class="pth">Ação</div>
-    </div>
-    <div class="price-row">
-      <div class="pr-cell qty">100 – Cento</div>
-      <div class="pr-cell price">${fmt(p[100])}</div>
-      <div class="pr-cell"><button class="add-btn" onclick="openSmodal(congSabores, 100, ${p[100]}, 'Salgados Congelados (Cento)', '❄️')">+</button></div>
-    </div>
-    <div class="price-row">
-      <div class="pr-cell qty">50 – Meio Cento</div>
-      <div class="pr-cell price">${fmt(p[50])}</div>
-      <div class="pr-cell"><button class="add-btn" onclick="openSmodal(congSabores, 50, ${p[50]}, 'Salgados Congelados (Meio Cento)', '❄️')">+</button></div>
-    </div>
-  </div>
-
-  <div class="sec-title" style="margin-top:1.5rem">🍽️ Sabores disponíveis (Congelados)</div>
-  <div class="fritos-picker">
-    <h3>Selecione os sabores</h3>
-    ${congSabores.map(s=>`
-    <div class="frito-item">
-      <div class="frito-emoji">${s.emoji}</div>
-      <div class="frito-name">${s.name}</div>
-      <div class="frito-qty">
-        <button onclick="changeCong('${s.id}',-1)">−</button>
-        <span class="fqn" id="cq-${s.id}">0</span>
-        <button onclick="changeCong('${s.id}',1)">+</button>
-      </div>
-    </div>`).join('')}
-    <div class="fritos-total" id="cong-total" style="display:none">
-      <div>
-        <div class="fritos-total-label">Total congelado</div>
-        <div class="fritos-total-qty" id="cong-total-qty"></div>
-      </div>
-      <div class="fritos-total-price" id="cong-total-price"></div>
-      <button class="add-btn" style="width:36px;height:36px;font-size:1rem" onclick="addCongCustom()">🛒</button>
-    </div>
-  </div>
-  <div class="aviso">* Pronta entrega disponível · Taxa de entrega a combinar · Valores sujeitos a alteração</div>`;
-}
-const congQtys = {};
-function changeCong(id,delta){
-  congQtys[id]=Math.max(0,(congQtys[id]||0)+delta);
-  const el=document.getElementById('cq-'+id);
-  if(el) el.textContent=congQtys[id];
-  updateCongTotal();
-}
-function updateCongTotal(){
-  const total=Object.values(congQtys).reduce((a,b)=>a+b,0);
-  const up=congPrices[payMode][100]/100;
-  const price=total*up;
-  const bar=document.getElementById('cong-total');
-  if(!bar) return;
-  if(total>0){
-    bar.style.display='flex';
-    document.getElementById('cong-total-qty').textContent=total+' unid.';
-    document.getElementById('cong-total-price').textContent=fmt(price);
-  } else { bar.style.display='none'; }
-}
-function addCongCustom(){
-  const total=Object.values(congQtys).reduce((a,b)=>a+b,0);
-  if(total===0) return;
-  const up=congPrices[payMode][100]/100;
-  const price=total*up;
-  const items=congSabores.filter(s=>(congQtys[s.id]||0)>0)
-    .map(s=>`${s.name}×${congQtys[s.id]}`).join(', ');
-  addToCart('cong-custom-'+Date.now(),`Congelados Personalizado (${total}un): ${items}`,'❄️',price,1);
-  congSabores.forEach(s=>{congQtys[s.id]=0;const e=document.getElementById('cq-'+s.id);if(e)e.textContent='0';});
-  updateCongTotal();
-}
-
-// ── RENDER MINI CHURROS ──
-function renderMiniChurros(){
-  const p = miniChurrosPrices[payMode];
-  return `
-  <div class="sec-title">🍬 Mini Churros — Doce de Leite</div>
-  <div class="price-table">
-    <div class="price-table-head">
-      <div class="pth">Quantidade</div>
-      <div class="pth">Preço</div>
-      <div class="pth">Ação</div>
-    </div>
-    ${[['100 – Cento',100],['50 – Meio Cento',50],['30 – Trinta',30],['20 – Vinte',20],['10 – Dez',10]].map(([label,qty])=>`
-    <div class="price-row">
-      <div class="pr-cell qty">${label}</div>
-      <div class="pr-cell price">${fmt(p[qty])}</div>
-      <div class="pr-cell"><button class="add-btn" onclick="addPacote('churros-${qty}','Mini Churros Doce de Leite (${label})','🍬',${p[qty]})">+</button></div>
-    </div>`).join('')}
-  </div>
-  <div class="aviso">* Valores sujeitos a alteração · Taxa de entrega a combinar</div>`;
-}
-
-// ── RENDER ASSADOS ──
-function renderAssados(){
-  const p = assadosPrices[payMode];
-  return `
-  <div class="sec-title">🥐 Assados</div>
-  <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem">Sabores: ${assadosSabores.map(s=>s.emoji+' '+s.name).join(' · ')}</p>
-  <div class="price-table">
-    <div class="price-table-head">
-      <div class="pth">Quantidade</div>
-      <div class="pth">Preço</div>
-      <div class="pth">Ação</div>
-    </div>
-    ${[['100 – Cento',100],['50 – Meio Cento',50],['30 – Trinta',30],['20 – Vinte',20],['10 – Dez',10]].map(([label,qty])=>`
-    <div class="price-row">
-      <div class="pr-cell qty">${label}</div>
-      <div class="pr-cell price">${fmt(p[qty])}</div>
-      <div class="pr-cell"><button class="add-btn" onclick="openSmodal(assadosSabores, ${qty}, ${p[qty]}, 'Assados (${label})', '🥐')">+</button></div>
-    </div>`).join('')}
-  </div>
-  <div class="aviso">* Valores sujeitos a alteração · Taxa de entrega a combinar</div>`;
-}
-
-// ── RENDER CAIPIRA ──
-function renderCaipira(){
-  const p = caiPrices[payMode];
-  return `
-  <div class="sec-title">🌽 Bolinho Caipira</div>
-  <div class="price-table">
-    <div class="price-table-head">
-      <div class="pth">Quantidade</div>
-      <div class="pth">Preço</div>
-      <div class="pth">Ação</div>
-    </div>
-    ${[['100 – Cento',100],['50 – Meio Cento',50],['30 – Trinta',30],['20 – Vinte',20],['10 – Dez',10]].map(([label,qty])=>`
-    <div class="price-row">
-      <div class="pr-cell qty">${label}</div>
-      <div class="pr-cell price">${fmt(p[qty])}</div>
-      <div class="pr-cell"><button class="add-btn" onclick="openSmodal(caipiraSabores, ${qty}, ${p[qty]}, 'Bolinho Caipira (${label})', '🌽')">+</button></div>
-    </div>`).join('')}
-  </div>
-  <div class="aviso">* Valores sujeitos a alteração · Taxa de entrega a combinar</div>`;
-}
-
-// ── RENDER NHOQUE ──
-function renderNhoque(){
-  const p = nhoquePrices;
-  function pval(key){ return payMode==='pix' ? p[key].pix : (payMode==='debito'?p[key].debito:p[key].credito); }
-  return `
-  <div class="sec-title">🍅 Nhoque Artesanal Congelado</div>
-
-  <div class="nhoque-card">
-    <div class="nhoque-header"><h3>🍅 Nhoque Tradicional — 500g</h3><small>Serve 2 a 3 pessoas</small></div>
-    <div class="nhoque-body">
-      <div class="nhoque-obs">
-        <p>⚠️ Não colocar na água — já vem cozido<br>
-        🎥 Acompanha vídeo passo a passo<br>
-        💚 Saboroso, derrete na boca, prático!</p>
-      </div>
-      <div class="nhoque-prices">
-        <div class="nhoque-price-box"><div class="pay-type">Pix/Dinheiro</div><div class="price-val">R$ 12,00</div></div>
-        <div class="nhoque-price-box"><div class="pay-type">Cartão</div><div class="price-val">R$ 13,00</div></div>
-      </div>
-    </div>
-    <div class="nhoque-footer">
-      <div class="nhoque-serves">🍴 2 a 3 pessoas por pacote</div>
-      <button class="add-btn" style="width:34px;height:34px" onclick="addPacote('nhoque-trad','Nhoque Tradicional 500g','🍅',${pval('tradicional')})">+</button>
-    </div>
-  </div>
-
-  <div class="nhoque-card">
-    <div class="nhoque-header" style="background:linear-gradient(135deg,#1a4a6b,#1d6091)"><h3>🧀 Nhoque Recheado Presunto e Queijo — 500g</h3><small>Serve 2 a 3 pessoas</small></div>
-    <div class="nhoque-body">
-      <div class="nhoque-obs">
-        <p>⚠️ Não colocar na água — já vem cozido<br>
-        🧀 Recheio de presunto e queijo<br>
-        ⚠️ Não acompanha molho</p>
-      </div>
-      <div class="nhoque-prices">
-        <div class="nhoque-price-box"><div class="pay-type">Pix/Dinheiro</div><div class="price-val">R$ 17,00</div></div>
-        <div class="nhoque-price-box"><div class="pay-type">Cartão</div><div class="price-val">R$ 18,00</div></div>
-      </div>
-    </div>
-    <div class="nhoque-footer">
-      <div class="nhoque-serves">🍴 2 a 3 pessoas por pacote</div>
-      <button class="add-btn" style="width:34px;height:34px" onclick="addPacote('nhoque-pq','Nhoque Recheado Presunto e Queijo 500g','🧀',${pval('recheado_pq')})">+</button>
-    </div>
-  </div>
-
-  <div class="nhoque-card">
-    <div class="nhoque-header" style="background:linear-gradient(135deg,#5c3a1a,#7a4d22)"><h3>🫕 Nhoque Recheado Queijo — 500g</h3><small>Serve 2 a 3 pessoas</small></div>
-    <div class="nhoque-body">
-      <div class="nhoque-obs">
-        <p>⚠️ Não colocar na água — já vem cozido<br>
-        🧀 Recheio de queijo<br>
-        ⚠️ Não acompanha molho</p>
-      </div>
-      <div class="nhoque-prices">
-        <div class="nhoque-price-box"><div class="pay-type">Pix/Dinheiro</div><div class="price-val">R$ 17,00</div></div>
-        <div class="nhoque-price-box"><div class="pay-type">Cartão</div><div class="price-val">R$ 18,00</div></div>
-      </div>
-    </div>
-    <div class="nhoque-footer">
-      <div class="nhoque-serves">🍴 2 a 3 pessoas por pacote</div>
-      <button class="add-btn" style="width:34px;height:34px" onclick="addPacote('nhoque-q','Nhoque Recheado Queijo 500g','🫕',${pval('recheado_q')})">+</button>
-    </div>
-  </div>
-  <div class="aviso">* Valores sujeitos a alteração · Taxa de entrega a combinar</div>`;
-}
-
-// ── RENDER BEBIDAS ──
-function renderBebidas(){
-  return `
-  <div class="sec-title">🥤 Refrigerantes</div>
-  <div class="prod-grid">
-    ${bebidas.map(b=>{
-      const p=b.price[payMode];
-      const inCart=cart.find(c=>c.id===b.id);
-      return `
-      <div class="prod-card">
-        <div class="prod-img">${b.emoji}</div>
-        <div class="prod-body">
-          <div class="prod-name">${b.name}</div>
-          <div class="prod-footer">
-            <div class="prod-price">${fmt(p)}</div>
-            ${inCart
-              ? `<div class="qty-wrap">
-                  <button onclick="changeCartQty('${b.id}',-1)">−</button>
-                  <span class="qn">${inCart.qty}</span>
-                  <button onclick="changeCartQty('${b.id}',1)">+</button>
-                </div>`
-              : `<button class="add-btn" onclick="addPacote('${b.id}','${b.name}','${b.emoji}',${p})">+</button>`
-            }
+    <div class="selector-card">
+      <div class="selector-head">
+        <h3>${selection.title}</h3>
+        <p>${selection.help}</p>
+        <div class="progress-box">
+          <div class="progress-track">
+            <div class="progress-fill ${status.ok?'ok':status.error?'error':''}" style="width:${status.percent}%"></div>
+          </div>
+          <div class="progress-text ${status.ok?'ok':status.error?'error':''}">
+            <span>${status.total}/${selection.requiredTotal} ${selection.unitLabel}</span>
+            <span>${status.flavors}/${selection.maxFlavors} sabores</span>
           </div>
         </div>
-      </div>`;
-    }).join('')}
-  </div>
-  <div class="aviso">* Valores sujeitos a alteração</div>`;
-}
-
-// ── GALLERY ──
-function galleryHtml(){
-  return `<div class="gallery">
-    ${photos.map(p=>`<div class="gallery-img"><img src="${p.url}" alt="${p.alt}" onerror="this.parentElement.innerHTML='🍗'"></div>`).join('')}
-  </div>`;
-}
-
-// ── CART LOGIC ──
-function addPacote(id, name, emoji, price){
-  const idx = cart.findIndex(c=>c.id===id);
-  if(idx>=0){ cart[idx].qty++; cart[idx].unitPrice=price; }
-  else cart.push({id,name,emoji,qty:1,unitPrice:price});
-  updateCartUI();
-  showToast(emoji+' Adicionado ao carrinho!');
-}
-function addToCart(id,name,emoji,price,qty){
-  cart.push({id,name,emoji,qty,unitPrice:price});
-  updateCartUI();
-  showToast(emoji+' Adicionado ao carrinho!');
-}
-function changeCartQty(id,delta){
-  const idx=cart.findIndex(c=>c.id===id);
-  if(idx<0) return;
-  cart[idx].qty+=delta;
-  if(cart[idx].qty<=0) cart.splice(idx,1);
-  updateCartUI();
-}
-
-function totalItems(){ return cart.reduce((a,c)=>a+c.qty,0); }
-function totalPrice(){ return cart.reduce((a,c)=>a+c.qty*c.unitPrice,0); }
-
-function updateCartUI(){
-  const n=totalItems();
-  const badge=document.getElementById('cart-count');
-  badge.textContent=n; badge.classList.toggle('show',n>0);
-  document.getElementById('cart-bar').classList.toggle('visible',n>0);
-  document.getElementById('cbar-count').textContent=n+' '+(n===1?'item':'itens');
-  document.getElementById('cbar-total').textContent=fmt(totalPrice());
-}
-
-// ── DRAWER ──
-function openDrawer(){
-  renderDrawer();
-  document.getElementById('drawer').classList.add('open');
-  document.getElementById('overlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeDrawer(){
-  document.getElementById('drawer').classList.remove('open');
-  document.getElementById('overlay').classList.remove('open');
-  document.body.style.overflow='';
-}
-function renderDrawer(){
-  const body=document.getElementById('drawer-body');
-  const footer=document.getElementById('cart-footer');
-  if(!cart.length){
-    body.innerHTML=`<div class="empty"><div class="em-icon">🥲</div><p>Carrinho vazio.<br>Escolha seus salgados!</p></div>`;
-    footer.style.display='none'; return;
-  }
-  body.innerHTML=cart.map(c=>`
-    <div class="cart-item">
-      <div class="ci-emoji">${c.emoji}</div>
-      <div class="ci-info">
-        <div class="ci-name">${c.name}</div>
-        <div class="ci-unit">${fmt(c.unitPrice)} por pacote</div>
       </div>
-      <div class="ci-right">
-        <div class="ci-price">${fmt(c.qty*c.unitPrice)}</div>
-        <div class="ci-qty">
-          <button onclick="drawerQty('${c.id}',-1)">−</button>
-          <span class="ciqn">${c.qty}</span>
-          <button onclick="drawerQty('${c.id}',1)">+</button>
+      ${selection.options.map(o => `
+        <div class="option-row">
+          <div class="option-name">${o.name}</div>
+          <div class="qty-control">
+            <button class="qty-btn" type="button" onclick="changeOption('${o.id}', -${selection.step})" ${(selectedOptions[o.id]||0)<=0?'disabled':''}>−</button>
+            <span class="qty-number">${selectedOptions[o.id] || 0}</span>
+            <button class="qty-btn" type="button" onclick="changeOption('${o.id}', ${selection.step})">+</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function changeOption(id, delta){
+  if(!currentProduct || !currentProduct.selection) return;
+  selectedOptions[id] = Math.max(0, (selectedOptions[id] || 0) + delta);
+  renderProductSheet();
+}
+
+function selectionStatus(selection){
+  const quantities = Object.values(selectedOptions).map(Number);
+  const total = quantities.reduce((a,b)=>a+b,0);
+  const flavors = quantities.filter(v => v > 0).length;
+  const tooManyItems = total > selection.requiredTotal;
+  const tooManyFlavors = flavors > selection.maxFlavors;
+  const ok = total === selection.requiredTotal && flavors > 0 && flavors <= selection.maxFlavors;
+  return {
+    total,
+    flavors,
+    ok,
+    error: tooManyItems || tooManyFlavors,
+    percent: Math.min(100, Math.round((total / selection.requiredTotal) * 100))
+  };
+}
+
+function canAddCurrent(){
+  if(!currentProduct) return false;
+  if(!currentProduct.selection) return true;
+  return selectionStatus(currentProduct.selection).ok;
+}
+
+function addButtonText(){
+  if(!currentProduct || !currentProduct.selection) return 'Adicionar';
+  const st = selectionStatus(currentProduct.selection);
+  const s = currentProduct.selection;
+  if(st.total > s.requiredTotal) return `Remova ${st.total - s.requiredTotal} unidades`;
+  if(st.flavors > s.maxFlavors) return `Escolha no máximo ${s.maxFlavors} sabores`;
+  return `Faltam ${s.requiredTotal - st.total} ${s.unitLabel}`;
+}
+
+function changeProductQty(delta){
+  productQty = Math.max(1, productQty + delta);
+  renderProductSheet();
+}
+
+function selectedDescription(product){
+  if(!product.selection) return '';
+  return product.selection.options
+    .filter(o => (selectedOptions[o.id] || 0) > 0)
+    .map(o => `${selectedOptions[o.id]} ${o.name}`)
+    .join(' · ');
+}
+
+function addCurrentToCart(){
+  if(!canAddCurrent()) return;
+  const p = currentProduct;
+  const custom = selectedDescription(p);
+  const key = p.id + '|' + custom;
+  const existing = cart.find(item => item.key === key);
+  if(existing){
+    existing.qty += productQty;
+  }else{
+    cart.push({
+      key,
+      id:p.id,
+      title:p.title,
+      price:p.price,
+      image:p.image,
+      qty:productQty,
+      custom
+    });
+  }
+  updateCartFloat();
+  closeProductSheet();
+  showToast('Item adicionado ao pedido');
+}
+
+function cartTotal(){
+  return cart.reduce((sum,item)=>sum + item.price * item.qty, 0);
+}
+
+function cartQty(){
+  return cart.reduce((sum,item)=>sum + item.qty, 0);
+}
+
+function updateCartFloat(){
+  const float = document.getElementById('cartFloat');
+  document.getElementById('cartFloatQty').textContent = cartQty();
+  document.getElementById('cartFloatTotal').textContent = money(cartTotal());
+  float.classList.toggle('show', cart.length > 0);
+}
+
+function openCart(){
+  renderCart();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('cartSheet').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCart(){
+  document.getElementById('cartSheet').classList.remove('open');
+  if(!document.getElementById('productSheet').classList.contains('open')){
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+function closeAllSheets(){
+  document.getElementById('productSheet').classList.remove('open');
+  document.getElementById('cartSheet').classList.remove('open');
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderCart(){
+  const body = document.getElementById('cartSheetBody');
+  if(!cart.length){
+    body.innerHTML = '<div class="empty-cart"><h3>Seu pedido está vazio</h3><p>Escolha um item do cardápio para começar.</p></div>';
+    return;
+  }
+
+  body.innerHTML = `
+    <div class="cart-body">
+      ${cart.map((item, index) => `
+        <div class="cart-item">
+          <img class="cart-thumb" src="${item.image}" alt="${item.title}">
+          <div class="cart-item-main">
+            <div class="cart-item-title">${item.title}</div>
+            ${item.custom ? `<div class="cart-item-custom">${item.custom}</div>` : ''}
+            <div class="cart-price">${money(item.price * item.qty)}</div>
+          </div>
+          <div class="cart-item-side">
+            <div class="qty-control cart-small-qty">
+              <button class="qty-btn" type="button" onclick="changeCartQty(${index}, -1)">−</button>
+              <span class="qty-number">${item.qty}</span>
+              <button class="qty-btn" type="button" onclick="changeCartQty(${index}, 1)">+</button>
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="checkout-form">
+      <div class="form-card">
+        <label for="obs">Observações do pedido</label>
+        <textarea id="obs" placeholder="Ex: horário de retirada, endereço, ponto de referência..."></textarea>
+      </div>
+
+      <div class="form-card">
+        <div class="pay-title">Forma de pagamento</div>
+        <div class="pay-options">
+          ${['Pix','Dinheiro','Cartão Débito','Cartão Crédito'].map(p => `
+            <button type="button" class="pay-option ${paymentMethod===p?'active':''}" onclick="setPayment('${p}')">${p}</button>
+          `).join('')}
         </div>
       </div>
-    </div>`).join('');
 
-  const payLabel = payMode==='pix' ? 'Pix / Dinheiro' : (payMode==='debito'?'Cartão Débito':'Cartão Crédito');
-  document.getElementById('cart-summary').innerHTML=`
-    <div class="sum-row"><span>${totalItems()} itens</span><span>${fmt(totalPrice())}</span></div>
-    <div class="sum-row"><span>Entrega</span><span>A combinar</span></div>
-    <div class="sum-row total"><span>Total</span><span>${fmt(totalPrice())}</span></div>`;
-  document.getElementById('pay-display').textContent=`💳 Forma de pagamento: ${payLabel}`;
-  footer.style.display='block';
-}
-function drawerQty(id,delta){
-  changeCartQty(id,delta);
-  renderDrawer();
-  // re-render current tab to sync
-  const activeTab=document.querySelector('.tab.active');
-  if(activeTab) activeTab.click();
+      <div class="summary">
+        <div class="sum-row"><span>Itens</span><span>${money(cartTotal())}</span></div>
+        <div class="sum-row"><span>Entrega</span><span>A combinar</span></div>
+        <div class="sum-row total"><span>Total</span><span>${money(cartTotal())}</span></div>
+      </div>
+
+      <button class="checkout-btn" type="button" onclick="sendWhatsApp()">Finalizar pelo WhatsApp</button>
+    </div>
+  `;
 }
 
-// ── WHATSAPP ──
-function sendWpp(){
+function setPayment(method){
+  paymentMethod = method;
+  renderCart();
+}
+
+function changeCartQty(index, delta){
+  const item = cart[index];
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0){
+    cart.splice(index,1);
+  }
+  updateCartFloat();
+  renderCart();
+}
+
+function sendWhatsApp(){
   if(!cart.length) return;
-  const payLabel=payMode==='pix'?'Pix / Dinheiro':(payMode==='debito'?'Cartão Débito':'Cartão Crédito');
-  let msg='🍗 *Pedido — C&C Salgados e Doces*\n';
-  msg+='━━━━━━━━━━━━━━━━━\n\n';
-  msg+='*📋 Itens do pedido:*\n';
-  cart.forEach(c=>{
-    msg+=`${c.emoji} ${c.name}\n`;
-    msg+=`   Qtd: ${c.qty}x — Subtotal: ${fmt(c.qty*c.unitPrice)}\n\n`;
+  const obs = document.getElementById('obs')?.value.trim() || '';
+  let msg = '🍗 *Pedido — C&C Salgados e Doces*\\n';
+  msg += '━━━━━━━━━━━━━━━━━\\n\\n';
+  msg += '*Itens do pedido:*\\n';
+
+  cart.forEach(item => {
+    msg += `\\n• ${item.qty}x ${item.title}\\n`;
+    if(item.custom) msg += `  Sabores: ${item.custom}\\n`;
+    msg += `  Subtotal: ${money(item.price * item.qty)}\\n`;
   });
-  msg+='━━━━━━━━━━━━━━━━━\n';
-  msg+=`💳 *Pagamento:* ${payLabel}\n`;
-  msg+=`💰 *Total dos itens:* ${fmt(totalPrice())}\n`;
-  msg+='🚚 *Entrega:* a combinar\n';
-  const obs=document.getElementById('obs').value.trim();
-  if(obs) msg+=`\n📝 *Obs:* ${obs}\n`;
-  msg+='\n━━━━━━━━━━━━━━━━━\nOlá, gostaria de finalizar esse pedido! 😊';
-  window.open('https://wa.me/5512991097648?text='+encodeURIComponent(msg),'_blank');
+
+  msg += '\\n━━━━━━━━━━━━━━━━━\\n';
+  msg += `💳 *Pagamento:* ${paymentMethod}\\n`;
+  msg += `💰 *Total:* ${money(cartTotal())}\\n`;
+  msg += '🚚 *Entrega:* a combinar\\n';
+  if(obs) msg += `📝 *Observações:* ${obs}\\n`;
+  msg += '\\nOlá, gostaria de finalizar esse pedido.';
+
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
-// ── TOAST ──
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  clearTimeout(t._t);
-  t._t=setTimeout(()=>t.classList.remove('show'),2200);
+function showToast(text){
+  const toast = document.getElementById('toast');
+  toast.textContent = text;
+  toast.classList.add('show');
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(()=>toast.classList.remove('show'), 1800);
 }
 
-// ── INIT ──
-showTab('fritos', document.querySelector('.tab.active'));
+document.getElementById('searchInput').addEventListener('input', renderMenu);
+
+window.addEventListener('scroll', () => {
+  const blocks = [...document.querySelectorAll('.section-block')];
+  const current = blocks.findLast(block => block.getBoundingClientRect().top <= 140);
+  if(current){
+    const id = current.id.replace('section-','');
+    if(id !== activeCategory){
+      activeCategory = id;
+      renderCategories();
+    }
+  }
+});
+
+renderCategories();
+renderMenu();
+updateCartFloat();
 </script>
 </body>
 </html>
