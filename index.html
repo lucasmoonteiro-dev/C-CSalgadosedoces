@@ -1611,7 +1611,7 @@ function changeCartQty(index, delta){
   renderCart();
 }
 
-function sendWpp(){
+function sendWhatsApp(){
   if(cart.length === 0){
     showToast('Adicione itens ao pedido primeiro');
     return;
@@ -1620,29 +1620,25 @@ function sendWpp(){
   const obsEl = document.getElementById('obs');
   const obs = obsEl ? obsEl.value.trim() : '';
 
-  const total = cart.reduce((sum, item) => {
-    return sum + (item.unitPrice * item.qty);
-  }, 0);
-
   const linhas = [];
 
-  linhas.push('*Olá! Gostaria de finalizar este pedido:*');
+  linhas.push('Olá! Gostaria de finalizar este pedido:');
   linhas.push('');
   linhas.push('*C&C Salgados e Doces*');
   linhas.push('');
 
   cart.forEach((item, index) => {
-    linhas.push(`${index + 1}. *${item.name}*`);
+    linhas.push(`${index + 1}. *${item.title}*`);
 
     if(item.qty && item.qty > 1){
       linhas.push(`Quantidade: ${item.qty}`);
     }
 
-    if(item.note){
+    if(item.custom){
       linhas.push('');
       linhas.push('*Sabores escolhidos:*');
 
-      item.note
+      item.custom
         .split('·')
         .map(s => s.trim())
         .filter(Boolean)
@@ -1651,11 +1647,11 @@ function sendWpp(){
         });
     }
 
-    linhas.push(`Valor: ${fmt(item.unitPrice * item.qty)}`);
+    linhas.push(`Valor: ${money(item.price * item.qty)}`);
     linhas.push('');
   });
 
-  linhas.push(`*Total do pedido: ${fmt(total)}*`);
+  linhas.push(`*Total do pedido: ${money(cartTotal())}*`);
   linhas.push('');
   linhas.push('Entrega: a combinar');
 
@@ -1669,13 +1665,10 @@ function sendWpp(){
   linhas.push('Pode confirmar a disponibilidade, por favor?');
 
   const message = linhas.join('\n');
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
-  const phone = '5512991097648';
-  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-  window.open(url, '_blank');
+  window.location.href = url;
 }
-
 function showToast(text){
   const toast = document.getElementById('toast');
   toast.textContent = text;
